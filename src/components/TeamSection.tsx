@@ -11,6 +11,7 @@ import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 import sabahImg from "@/assets/team/sabah.png";
 import abeerImg from "@/assets/team/abeer.png";
+import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 
 type TeamMember = {
   name: string;
