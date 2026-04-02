@@ -8,6 +8,7 @@ import halaImg from "@/assets/team/hala.jpg";
 import moustafaImg from "@/assets/team/moustafa.jpg";
 import omarImg from "@/assets/team/omar.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
+import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 
 type TeamMember = {
   name: string;
@@ -57,6 +58,7 @@ const teamMembers: TeamMember[] = [
     name: "د. محمد إسماعيل",
     title: "باحث وأستاذ جامعي في إدارة الأعمال",
     bio: "حاصل على دكتوراه في إدارة الأعمال من جامعة دمشق. عمل باحثاً في المعهد الملكي للتكنولوجيا KTH في ستوكهولم وجامعة غوتنبرغ. حائز على جائزة Emerald Literati للتميز البحثي. يتقن خمس لغات ولديه خبرة أكاديمية دولية واسعة.",
+    image: mohammadIsmailImg,
   },
   {
     name: "د. مصطفى مصطفى",
