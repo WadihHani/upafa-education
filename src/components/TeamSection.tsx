@@ -10,6 +10,7 @@ import omarImg from "@/assets/team/omar.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 import sabahImg from "@/assets/team/sabah.png";
+import abeerImg from "@/assets/team/abeer.png";
 
 type TeamMember = {
   name: string;
@@ -30,6 +31,12 @@ const teamMembers: TeamMember[] = [
     title: "مديرة فرع الشركة في الجمهورية العربية السورية",
     bio: "أستاذ جامعي وخبير متخصص في علم النفس السريري والإرشادي، تتمتع بخبرة تزيد عن 20 عاماً في التدريس الأكاديمي والعلاج النفسي وتقديم الدعم النفسي الاجتماعي. مؤسسة ورئيسة جمعية جودي للأشخاص ذوي الاحتياجات الخاصة. مشاركة بفعالية في تصميم وتنفيذ برامج تدريبية وإرشادية بالتعاون مع اليونيسف ومفوضية الأمم المتحدة لشؤون اللاجئين.",
     image: sabahImg,
+  },
+  {
+    name: "د. عبير مصلح",
+    title: "مدير قسم الشؤون القانونية",
+    bio: "دكتوراه في القانون والاقتصاد والمالية العامة. مستشارة قانونية واقتصادية ومحكّمة دولية معتمدة. خبرة أكاديمية تمتد لأكثر من 10 سنوات في تدريس مواد القانون والاقتصاد في عدد من الجامعات العربية. مدربة معتمدة لدى جهات حكومية في الأردن والإمارات والسعودية.",
+    image: abeerImg,
   },
   {
     name: "د. سلوى مرتضى",
