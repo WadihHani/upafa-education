@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 export default function Footer() {
@@ -18,15 +19,15 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-4">روابط سريعة</h3>
             <ul className="space-y-2 text-sm text-primary-foreground/70">
               {[
-                { label: "عن الجامعة", href: "#about" },
-                { label: "البرامج", href: "#programs" },
-                { label: "البوابة", href: "#portal" },
-                { label: "اتصل بنا", href: "#contact" },
+                { label: "عن الجامعة", href: "/about" },
+                { label: "البرامج", href: "/programs" },
+                { label: "البوابة", href: "/portal" },
+                { label: "اتصل بنا", href: "/contact" },
               ].map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="hover:text-primary-foreground transition-colors">
+                  <Link to={l.href} onClick={() => window.scrollTo(0, 0)} className="hover:text-primary-foreground transition-colors">
                     {l.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
