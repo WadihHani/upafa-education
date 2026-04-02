@@ -9,6 +9,7 @@ import moustafaImg from "@/assets/team/moustafa.jpg";
 import omarImg from "@/assets/team/omar.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
+import sabahImg from "@/assets/team/sabah.png";
 
 type TeamMember = {
   name: string;
@@ -23,6 +24,12 @@ const teamMembers: TeamMember[] = [
     title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
     bio: "المشرف العام على فرع الجامعة في الشرق الأوسط. مدير العلاقات الدولية في جامعة باشن العالمية المفتوحة ومدير العلاقات الدولية في جامعة أفريقيا الفرنسية العربية.",
     image: tayseerImg,
+  },
+  {
+    name: "د. صباح السقا",
+    title: "مديرة فرع الشركة في الجمهورية العربية السورية",
+    bio: "أستاذ جامعي وخبير متخصص في علم النفس السريري والإرشادي، تتمتع بخبرة تزيد عن 20 عاماً في التدريس الأكاديمي والعلاج النفسي وتقديم الدعم النفسي الاجتماعي. مؤسسة ورئيسة جمعية جودي للأشخاص ذوي الاحتياجات الخاصة. مشاركة بفعالية في تصميم وتنفيذ برامج تدريبية وإرشادية بالتعاون مع اليونيسف ومفوضية الأمم المتحدة لشؤون اللاجئين.",
+    image: sabahImg,
   },
   {
     name: "د. سلوى مرتضى",
