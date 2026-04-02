@@ -81,7 +81,7 @@ export default function TeamSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-sm font-semibold text-accent tracking-wider mb-2">القيادة</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">فريق العمل</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">أعضاء الهيئة الإدارية والتدريسية</h2>
           <div className="w-16 h-1 bg-accent mx-auto mt-4 rounded-full" />
         </div>
 
