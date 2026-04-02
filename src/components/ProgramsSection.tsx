@@ -1,4 +1,5 @@
 import { GraduationCap, BookOpen, Award, FlaskConical, FileText, Microscope } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const programs = [
@@ -69,12 +70,12 @@ export default function ProgramsSection() {
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{prog.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{prog.desc}</p>
-                <a
-                  href="#contact"
+                <Link
+                  to="/contact"
                   className="inline-block mt-4 text-sm font-medium text-accent hover:underline"
                 >
                   للمزيد ←
-                </a>
+                </Link>
               </div>
             );
           })}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import heroGraduation from "@/assets/hero-graduation.jpg";
 import heroCampus from "@/assets/hero-campus.jpg";
 import heroLibrary from "@/assets/hero-library.jpg";
@@ -9,25 +10,26 @@ const slides = [
     subtitle: "جامعة أفريقيا الفرنسية العربية – فرع سوريا",
     title: "نسعى لتحقيق الريادة والتميز في مجال التعليم عن بعد",
     cta: "سجل معنا",
-    href: "#programs",
+    href: "/programs",
   },
   {
     image: heroCampus,
     subtitle: "جامعة أفريقيا الفرنسية العربية – فرع سوريا",
     title: "نقدم تعليماً عالمياً متميزاً يجمع بين التراث والمعاصرة",
     cta: "استكشف البرامج",
-    href: "#programs",
+    href: "/programs",
   },
   {
     image: heroLibrary,
     subtitle: "جامعة أفريقيا الفرنسية العربية – فرع سوريا",
     title: "نؤمن بتطوير جيل من الطلاب المتميزين أكاديمياً",
     cta: "تواصل معنا",
-    href: "#contact",
+    href: "/contact",
   },
 ];
 
 export default function HeroSection() {
+  const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [animKey, setAnimKey] = useState(0);
 
@@ -82,13 +84,13 @@ export default function HeroSection() {
             >
               {slide.title}
             </h1>
-            <a
-              href={slide.href}
+            <button
+              onClick={() => { navigate(slide.href); window.scrollTo(0, 0); }}
               className="inline-block bg-accent text-accent-foreground px-8 py-3.5 rounded-md font-bold text-base hover:brightness-110 active:scale-[0.97] transition-all duration-200"
               style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.4s forwards", opacity: 0 }}
             >
               {slide.cta}
-            </a>
+            </button>
           </div>
         </div>
       </div>
