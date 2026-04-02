@@ -7,6 +7,7 @@ import taifImg from "@/assets/team/taif.jpg";
 import halaImg from "@/assets/team/hala.jpg";
 import moustafaImg from "@/assets/team/moustafa.jpg";
 import omarImg from "@/assets/team/omar.jpg";
+import tayseerImg from "@/assets/team/tayseer.jpg";
 
 type TeamMember = {
   name: string;
