@@ -9,6 +9,7 @@ import moustafaImg from "@/assets/team/moustafa.jpg";
 import omarImg from "@/assets/team/omar.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
+import sabahImg from "@/assets/team/sabah.png";
 
 type TeamMember = {
   name: string;
