@@ -11,6 +11,7 @@ import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 import sabahImg from "@/assets/team/sabah.png";
 import abeerImg from "@/assets/team/abeer.png";
+import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 
 type TeamMember = {
   name: string;
@@ -20,6 +21,12 @@ type TeamMember = {
 };
 
 const teamMembers: TeamMember[] = [
+  {
+    name: "د. محمد حميد",
+    title: "رئيس الجامعة – فرع سوريا",
+    bio: "رئيس فرع الجامعة في الجمهورية العربية السورية.",
+    image: mohammadHamidImg,
+  },
   {
     name: "د. تيسير الغول",
     title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
