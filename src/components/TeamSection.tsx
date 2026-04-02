@@ -7,6 +7,7 @@ import taifImg from "@/assets/team/taif.jpg";
 import halaImg from "@/assets/team/hala.jpg";
 import moustafaImg from "@/assets/team/moustafa.jpg";
 import omarImg from "@/assets/team/omar.jpg";
+import tayseerImg from "@/assets/team/tayseer.jpg";
 
 type TeamMember = {
   name: string;
@@ -16,6 +17,12 @@ type TeamMember = {
 };
 
 const teamMembers: TeamMember[] = [
+  {
+    name: "د. تيسير الغول",
+    title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
+    bio: "المشرف العام على فرع الجامعة في الشرق الأوسط. مدير العلاقات الدولية في جامعة باشن العالمية المفتوحة ومدير العلاقات الدولية في جامعة أفريقيا الفرنسية العربية.",
+    image: tayseerImg,
+  },
   {
     name: "د. سلوى مرتضى",
     title: "مدرب دبلوم للتأهيل التربوي ومهارات البحث العلمي",
