@@ -33,7 +33,7 @@ const navLinks: NavItem[] = [
       { label: "الأخبار", href: "/publications" },
     ],
   },
-  { label: "فريق العمل", href: "/team" },
+  { label: "أعضاء الهيئة الإدارية والتدريسية", href: "/team" },
   { label: "اتصل بنا", href: "/contact" },
   { label: "الدفع الإلكتروني", href: "/payment" },
 ];
