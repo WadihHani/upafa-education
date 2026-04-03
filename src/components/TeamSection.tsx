@@ -13,6 +13,7 @@ import sabahImg from "@/assets/team/sabah.png";
 import abeerImg from "@/assets/team/abeer.png";
 import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
+import atefShaheenImg from "@/assets/team/atef-shaheen.png";
 
 type TeamMember = {
   name: string;
