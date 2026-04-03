@@ -12,6 +12,7 @@ import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 import sabahImg from "@/assets/team/sabah.png";
 import abeerImg from "@/assets/team/abeer.png";
 import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
+import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
 
 type TeamMember = {
   name: string;
@@ -21,6 +22,12 @@ type TeamMember = {
 };
 
 const teamMembers: TeamMember[] = [
+  {
+    name: "بروفيسور عبدالله جارا",
+    title: "مؤسس ورئيس جامعة أفريقيا الفرنسية العربية في مالي",
+    bio: "مؤسس ورئيس جامعة أفريقيا الفرنسية العربية في مالي.",
+    image: abdallahJaraImg,
+  },
   {
     name: "د. محمد حميد",
     title: "رئيس الجامعة – فرع سوريا",
