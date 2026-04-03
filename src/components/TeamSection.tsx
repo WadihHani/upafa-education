@@ -13,6 +13,7 @@ import sabahImg from "@/assets/team/sabah.png";
 import abeerImg from "@/assets/team/abeer.png";
 import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
+import atefShaheenImg from "@/assets/team/atef-shaheen.png";
 
 type TeamMember = {
   name: string;
@@ -27,6 +28,12 @@ const teamMembers: TeamMember[] = [
     title: "مؤسس ورئيس جامعة أفريقيا الفرنسية العربية في مالي",
     bio: "مؤسس ورئيس جامعة أفريقيا الفرنسية العربية في مالي.",
     image: abdallahJaraImg,
+  },
+  {
+    name: "د. عاطف شاهين",
+    title: "رئيس فرع رواندا – مشرف عام الجامعة الرئيسية في مالي",
+    bio: "رئيس فرع الجامعة في رواندا والمشرف العام على الجامعة الرئيسية في مالي.",
+    image: atefShaheenImg,
   },
   {
     name: "د. محمد حميد",
