@@ -12,7 +12,6 @@ type NavItem = {
 const navLinks: NavItem[] = [
   { label: "الرئيسية", href: "/" },
   { label: "عن الجامعة", href: "/about" },
-  },
   { label: "المؤتمرات والندوات", href: "/conferences" },
   { label: "البرامج", href: "/programs" },
   { label: "البوابة", href: "/portal" },
