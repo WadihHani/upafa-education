@@ -128,7 +128,7 @@ export default function TeamSection() {
               className="bg-primary rounded-xl p-8 text-center flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               {/* Avatar */}
-              <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-2 border-primary-foreground/20 bg-primary-foreground/10">
+              <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-3 border-accent/30 bg-primary-foreground/10">
                 {member.image ? (
                   <img
                     src={member.image}
