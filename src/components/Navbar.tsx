@@ -16,7 +16,6 @@ const navLinks: NavItem[] = [
     href: "/about",
     children: [
       { label: "عن الجامعة", href: "/about" },
-      { label: "اللوائح", href: "/about" },
     ],
   },
   { label: "المؤتمرات والندوات", href: "/conferences" },
