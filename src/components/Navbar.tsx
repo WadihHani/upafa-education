@@ -34,7 +34,7 @@ const navLinks: NavItem[] = [
   },
   { label: "أعضاء الهيئة الإدارية والتدريسية", href: "/team" },
   { label: "اتصل بنا", href: "/contact" },
-  { label: "الدفع الإلكتروني", href: "/payment" },
+  
 ];
 
 function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void }) {
