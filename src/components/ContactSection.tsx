@@ -14,8 +14,8 @@ export default function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: MapPin, label: "العنوان", value: "دمشق، سوريا" },
-    { icon: Phone, label: "الهاتف", value: "+963 XX XXX XXXX", dir: "ltr" as const },
+    { icon: MapPin, label: "العنوان", value: "دمشق، عين كرش" },
+    { icon: Phone, label: "الهاتف", value: "+963 989 801 010", dir: "ltr" as const },
     { icon: Mail, label: "البريد الإلكتروني", value: "info@upafa.sy" },
     { icon: Clock, label: "ساعات العمل", value: "الأحد - الخميس: 8:00 صباحاً - 4:00 مساءً" },
   ];

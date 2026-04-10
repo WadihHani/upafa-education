@@ -39,11 +39,11 @@ export default function Footer() {
             <div className="space-y-3 text-sm text-primary-foreground/70">
               <div className="flex items-center gap-2">
                 <MapPin size={16} className="shrink-0" />
-                <span>دمشق، سوريا</span>
+                <span>دمشق، عين كرش</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone size={16} className="shrink-0" />
-                <span dir="ltr">+963 XX XXX XXXX</span>
+                <span dir="ltr">+963 989 801 010</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={16} className="shrink-0" />
