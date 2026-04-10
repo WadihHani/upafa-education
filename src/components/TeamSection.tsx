@@ -1,19 +1,20 @@
 import { User } from "lucide-react";
 
-import salwaImg from "@/assets/team/salwa.jpg";
-import tamaderImg from "@/assets/team/tamader.jpg";
-import kawtharImg from "@/assets/team/kawthar.jpg";
+import salwaImg from "@/assets/team/salwa-new.jpg";
+import tamaderImg from "@/assets/team/tamader-new.jpg";
+import kawtharImg from "@/assets/team/kawthar-new.jpg";
 import taifImg from "@/assets/team/taif.jpg";
-import halaImg from "@/assets/team/hala.jpg";
-import moustafaImg from "@/assets/team/moustafa.jpg";
-import omarImg from "@/assets/team/omar.jpg";
+import halaImg from "@/assets/team/hala-new.jpg";
+import moustafaImg from "@/assets/team/moustafa-new.jpg";
+import omarImg from "@/assets/team/omar-new.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
-import sabahImg from "@/assets/team/sabah.png";
-import abeerImg from "@/assets/team/abeer.png";
+import sabahImg from "@/assets/team/sabah-new.jpg";
+import basemImg from "@/assets/team/basem.jpg";
 import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
-import atefShaheenImg from "@/assets/team/atef-shaheen.png";
+import atefShaheenImg from "@/assets/team/atef-new.jpg";
+import majdSaqourImg from "@/assets/team/majd-saqour.jpg";
 
 type TeamMember = {
   name: string;
@@ -31,7 +32,7 @@ const adminMembers: TeamMember[] = [
   },
   {
     name: "د. عاطف شاهين",
-    title: "رئيس فرع رواندا – مشرف عام الجامعة الرئيسية في مالي",
+    title: "رئيس فرع الجامعة في رواندا والمشرف العام على الجامعة الرئيسية في مالي",
     bio: "رئيس فرع الجامعة في رواندا والمشرف العام على الجامعة الرئيسية في مالي.",
     image: atefShaheenImg,
   },
@@ -42,6 +43,18 @@ const adminMembers: TeamMember[] = [
     image: mohammadHamidImg,
   },
   {
+    name: "د. صباح السقا",
+    title: "نائب رئيس الجامعة للشؤون العلمية",
+    bio: "أستاذ جامعي وخبير متخصص في علم النفس السريري والإرشادي، تتمتع بخبرة تزيد عن 20 عاماً في التدريس الأكاديمي والعلاج النفسي وتقديم الدعم النفسي الاجتماعي. مؤسسة ورئيسة جمعية جودي للأشخاص ذوي الاحتياجات الخاصة. مشاركة بفعالية في تصميم وتنفيذ برامج تدريبية وإرشادية بالتعاون مع اليونيسف ومفوضية الأمم المتحدة لشؤون اللاجئين.",
+    image: sabahImg,
+  },
+  {
+    name: "د. مجد صقور",
+    title: "نائب رئيس الجامعة للشؤون الإدارية والمالية",
+    bio: "دكتوراه فلسفة في الإدارة الاستراتيجية - جامعة اكستر - 2008 - بريطانيا. ماجستير في الإدارة الدولية - جامعة اكستر - 2004 - بريطانيا. ماجستير في التسويق - كلية الاقتصاد - جامعة دمشق - 1999 - سورية. دبلوم إدارة مشاريع الصحة ومكافحة الفقر - جامعة السابيينزا - روما - إيطاليا - 2001. دبلوم إدارة الأعمال - كلية الاقتصاد - جامعة دمشق - 1996 - سورية.",
+    image: majdSaqourImg,
+  },
+  {
     name: "د. تيسير الغول",
     title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
     bio: "يتولى إدارة الشراكات الإفريقية والفرنسية والعربية، وتطوير برامج التبادل الأكاديمي والبحثي.",
@@ -49,7 +62,7 @@ const adminMembers: TeamMember[] = [
   },
   {
     name: "أ. تماضر شاهين",
-    title: "مدير مكتب رئيس الجامعة",
+    title: "مدير مكتب رئيس الجامعة ومدير العلاقات الدولية",
     bio: "أخصائية تربوية تمتلك خبرة عملية تفوق 10 سنوات في مجال التعليم المبكر، متخصصة في تطبيق منهج المونتسوري وتنمية المهارات الذهنية للأطفال، بالإضافة إلى تدريب المعلمات والكوادر التربوية على الأساليب التعليمية الحديثة. مشاركة فعّالة في مؤتمرات علمية.",
     image: tamaderImg,
   },
@@ -63,16 +76,10 @@ const adminMembers: TeamMember[] = [
 
 const academicMembers: TeamMember[] = [
   {
-    name: "د. صباح السقا",
-    title: "رئيس قسم العلوم التربوية والنفسية",
-    bio: "أستاذ جامعي وخبير متخصص في علم النفس السريري والإرشادي، تتمتع بخبرة تزيد عن 20 عاماً في التدريس الأكاديمي والعلاج النفسي وتقديم الدعم النفسي الاجتماعي. مؤسسة ورئيسة جمعية جودي للأشخاص ذوي الاحتياجات الخاصة. مشاركة بفعالية في تصميم وتنفيذ برامج تدريبية وإرشادية بالتعاون مع اليونيسف ومفوضية الأمم المتحدة لشؤون اللاجئين.",
-    image: sabahImg,
-  },
-  {
-    name: "د. عبير مصلح",
+    name: "د. باسم نور الدين",
     title: "رئيس قسم القانون",
-    bio: "دكتوراه في القانون والاقتصاد والمالية العامة. مستشارة قانونية واقتصادية ومحكّمة دولية معتمدة. خبرة أكاديمية تمتد لأكثر من 10 سنوات في تدريس مواد القانون والاقتصاد في عدد من الجامعات العربية. مدربة معتمدة لدى جهات حكومية في الأردن والإمارات والسعودية.",
-    image: abeerImg,
+    bio: "دكتوراه في العلاقات الدولية بعنوان: \"أثر أزمة اللاجئين على الاتحاد الأوروبي – أبعادها السياسية والاقتصادية والاجتماعية\"، وبمرتبة امتياز - كلية العلوم السياسية - جامعة دمشق، عام (2021). ماجستير في العلاقات الدولية، بعنوان \"دور الفاعلين عبر الحكوميين في العلاقات الدولية المنظمات غير الحكومية نموذجاً\" - كلية العلوم السياسية، جامعة دمشق، عام (2015). إجازة في الحقوق، كلية الحقوق، جامعة دمشق، عام 2008.",
+    image: basemImg,
   },
   {
     name: "د. سلوى مرتضى",
