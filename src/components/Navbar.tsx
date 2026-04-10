@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown, Search } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 type NavItem = {
@@ -62,7 +62,7 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
       <Link
         to={item.href}
         onClick={() => { onClose(); window.scrollTo(0, 0); }}
-        className="px-4 py-2.5 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted transition-colors duration-200 border-l border-border first:border-l-0 last:border-r-0"
+        className="px-4 py-3 text-sm font-medium text-primary-foreground/90 hover:text-accent hover:bg-primary-foreground/10 transition-colors duration-200 border-l border-primary-foreground/15 first:border-l-0"
       >
         {item.label}
       </Link>
@@ -70,10 +70,10 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
   }
 
   return (
-    <div ref={ref} className="relative border-l border-border">
+    <div ref={ref} className="relative border-l border-primary-foreground/15">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-4 py-2.5 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted transition-colors duration-200"
+        className="flex items-center gap-1 px-4 py-3 text-sm font-medium text-primary-foreground/90 hover:text-accent hover:bg-primary-foreground/10 transition-colors duration-200"
       >
         {item.label}
         <ChevronDown size={12} className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
@@ -115,7 +115,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50">
-      {/* Top green bar with logo and university name */}
+      {/* Top bar with logo and name */}
       <div
         className={`bg-primary transition-all duration-300 ${
           scrolled ? "py-2" : "py-4"
@@ -141,8 +141,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Navigation bar */}
-      <div className="bg-muted border-b border-border shadow-sm">
+      {/* Navigation bar - blue darker shade */}
+      <div className="bg-[hsl(215,65%,22%)] border-b border-primary-foreground/10 shadow-md">
         <div className="container mx-auto px-4">
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center justify-center">
@@ -150,19 +150,22 @@ export default function Navbar() {
               <DesktopDropdown key={link.label} item={link} onClose={() => {}} />
             ))}
 
-            {/* Search */}
-            <button className="flex items-center gap-1.5 px-4 py-2.5 text-sm text-foreground/60 hover:text-primary hover:bg-muted transition-colors border-l border-border">
-              <Search size={14} />
-              <span>بحث</span>
-            </button>
+            {/* Register CTA */}
+            <Link
+              to="/programs"
+              onClick={() => window.scrollTo(0, 0)}
+              className="mr-2 px-5 py-2 bg-accent text-accent-foreground text-sm font-bold rounded-md hover:brightness-110 transition-all duration-200"
+            >
+              سجل الآن
+            </Link>
           </div>
 
           {/* Mobile hamburger */}
-          <div className="lg:hidden flex items-center justify-between h-11">
-            <span className="text-sm font-medium text-foreground/70">القائمة</span>
+          <div className="lg:hidden flex items-center justify-between h-12">
+            <span className="text-sm font-medium text-primary-foreground/70">القائمة</span>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="text-foreground p-1.5 rounded-md hover:bg-border transition-colors active:scale-95"
+              className="text-primary-foreground p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors active:scale-95"
               aria-label="القائمة"
             >
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -216,6 +219,13 @@ export default function Navbar() {
                 </button>
               )
             )}
+            <Link
+              to="/programs"
+              onClick={() => { setMenuOpen(false); window.scrollTo(0, 0); }}
+              className="block text-center bg-accent text-accent-foreground py-2.5 rounded-md font-bold text-sm mt-3"
+            >
+              سجل الآن
+            </Link>
           </div>
         </div>
       )}
