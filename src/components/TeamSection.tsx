@@ -22,7 +22,7 @@ type TeamMember = {
   image?: string;
 };
 
-const teamMembers: TeamMember[] = [
+const adminMembers: TeamMember[] = [
   {
     name: "بروفيسور عبدالله جارا",
     title: "مؤسس ورئيس جامعة أفريقيا الفرنسية العربية في مالي",
@@ -38,15 +38,30 @@ const teamMembers: TeamMember[] = [
   {
     name: "د. محمد حميد",
     title: "رئيس الجامعة – فرع سوريا",
-    bio: "رئيس فرع الجامعة في الجمهورية العربية السورية.",
+    bio: "يقود الجامعة وفق رؤية استراتيجية تهدف إلى تعزيز الجودة الأكاديمية، تطوير البرامج التعليمية، وتوسيع الشراكات الدولية.",
     image: mohammadHamidImg,
   },
   {
     name: "د. تيسير الغول",
     title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
-    bio: "المشرف العام على فرع الجامعة في الشرق الأوسط. مدير العلاقات الدولية في جامعة باشن العالمية المفتوحة ومدير العلاقات الدولية في جامعة أفريقيا الفرنسية العربية.",
+    bio: "يتولى إدارة الشراكات الإفريقية والفرنسية والعربية، وتطوير برامج التبادل الأكاديمي والبحثي.",
     image: tayseerImg,
   },
+  {
+    name: "أ. تماضر شاهين",
+    title: "مدير مكتب رئيس الجامعة",
+    bio: "أخصائية تربوية تمتلك خبرة عملية تفوق 10 سنوات في مجال التعليم المبكر، متخصصة في تطبيق منهج المونتسوري وتنمية المهارات الذهنية للأطفال، بالإضافة إلى تدريب المعلمات والكوادر التربوية على الأساليب التعليمية الحديثة. مشاركة فعّالة في مؤتمرات علمية.",
+    image: tamaderImg,
+  },
+  {
+    name: "أ. كوثر بهجت هرملاني",
+    title: "استشاري",
+    bio: "مديرة تنفيذية في شركة ENMACON للإدارة والهندسة والاستشارات، استشارية ومدربة خبيرة في التطوير الإداري والحوكمة وتأسيس مكاتب إدارة المشاريع (PMO). سجل احترافي يمتد لأكثر من 25 عاماً. معتمدة من اتحاد نقابات المدربين العرب وعضو في مؤسسة PMI العالمية.",
+    image: kawtharImg,
+  },
+];
+
+const academicMembers: TeamMember[] = [
   {
     name: "د. صباح السقا",
     title: "رئيس قسم العلوم التربوية والنفسية",
@@ -64,18 +79,6 @@ const teamMembers: TeamMember[] = [
     title: "رئيس قسم تربية الأطفال",
     bio: "أكاديمية سورية متخصصة في تربية الطفل ورياض الأطفال، تمتلك خبرة علمية وعملية تمتد لأكثر من ثلاثة عقود في التعليم الجامعي. حاصلة على دكتوراه في التوجيه التربوي بتقدير امتياز. شغلت منصب رئيسة قسم تربية الطفل في كلية التربية بجامعة دمشق، ومدربة معتمدة في أكاديمية كنجستون للأعمال.",
     image: salwaImg,
-  },
-  {
-    name: "أ. تماضر شاهين",
-    title: "مدير مكتب رئيس الجامعة",
-    bio: "أخصائية تربوية تمتلك خبرة عملية تفوق 10 سنوات في مجال التعليم المبكر، متخصصة في تطبيق منهج المونتسوري وتنمية المهارات الذهنية للأطفال، بالإضافة إلى تدريب المعلمات والكوادر التربوية على الأساليب التعليمية الحديثة. مشاركة فعّالة في مؤتمرات علمية.",
-    image: tamaderImg,
-  },
-  {
-    name: "أ. كوثر بهجت هرملاني",
-    title: "استشاري",
-    bio: "مديرة تنفيذية في شركة ENMACON للإدارة والهندسة والاستشارات، استشارية ومدربة خبيرة في التطوير الإداري والحوكمة وتأسيس مكاتب إدارة المشاريع (PMO). سجل احترافي يمتد لأكثر من 25 عاماً. معتمدة من اتحاد نقابات المدربين العرب وعضو في مؤسسة PMI العالمية.",
-    image: kawtharImg,
   },
   {
     name: "د. طيف محمد",
@@ -109,53 +112,68 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
+function MemberCard({ member }: { member: TeamMember }) {
+  return (
+    <div className="bg-primary rounded-xl p-8 text-center flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-3 border-accent/30 bg-primary-foreground/10">
+        {member.image ? (
+          <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+        ) : (
+          <User size={48} className="text-primary-foreground/40" />
+        )}
+      </div>
+      <h3 className="text-lg font-bold text-primary-foreground mb-2">{member.name}</h3>
+      <p className="text-sm font-semibold text-accent mb-3">{member.title}</p>
+      <p className="text-sm text-primary-foreground/70 leading-relaxed">{member.bio}</p>
+    </div>
+  );
+}
+
 export default function TeamSection() {
   return (
     <section id="team" className="py-20 bg-[hsl(var(--section-alt))]">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-14">
-          <p className="text-sm font-semibold text-accent tracking-wider mb-2">القيادة</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground">أعضاء الهيئة الإدارية والتدريسية</h2>
+        <div className="text-center mb-6">
+          <p className="text-sm font-semibold text-accent tracking-wider mb-2">فريق الجامعة</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground">الهيكل الإداري والأكاديمي</h2>
           <div className="w-16 h-1 bg-accent mx-auto mt-4 rounded-full" />
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, i) => (
-            <div
-              key={i}
-              className="bg-primary rounded-xl p-8 text-center flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300"
-            >
-              {/* Avatar */}
-              <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-3 border-accent/30 bg-primary-foreground/10">
-                {member.image ? (
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <User size={48} className="text-primary-foreground/40" />
-                )}
-              </div>
+        {/* Intro */}
+        <p className="text-center text-foreground/70 text-sm leading-[2] max-w-3xl mx-auto mb-14">
+          يضم فريق الجامعة الإفريقية الفرنسية العربية نخبة من الأكاديميين والخبراء والإداريين الذين يعملون بروح مهنية عالية لضمان تقديم تعليم جامعي بمعايير دولية. يجمع الفريق بين الخبرات الإفريقية والفرنسية والعربية، مما يخلق بيئة تعليمية متعددة الثقافات تدعم الابتكار، البحث العلمي، وتطوير المهارات.
+        </p>
 
-              {/* Name */}
-              <h3 className="text-lg font-bold text-primary-foreground mb-2">
-                {member.name}
-              </h3>
+        {/* Admin Section */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-primary mb-8 text-center">الهيئة الإدارية</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {adminMembers.map((member, i) => (
+              <MemberCard key={i} member={member} />
+            ))}
+          </div>
+        </div>
 
-              {/* Title */}
-              <p className="text-sm font-semibold text-accent mb-3">
-                {member.title}
-              </p>
+        {/* Academic Section */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-primary mb-4 text-center">الهيئة التدريسية</h3>
+          <p className="text-center text-foreground/60 text-sm leading-[2] max-w-2xl mx-auto mb-8">
+            تضم الجامعة مجموعة من الأساتذة والمحاضرين المتخصصين في مختلف المجالات، ممن يمتلكون خبرات أكاديمية وبحثية واسعة، ويساهمون في بناء بيئة تعليمية محفزة على التفكير النقدي والإبداع.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {academicMembers.map((member, i) => (
+              <MemberCard key={i} member={member} />
+            ))}
+          </div>
+        </div>
 
-              {/* Bio */}
-              <p className="text-sm text-primary-foreground/70 leading-relaxed">
-                {member.bio}
-              </p>
-            </div>
-          ))}
+        {/* Commitment */}
+        <div className="bg-primary rounded-xl p-8 text-center max-w-3xl mx-auto">
+          <h3 className="text-xl font-bold text-primary-foreground mb-3">التزامنا</h3>
+          <p className="text-primary-foreground/80 text-sm leading-[2]">
+            يعمل فريق الجامعة بتكامل وتعاون لضمان تقديم تجربة تعليمية متميزة، قائمة على الجودة، الانفتاح الثقافي، والابتكار. نلتزم ببناء بيئة جامعية تدعم الطالب أكاديميًا، مهنيًا، وإنسانيًا.
+          </p>
         </div>
       </div>
     </section>
