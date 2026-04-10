@@ -1,4 +1,5 @@
-import { User } from "lucide-react";
+import { User, X } from "lucide-react";
+import { useState } from "react";
 
 import salwaImg from "@/assets/team/salwa-new.jpg";
 import tamaderImg from "@/assets/team/tamader-new.jpg";
@@ -120,19 +121,46 @@ const academicMembers: TeamMember[] = [
 ];
 
 function MemberCard({ member }: { member: TeamMember }) {
+  const [showZoom, setShowZoom] = useState(false);
+
   return (
-    <div className="bg-primary rounded-xl p-8 text-center flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <div className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-3 border-accent/30 bg-primary-foreground/10">
-        {member.image ? (
-          <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-        ) : (
-          <User size={48} className="text-primary-foreground/40" />
-        )}
+    <>
+      <div className="bg-primary rounded-xl p-8 text-center flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div
+          className="w-28 h-28 rounded-full overflow-hidden flex items-center justify-center mb-5 border-3 border-accent/30 bg-primary-foreground/10 cursor-pointer hover-scale"
+          onClick={() => member.image && setShowZoom(true)}
+        >
+          {member.image ? (
+            <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+          ) : (
+            <User size={48} className="text-primary-foreground/40" />
+          )}
+        </div>
+        <h3 className="text-lg font-bold text-primary-foreground mb-2">{member.name}</h3>
+        <p className="text-sm font-semibold text-accent mb-3">{member.title}</p>
+        <p className="text-sm text-primary-foreground/70 leading-relaxed">{member.bio}</p>
       </div>
-      <h3 className="text-lg font-bold text-primary-foreground mb-2">{member.name}</h3>
-      <p className="text-sm font-semibold text-accent mb-3">{member.title}</p>
-      <p className="text-sm text-primary-foreground/70 leading-relaxed">{member.bio}</p>
-    </div>
+
+      {showZoom && member.image && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 animate-fade-in cursor-pointer"
+          onClick={() => setShowZoom(false)}
+        >
+          <button
+            className="absolute top-4 right-4 text-primary-foreground bg-primary/80 rounded-full p-2 hover:bg-primary transition-colors"
+            onClick={() => setShowZoom(false)}
+          >
+            <X size={24} />
+          </button>
+          <img
+            src={member.image}
+            alt={member.name}
+            className="max-w-[90vw] max-h-[85vh] rounded-2xl shadow-2xl animate-scale-in object-contain"
+          />
+        </div>
+      )}
+    </>
+  );
   );
 }
 
