@@ -12,7 +12,7 @@ import Publications from "./pages/Publications";
 import Team from "./pages/Team";
 import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
-import Payment from "./pages/Payment";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,7 +33,7 @@ const App = () => (
             <Route path="/team" element={<Team />} />
             <Route path="/conferences" element={<Conferences />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/payment" element={<Payment />} />
+            
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
