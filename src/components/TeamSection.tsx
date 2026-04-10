@@ -3,16 +3,16 @@ import { User } from "lucide-react";
 import salwaImg from "@/assets/team/salwa-new.jpg";
 import tamaderImg from "@/assets/team/tamader-new.jpg";
 import kawtharImg from "@/assets/team/kawthar-new.jpg";
-import taifImg from "@/assets/team/taif.jpg";
+import taifImg from "@/assets/team/taif-new.jpg";
 import halaImg from "@/assets/team/hala-new.jpg";
 import moustafaImg from "@/assets/team/moustafa-new.jpg";
 import omarImg from "@/assets/team/omar-new.jpg";
-import tayseerImg from "@/assets/team/tayseer.jpg";
+import tayseerImg from "@/assets/team/tayseer-new.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
 import sabahImg from "@/assets/team/sabah-new.jpg";
 import basemImg from "@/assets/team/basem.jpg";
-import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
-import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
+import mohammadHamidImg from "@/assets/team/mohammad-hamid-new.jpg";
+import abdallahJaraImg from "@/assets/team/abdallah-jara-new.jpg";
 import atefShaheenImg from "@/assets/team/atef-new.jpg";
 import majdSaqourImg from "@/assets/team/majd-saqour.jpg";
 
@@ -57,7 +57,7 @@ const adminMembers: TeamMember[] = [
   {
     name: "د. تيسير الغول",
     title: "مدير العلاقات الدولية والأكاديمية في الشرق الأوسط",
-    bio: "يتولى إدارة الشراكات الإفريقية والفرنسية والعربية، وتطوير برامج التبادل الأكاديمي والبحثي.",
+    bio: "المشرف العام على فرع الجامعة في الشرق الأوسط. مدير العلاقات الدولية في جامعة باشن العالمية المفتوحة ومدير العلاقات الدولية في جامعة أفريقيا الفرنسية العربية.",
     image: tayseerImg,
   },
   {
