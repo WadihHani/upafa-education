@@ -161,7 +161,6 @@ function MemberCard({ member }: { member: TeamMember }) {
       )}
     </>
   );
-  );
 }
 
 export default function TeamSection() {
