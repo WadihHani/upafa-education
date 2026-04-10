@@ -1,19 +1,20 @@
 import { User } from "lucide-react";
 
-import salwaImg from "@/assets/team/salwa.jpg";
-import tamaderImg from "@/assets/team/tamader.jpg";
-import kawtharImg from "@/assets/team/kawthar.jpg";
+import salwaImg from "@/assets/team/salwa-new.jpg";
+import tamaderImg from "@/assets/team/tamader-new.jpg";
+import kawtharImg from "@/assets/team/kawthar-new.jpg";
 import taifImg from "@/assets/team/taif.jpg";
-import halaImg from "@/assets/team/hala.jpg";
-import moustafaImg from "@/assets/team/moustafa.jpg";
-import omarImg from "@/assets/team/omar.jpg";
+import halaImg from "@/assets/team/hala-new.jpg";
+import moustafaImg from "@/assets/team/moustafa-new.jpg";
+import omarImg from "@/assets/team/omar-new.jpg";
 import tayseerImg from "@/assets/team/tayseer.jpg";
 import mohammadIsmailImg from "@/assets/team/mohammad-ismail.jpg";
-import sabahImg from "@/assets/team/sabah.png";
-import abeerImg from "@/assets/team/abeer.png";
+import sabahImg from "@/assets/team/sabah-new.jpg";
+import basemImg from "@/assets/team/basem.jpg";
 import mohammadHamidImg from "@/assets/team/mohammad-hamid.png";
 import abdallahJaraImg from "@/assets/team/abdallah-jara.jpg";
-import atefShaheenImg from "@/assets/team/atef-shaheen.png";
+import atefShaheenImg from "@/assets/team/atef-new.jpg";
+import majdSaqourImg from "@/assets/team/majd-saqour.jpg";
 
 type TeamMember = {
   name: string;
