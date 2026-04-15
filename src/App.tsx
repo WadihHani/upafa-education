@@ -42,7 +42,7 @@ const App = () => (
               <Route path="/conferences" element={<Conferences />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
-            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="team" element={<AdminTeam />} />
