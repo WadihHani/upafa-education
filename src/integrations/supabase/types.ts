@@ -44,6 +44,72 @@ export type Database = {
         }
         Relationships: []
       }
+      hero_slides: {
+        Row: {
+          created_at: string
+          cta_link: string
+          cta_text: string
+          id: string
+          image_url: string | null
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          cta_link?: string
+          cta_text?: string
+          id?: string
+          image_url?: string | null
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          cta_link?: string
+          cta_text?: string
+          id?: string
+          image_url?: string | null
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      portal_items: {
+        Row: {
+          created_at: string
+          description: string
+          icon_name: string
+          id: string
+          link_url: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          link_url?: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          icon_name?: string
+          id?: string
+          link_url?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       programs: {
         Row: {
           created_at: string
