@@ -20,6 +20,9 @@ import AdminTeam from "./pages/admin/AdminTeam";
 import AdminConferences from "./pages/admin/AdminConferences";
 import AdminPrograms from "./pages/admin/AdminPrograms";
 import AdminContent from "./pages/admin/AdminContent";
+import AdminHero from "./pages/admin/AdminHero";
+import AdminPortal from "./pages/admin/AdminPortal";
+import AdminSiteContent from "./pages/admin/AdminSiteContent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -49,6 +52,9 @@ const App = () => (
               <Route path="conferences" element={<AdminConferences />} />
               <Route path="programs" element={<AdminPrograms />} />
               <Route path="content" element={<AdminContent />} />
+              <Route path="hero" element={<AdminHero />} />
+              <Route path="portal" element={<AdminPortal />} />
+              <Route path="site-content" element={<AdminSiteContent />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

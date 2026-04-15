@@ -1,14 +1,16 @@
 import { Navigate, Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings } from "lucide-react";
 
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
+  { label: "شرائح الهيرو", path: "/admin/hero", icon: Image },
   { label: "أعضاء الفريق", path: "/admin/team", icon: Users },
   { label: "المؤتمرات", path: "/admin/conferences", icon: CalendarDays },
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },
-  { label: "المحتوى", path: "/admin/content", icon: FileText },
+  { label: "البوابات", path: "/admin/portal", icon: DoorOpen },
+  { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
 ];
 
 export default function AdminLayout() {
@@ -30,12 +32,12 @@ export default function AdminLayout() {
   return (
     <div className="min-h-screen flex bg-muted/30" dir="rtl">
       {/* Sidebar */}
-      <aside className="w-64 bg-primary text-primary-foreground flex flex-col shrink-0">
+      <aside className="w-64 bg-primary text-primary-foreground flex flex-col shrink-0 min-h-screen sticky top-0">
         <div className="p-6 border-b border-primary-foreground/10">
           <h1 className="text-lg font-bold">لوحة التحكم</h1>
           <p className="text-xs text-primary-foreground/60 mt-1">إدارة الموقع</p>
         </div>
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
@@ -56,6 +58,12 @@ export default function AdminLayout() {
           })}
         </nav>
         <div className="p-4 border-t border-primary-foreground/10">
+          <Link
+            to="/"
+            className="flex items-center gap-3 px-4 py-2 text-sm text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10 rounded-lg transition-colors mb-2"
+          >
+            عرض الموقع
+          </Link>
           <Button
             variant="ghost"
             className="w-full justify-start gap-3 text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/10"
