@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { useSiteContent } from "@/hooks/use-site-content";
 import logo from "@/assets/logo.png";
 
 type NavItem = {
@@ -28,7 +29,6 @@ const navLinks: NavItem[] = [
   },
   { label: "أعضاء الهيئة الإدارية والتدريسية", href: "/team" },
   { label: "اتصل بنا", href: "/contact" },
-  
 ];
 
 function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void }) {
@@ -93,6 +93,9 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { get } = useSiteContent();
+
+  const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -108,94 +111,53 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 right-0 left-0 z-50">
-      {/* Top bar with logo and name */}
-      <div
-        className={`bg-primary transition-all duration-300 ${
-          scrolled ? "py-2" : "py-4"
-        }`}
-      >
+      <div className={`bg-primary transition-all duration-300 ${scrolled ? "py-2" : "py-4"}`}>
         <div className="container mx-auto px-4 flex items-center justify-center gap-4">
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <img
-              src={logo}
-              alt="شعار جامعة أفريقيا الفرنسية العربية"
-              className={`transition-all duration-300 ${scrolled ? "h-10" : "h-16"}`}
-            />
+            <img src={logo} alt="شعار جامعة أفريقيا الفرنسية العربية" className={`transition-all duration-300 ${scrolled ? "h-10" : "h-16"}`} />
           </Link>
           <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <h1
-              className={`text-primary-foreground font-bold transition-all duration-300 ${
-                scrolled ? "text-lg" : "text-xl md:text-2xl"
-              }`}
-            >
-              جامعة أفريقيا الفرنسية العربية – فرع سوريا
+            <h1 className={`text-primary-foreground font-bold transition-all duration-300 ${scrolled ? "text-lg" : "text-xl md:text-2xl"}`}>
+              {uniName}
             </h1>
           </Link>
         </div>
       </div>
 
-      {/* Navigation bar - blue darker shade */}
       <div className="bg-[hsl(215,65%,22%)] border-b border-primary-foreground/10 shadow-md">
         <div className="container mx-auto px-4">
-          {/* Desktop nav */}
           <div className="hidden lg:flex items-center justify-center">
             {navLinks.map((link) => (
               <DesktopDropdown key={link.label} item={link} onClose={() => {}} />
             ))}
-
-            {/* Register CTA */}
-            <Link
-              to="/programs"
-              onClick={() => window.scrollTo(0, 0)}
-              className="mr-2 px-5 py-2 bg-accent text-accent-foreground text-sm font-bold rounded-md hover:brightness-110 transition-all duration-200"
-            >
+            <Link to="/programs" onClick={() => window.scrollTo(0, 0)} className="mr-2 px-5 py-2 bg-accent text-accent-foreground text-sm font-bold rounded-md hover:brightness-110 transition-all duration-200">
               سجل الآن
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
           <div className="lg:hidden flex items-center justify-between h-12">
             <span className="text-sm font-medium text-primary-foreground/70">القائمة</span>
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="text-primary-foreground p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors active:scale-95"
-              aria-label="القائمة"
-            >
+            <button onClick={() => setMenuOpen(!menuOpen)} className="text-primary-foreground p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors active:scale-95" aria-label="القائمة">
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="lg:hidden bg-card border-b border-border shadow-md animate-fade-in">
           <div className="px-4 py-3 space-y-1">
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.label}>
-                  <button
-                    onClick={() =>
-                      setMobileExpanded(mobileExpanded === link.label ? null : link.label)
-                    }
-                    className="w-full flex items-center justify-between text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors"
-                  >
+                  <button onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)} className="w-full flex items-center justify-between text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
                     {link.label}
-                    <ChevronDown
-                      size={14}
-                      className={`transition-transform duration-200 ${
-                        mobileExpanded === link.label ? "rotate-180" : ""
-                      }`}
-                    />
+                    <ChevronDown size={14} className={`transition-transform duration-200 ${mobileExpanded === link.label ? "rotate-180" : ""}`} />
                   </button>
                   {mobileExpanded === link.label && (
                     <div className="pr-4 space-y-1 mt-1">
                       {link.children.map((child, i) => (
-                        <button
-                          key={i}
-                          onClick={() => handleMobileNav(child.href)}
-                          className="block w-full text-right text-foreground/60 hover:text-primary px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors"
-                        >
+                        <button key={i} onClick={() => handleMobileNav(child.href)} className="block w-full text-right text-foreground/60 hover:text-primary px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors">
                           {child.label}
                         </button>
                       ))}
@@ -203,20 +165,12 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <button
-                  key={link.label}
-                  onClick={() => handleMobileNav(link.href)}
-                  className="block w-full text-right text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors"
-                >
+                <button key={link.label} onClick={() => handleMobileNav(link.href)} className="block w-full text-right text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
                   {link.label}
                 </button>
               )
             )}
-            <Link
-              to="/programs"
-              onClick={() => { setMenuOpen(false); window.scrollTo(0, 0); }}
-              className="block text-center bg-accent text-accent-foreground py-2.5 rounded-md font-bold text-sm mt-3"
-            >
+            <Link to="/programs" onClick={() => { setMenuOpen(false); window.scrollTo(0, 0); }} className="block text-center bg-accent text-accent-foreground py-2.5 rounded-md font-bold text-sm mt-3">
               سجل الآن
             </Link>
           </div>
