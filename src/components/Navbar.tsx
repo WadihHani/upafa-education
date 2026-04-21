@@ -12,21 +12,30 @@ type NavItem = {
 
 const navLinks: NavItem[] = [
   { label: "الرئيسية", href: "/" },
-  { label: "عن الجامعة", href: "/about" },
-  { label: "المؤتمرات والندوات", href: "/conferences" },
-  { label: "البرامج", href: "/programs" },
-  { label: "البوابة", href: "/portal" },
   {
-    label: "المنشورات",
-    href: "/publications",
+    label: "عن الجامعة",
+    href: "/about",
     children: [
-      { label: "المكتبة", href: "/publications" },
-      { label: "المجلات", href: "/publications" },
-      { label: "المدونات", href: "/publications" },
-      { label: "الأخبار", href: "/publications" },
+      { label: "نبذة عن الجامعة", href: "/about" },
+      { label: "الكليات والتخصصات", href: "/faculties" },
+      { label: "نظام الدراسة والرسوم", href: "/tuition" },
+      { label: "أسئلة شائعة", href: "/faq" },
     ],
   },
+  { label: "المؤتمرات والندوات", href: "/conferences" },
+  {
+    label: "البرامج",
+    href: "/programs",
+    children: [
+      { label: "البكالوريوس", href: "/programs/bachelor" },
+      { label: "الماجستير", href: "/programs/master" },
+      { label: "الدكتوراه", href: "/programs/phd" },
+      { label: "جميع البرامج", href: "/programs" },
+    ],
+  },
+  { label: "البوابة", href: "/portal" },
   { label: "الهيئة الإدارية والتدريسية", href: "/team" },
+  { label: "المنشورات", href: "/publications" },
   { label: "اتصل بنا", href: "/contact" },
 ];
 

@@ -14,6 +14,10 @@ import Publications from "./pages/Publications";
 import Team from "./pages/Team";
 import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
+import Faculties from "./pages/Faculties";
+import Tuition from "./pages/Tuition";
+import Faq from "./pages/Faq";
+import ProgramLevel from "./pages/ProgramLevel";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminTeam from "./pages/admin/AdminTeam";
@@ -39,6 +43,10 @@ const App = () => (
             <Route element={<Layout />}>
               <Route path="/about" element={<About />} />
               <Route path="/programs" element={<Programs />} />
+              <Route path="/programs/:level" element={<ProgramLevel />} />
+              <Route path="/faculties" element={<Faculties />} />
+              <Route path="/tuition" element={<Tuition />} />
+              <Route path="/faq" element={<Faq />} />
               <Route path="/portal" element={<Portal />} />
               <Route path="/publications" element={<Publications />} />
               <Route path="/team" element={<Team />} />
