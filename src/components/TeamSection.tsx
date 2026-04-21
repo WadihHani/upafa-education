@@ -1,4 +1,4 @@
-import { User, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "@/hooks/use-site-content";
@@ -12,8 +12,34 @@ type TeamMember = {
   category: string;
 };
 
+// Deterministic palette of accessible colors for letter avatars
+const AVATAR_COLORS = [
+  "from-amber-500 to-orange-600",
+  "from-emerald-500 to-teal-600",
+  "from-sky-500 to-blue-600",
+  "from-violet-500 to-purple-600",
+  "from-rose-500 to-pink-600",
+  "from-cyan-500 to-sky-600",
+  "from-lime-500 to-green-600",
+  "from-fuchsia-500 to-pink-600",
+];
+
+function getInitial(name: string): string {
+  // Strip honorifics (د. / أ. / بروفيسور / م.) then take first letter
+  const cleaned = name.replace(/^(د\.|أ\.|م\.|بروفيسور)\s*/u, "").trim();
+  return cleaned.charAt(0) || name.charAt(0);
+}
+
+function getColorFor(name: string): string {
+  let sum = 0;
+  for (let i = 0; i < name.length; i++) sum += name.charCodeAt(i);
+  return AVATAR_COLORS[sum % AVATAR_COLORS.length];
+}
+
 function MemberCard({ member }: { member: TeamMember }) {
   const [showZoom, setShowZoom] = useState(false);
+  const initial = getInitial(member.name);
+  const gradient = getColorFor(member.name);
 
   return (
     <>
@@ -25,7 +51,9 @@ function MemberCard({ member }: { member: TeamMember }) {
           {member.image_url ? (
             <img src={member.image_url} alt={member.name} className="w-full h-full object-cover" />
           ) : (
-            <User size={48} className="text-primary-foreground/40" />
+            <div className={`w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center`}>
+              <span className="text-primary-foreground text-4xl font-bold select-none">{initial}</span>
+            </div>
           )}
         </div>
         <h3 className="text-lg font-bold text-primary-foreground mb-2">{member.name}</h3>
