@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronLeft, ChevronRight, Newspaper, Calendar, GraduationCap, FileText, Megaphone, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useSiteContent } from "@/hooks/use-site-content";
 import heroGraduation from "@/assets/hero-graduation-blue.jpg";
 import heroCampus from "@/assets/hero-campus-blue.jpg";
 import heroLibrary from "@/assets/hero-library-blue.jpg";
-import logo from "@/assets/logo.png";
 
 const fallbackImages = [heroGraduation, heroCampus, heroLibrary];
 
@@ -16,12 +15,21 @@ type Slide = {
   image_url: string | null;
 };
 
+const newsCategories = [
+  { icon: Newspaper, label: "آخر الأخبار", highlight: true },
+  { icon: Megaphone, label: "مفاضلة خريف 2025", accent: true },
+  { icon: FileText, label: "أخبار الجامعة" },
+  { icon: GraduationCap, label: "أخبار الامتحانات" },
+  { icon: Calendar, label: "أخبار شؤون الطلاب" },
+  { icon: FileText, label: "مناقشة رسائل الماجستير والدكتوراه" },
+  { icon: Megaphone, label: "أخبار مركز التدريب والتعلم مدى الحياة" },
+  { icon: AlertCircle, label: "عقوبات الطلاب", muted: true },
+];
+
 export default function HeroSection() {
   const navigate = useNavigate();
-  const { get } = useSiteContent();
   const [slides, setSlides] = useState<Slide[]>([]);
   const [current, setCurrent] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
 
   useEffect(() => {
     supabase
@@ -37,85 +45,113 @@ export default function HeroSection() {
     if (slides.length === 0) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-      setAnimKey((k) => k + 1);
     }, 6000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  if (slides.length === 0) {
-    return <section className="h-screen min-h-[600px] bg-primary" />;
-  }
+  const goNext = () => setCurrent((p) => (p + 1) % Math.max(slides.length, 1));
+  const goPrev = () => setCurrent((p) => (p - 1 + slides.length) % Math.max(slides.length, 1));
 
   const slide = slides[current];
-  const subtitle = get("hero_subtitle", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
 
   return (
-    <section id="home" className="relative h-screen min-h-[600px] overflow-hidden">
-      {slides.map((s, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0 }}
-        >
-          <img
-            src={s.image_url || fallbackImages[i % fallbackImages.length]}
-            alt=""
-            className="w-full h-full object-cover"
-            width={1920}
-            height={900}
-          />
+    <section className="bg-background py-6 md:py-10">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+          {/* Slider */}
+          <div className="relative rounded-lg overflow-hidden bg-primary shadow-lg" style={{ aspectRatio: "16 / 9", maxHeight: "500px" }}>
+            {slides.length === 0 ? (
+              <div className="absolute inset-0 bg-primary animate-pulse" />
+            ) : (
+              <>
+                {slides.map((s, i) => (
+                  <div
+                    key={i}
+                    className="absolute inset-0 transition-opacity duration-700"
+                    style={{ opacity: i === current ? 1 : 0 }}
+                  >
+                    <img
+                      src={s.image_url || fallbackImages[i % fallbackImages.length]}
+                      alt={s.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
+                  </div>
+                ))}
+
+                {/* Slide content */}
+                {slide && (
+                  <div className="absolute bottom-0 right-0 left-0 p-6 md:p-10 text-primary-foreground">
+                    <h2
+                      key={current}
+                      className="text-xl md:text-3xl lg:text-4xl font-extrabold leading-snug mb-4 max-w-2xl animate-fade-up"
+                      style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+                    >
+                      {slide.title}
+                    </h2>
+                    <button
+                      onClick={() => { navigate(slide.cta_link); window.scrollTo(0, 0); }}
+                      className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-6 py-2.5 rounded-md font-bold text-sm hover:brightness-110 transition-all shadow-md"
+                    >
+                      {slide.cta_text || "اقرأ المزيد"}
+                    </button>
+                  </div>
+                )}
+
+                {/* Arrows */}
+                <button
+                  onClick={goPrev}
+                  className="absolute top-1/2 right-3 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 hover:bg-card text-primary flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  aria-label="السابق"
+                >
+                  <ChevronRight size={22} />
+                </button>
+                <button
+                  onClick={goNext}
+                  className="absolute top-1/2 left-3 -translate-y-1/2 w-10 h-10 rounded-full bg-card/80 hover:bg-card text-primary flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  aria-label="التالي"
+                >
+                  <ChevronLeft size={22} />
+                </button>
+
+                {/* Dots */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrent(i)}
+                      className={`h-2 rounded-full transition-all ${
+                        i === current ? "bg-accent w-6" : "bg-primary-foreground/50 w-2 hover:bg-primary-foreground/80"
+                      }`}
+                      aria-label={`الشريحة ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* News sidebar */}
+          <aside className="flex flex-col gap-1.5">
+            {newsCategories.map((cat, i) => {
+              const Icon = cat.icon;
+              const base = "flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-md transition-all duration-200 border-r-4 cursor-pointer";
+              const variant = cat.highlight
+                ? "bg-primary text-primary-foreground border-primary hover:brightness-110"
+                : cat.accent
+                ? "bg-accent text-accent-foreground border-accent hover:brightness-110"
+                : cat.muted
+                ? "bg-muted text-foreground/70 border-border hover:bg-muted/80"
+                : "bg-card text-foreground border-border hover:border-primary hover:text-primary shadow-sm";
+              return (
+                <button key={i} className={`${base} ${variant}`}>
+                  <Icon size={16} className="shrink-0" />
+                  <span className="text-right flex-1 leading-tight">{cat.label}</span>
+                </button>
+              );
+            })}
+          </aside>
         </div>
-      ))}
-
-      <div className="absolute inset-0 bg-gradient-to-b from-[hsl(215,65%,15%,0.75)] via-[hsl(215,65%,20%,0.65)] to-[hsl(215,65%,15%,0.80)]" />
-      <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-accent z-20" />
-
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
-        <div key={animKey}>
-          <img
-            src={logo}
-            alt="شعار الجامعة"
-            className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-6 drop-shadow-lg"
-            style={{ animation: "fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s forwards", opacity: 0 }}
-          />
-          <p
-            className="text-accent text-base md:text-lg font-bold mb-4 tracking-wide"
-            style={{ animation: "fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.2s forwards", opacity: 0 }}
-          >
-            {subtitle}
-          </p>
-          <h1
-            className="text-primary-foreground text-3xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-8 max-w-4xl mx-auto"
-            style={{
-              animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.35s forwards",
-              opacity: 0,
-              textWrap: "balance",
-              lineHeight: 1.4,
-            }}
-          >
-            {slide.title}
-          </h1>
-          <button
-            onClick={() => { navigate(slide.cta_link); window.scrollTo(0, 0); }}
-            className="inline-block bg-accent text-accent-foreground px-10 py-4 rounded-lg font-bold text-lg hover:brightness-110 active:scale-[0.97] transition-all duration-200 shadow-lg"
-            style={{ animation: "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s forwards", opacity: 0 }}
-          >
-            {slide.cta_text || "سجل الآن"}
-          </button>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => { setCurrent(i); setAnimKey((k) => k + 1); }}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              i === current ? "bg-accent w-8" : "bg-primary-foreground/40 hover:bg-primary-foreground/60"
-            }`}
-            aria-label={`الشريحة ${i + 1}`}
-          />
-        ))}
       </div>
     </section>
   );
