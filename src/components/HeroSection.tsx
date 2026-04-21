@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, Newspaper, Calendar, GraduationCap, FileText, Megaphone, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import PortalLoginCard from "./PortalLoginCard";
 import heroGraduation from "@/assets/hero-graduation-blue.jpg";
 import heroCampus from "@/assets/hero-campus-blue.jpg";
 import heroLibrary from "@/assets/hero-library-blue.jpg";
