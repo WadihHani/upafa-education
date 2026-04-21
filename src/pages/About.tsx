@@ -1,7 +1,7 @@
 import AboutSection from "@/components/AboutSection";
 
 const About = () => (
-  <div className="pt-32">
+  <div>
     <AboutSection />
   </div>
 );
