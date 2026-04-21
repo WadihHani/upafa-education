@@ -1,7 +1,7 @@
 import ProgramsSection from "@/components/ProgramsSection";
 
 const Programs = () => (
-  <div className="pt-32">
+  <div>
     <ProgramsSection />
   </div>
 );

@@ -1,7 +1,7 @@
 import TeamSection from "@/components/TeamSection";
 
 const Team = () => (
-  <div className="pt-32">
+  <div>
     <TeamSection />
   </div>
 );

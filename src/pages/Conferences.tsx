@@ -1,7 +1,7 @@
 import ConferencesSection from "@/components/ConferencesSection";
 
 const Conferences = () => (
-  <div className="pt-32">
+  <div>
     <ConferencesSection />
   </div>
 );

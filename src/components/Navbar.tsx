@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { useSiteContent } from "@/hooks/use-site-content";
 import logo from "@/assets/logo.png";
 
@@ -22,12 +22,11 @@ const navLinks: NavItem[] = [
     children: [
       { label: "المكتبة", href: "/publications" },
       { label: "المجلات", href: "/publications" },
-      { label: "المنشورات", href: "/publications" },
       { label: "المدونات", href: "/publications" },
       { label: "الأخبار", href: "/publications" },
     ],
   },
-  { label: "أعضاء الهيئة الإدارية والتدريسية", href: "/team" },
+  { label: "الهيئة الإدارية والتدريسية", href: "/team" },
   { label: "اتصل بنا", href: "/contact" },
 ];
 
@@ -55,7 +54,7 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
       <Link
         to={item.href}
         onClick={() => { onClose(); window.scrollTo(0, 0); }}
-        className="px-4 py-3 text-sm font-medium text-primary-foreground/90 hover:text-accent hover:bg-primary-foreground/10 transition-colors duration-200 border-l border-primary-foreground/15 first:border-l-0"
+        className="px-3 xl:px-4 py-3 text-[13px] xl:text-sm font-semibold text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 border-l border-primary-foreground/20 first:border-l-0 whitespace-nowrap"
       >
         {item.label}
       </Link>
@@ -63,10 +62,10 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
   }
 
   return (
-    <div ref={ref} className="relative border-l border-primary-foreground/15">
+    <div ref={ref} className="relative border-l border-primary-foreground/20">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-4 py-3 text-sm font-medium text-primary-foreground/90 hover:text-accent hover:bg-primary-foreground/10 transition-colors duration-200"
+        className="flex items-center gap-1 px-3 xl:px-4 py-3 text-[13px] xl:text-sm font-semibold text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200 whitespace-nowrap"
       >
         {item.label}
         <ChevronDown size={12} className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`} />
@@ -89,19 +88,14 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
 }
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { get } = useSiteContent();
 
   const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const tagline = get("hero_subtitle", "اعبر حدود الزمان والمكان");
 
   const handleMobileNav = (href: string) => {
     navigate(href);
@@ -110,33 +104,52 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50">
-      <div className={`bg-primary transition-all duration-300 ${scrolled ? "py-2" : "py-4"}`}>
-        <div className="container mx-auto px-4 flex items-center justify-center gap-4">
-          <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <img src={logo} alt="شعار جامعة أفريقيا الفرنسية العربية" className={`transition-all duration-300 ${scrolled ? "h-10" : "h-16"}`} />
-          </Link>
-          <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            <h1 className={`text-primary-foreground font-bold transition-all duration-300 ${scrolled ? "text-lg" : "text-xl md:text-2xl"}`}>
-              {uniName}
-            </h1>
+    <header className="sticky top-0 right-0 left-0 z-50 shadow-md">
+      {/* Top white bar with logo + tagline + search */}
+      <div className="bg-card border-b border-border">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          {/* Tagline (right in RTL) */}
+          <div className="hidden md:flex flex-col items-start">
+            <div className="text-primary text-xl lg:text-2xl font-extrabold leading-tight" style={{ fontFamily: "'Cairo', serif" }}>
+              {tagline}
+            </div>
+            <div className="text-muted-foreground text-[11px] lg:text-xs tracking-wider mt-1">
+              Beyond The Boundaries Of Time & Place
+            </div>
+          </div>
+
+          {/* Search bar (center) */}
+          <div className="hidden md:flex flex-1 max-w-md items-center gap-2 mx-4">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="بحث..."
+                className="w-full h-9 pr-9 pl-3 rounded-md border border-input bg-muted/40 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+              />
+            </div>
+          </div>
+
+          {/* Logo (left in RTL) */}
+          <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 shrink-0">
+            <img src={logo} alt={uniName} className="h-14 md:h-16 lg:h-20 w-auto" />
           </Link>
         </div>
       </div>
 
-      <div className="bg-[hsl(215,65%,22%)] border-b border-primary-foreground/10 shadow-md">
-        <div className="container mx-auto px-4">
-          <div className="hidden lg:flex items-center justify-center">
+      {/* Navigation strip */}
+      <div className="bg-primary border-b-4 border-accent">
+        <div className="container mx-auto px-2">
+          <div className="hidden lg:flex items-center justify-end">
             {navLinks.map((link) => (
               <DesktopDropdown key={link.label} item={link} onClose={() => {}} />
             ))}
-            <Link to="/programs" onClick={() => window.scrollTo(0, 0)} className="mr-2 px-5 py-2 bg-accent text-accent-foreground text-sm font-bold rounded-md hover:brightness-110 transition-all duration-200">
-              سجل الآن
-            </Link>
           </div>
 
           <div className="lg:hidden flex items-center justify-between h-12">
-            <span className="text-sm font-medium text-primary-foreground/70">القائمة</span>
+            <span className="text-sm font-semibold text-primary-foreground">القائمة</span>
             <button onClick={() => setMenuOpen(!menuOpen)} className="text-primary-foreground p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors active:scale-95" aria-label="القائمة">
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
@@ -147,6 +160,10 @@ export default function Navbar() {
       {menuOpen && (
         <div className="lg:hidden bg-card border-b border-border shadow-md animate-fade-in">
           <div className="px-4 py-3 space-y-1">
+            <div className="relative mb-3">
+              <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <input type="text" placeholder="بحث..." className="w-full h-10 pr-9 pl-3 rounded-md border border-input bg-muted/40 text-sm" />
+            </div>
             {navLinks.map((link) =>
               link.children ? (
                 <div key={link.label}>
@@ -170,9 +187,6 @@ export default function Navbar() {
                 </button>
               )
             )}
-            <Link to="/programs" onClick={() => { setMenuOpen(false); window.scrollTo(0, 0); }} className="block text-center bg-accent text-accent-foreground py-2.5 rounded-md font-bold text-sm mt-3">
-              سجل الآن
-            </Link>
           </div>
         </div>
       )}
