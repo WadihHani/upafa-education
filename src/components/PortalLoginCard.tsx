@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogIn, User, KeyRound, GraduationCap, BookOpen } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 type Role = "student" | "instructor";
 
@@ -12,29 +13,55 @@ export default function PortalLoginCard() {
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!identifier.trim() || !password.trim()) {
       toast({
         title: "حقول ناقصة",
-        description: "يرجى إدخال اسم المستخدم/البريد وكلمة المرور.",
+        description: "يرجى إدخال البريد وكلمة المرور.",
         variant: "destructive",
       });
       return;
     }
     setSubmitting(true);
-    // UI-only: real authentication will be wired later by the admin.
-    setTimeout(() => {
-      setSubmitting(false);
-      if (role === "student") {
-        navigate("/portal/student");
-      } else {
-        toast({
-          title: "بوابة الأستاذ قيد الإعداد",
-          description: "سيتم تفعيل دخول بوابة الأستاذ في الخطوة القادمة.",
-        });
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: identifier.trim(),
+        password,
+      });
+      if (error || !data.user) {
+        throw error ?? new Error("login failed");
       }
-    }, 400);
+      // Check role
+      const requiredRole = role === "student" ? "student" : "teacher";
+      const { data: hasRole, error: roleError } = await supabase.rpc("has_role", {
+        _user_id: data.user.id,
+        _role: requiredRole,
+      });
+      if (roleError) throw roleError;
+      if (!hasRole) {
+        await supabase.auth.signOut();
+        toast({
+          title: "صلاحية غير مناسبة",
+          description:
+            role === "student"
+              ? "هذا الحساب ليس حساب طالب."
+              : "هذا الحساب ليس حساب أستاذ.",
+          variant: "destructive",
+        });
+        return;
+      }
+      toast({ title: "تم تسجيل الدخول بنجاح" });
+      navigate(role === "student" ? "/portal/student" : "/portal/teacher");
+    } catch (err: any) {
+      toast({
+        title: "تعذّر تسجيل الدخول",
+        description: err?.message ?? "تأكد من البريد وكلمة المرور.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const roleTabBase =
@@ -42,13 +69,11 @@ export default function PortalLoginCard() {
 
   return (
     <div className="bg-card border border-border rounded-md shadow-sm overflow-hidden">
-      {/* Header */}
       <div className="bg-primary text-primary-foreground px-4 py-2.5 flex items-center gap-2">
         <LogIn size={16} className="text-accent" />
         <h3 className="text-sm font-bold">تسجيل الدخول إلى البوابة</h3>
       </div>
 
-      {/* Role tabs */}
       <div className="flex border-b border-border">
         <button
           type="button"
@@ -76,7 +101,6 @@ export default function PortalLoginCard() {
         </button>
       </div>
 
-      {/* Form */}
       <form onSubmit={handleSubmit} className="p-3 space-y-2.5">
         <div className="relative">
           <User
@@ -84,12 +108,10 @@ export default function PortalLoginCard() {
             className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
           />
           <input
-            type="text"
+            type="email"
             value={identifier}
             onChange={(e) => setIdentifier(e.target.value)}
-            placeholder={
-              role === "student" ? "الرقم الجامعي أو البريد" : "اسم المستخدم أو البريد"
-            }
+            placeholder="البريد الإلكتروني"
             autoComplete="username"
             className="w-full h-9 pr-8 pl-2.5 rounded-md border border-input bg-background text-xs focus:outline-none focus:ring-2 focus:ring-primary/40"
           />
@@ -119,9 +141,6 @@ export default function PortalLoginCard() {
         </button>
 
         <div className="flex items-center justify-between text-[11px] text-muted-foreground pt-0.5">
-          <button type="button" className="hover:text-primary transition-colors">
-            نسيت كلمة المرور؟
-          </button>
           <span className="opacity-70">المسؤول يصدر الحسابات</span>
         </div>
       </form>
