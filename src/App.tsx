@@ -34,6 +34,8 @@ import AdminContent from "./pages/admin/AdminContent";
 import AdminHero from "./pages/admin/AdminHero";
 import AdminPortal from "./pages/admin/AdminPortal";
 import AdminSiteContent from "./pages/admin/AdminSiteContent";
+import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import StudentCatalog from "./pages/student/StudentCatalog";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -61,6 +63,7 @@ const App = () => (
               <Route path="/contact" element={<Contact />} />
             </Route>
             <Route path="/portal/student" element={<StudentPortal />} />
+            <Route path="/portal/student/catalog" element={<StudentCatalog />} />
             <Route path="/portal/teacher" element={<TeacherPortal />} />
             <Route path="/portal/teacher/courses" element={<TeacherCourses />} />
             <Route path="/portal/teacher/students" element={<TeacherStudents />} />
@@ -77,6 +80,7 @@ const App = () => (
               <Route path="content" element={<AdminContent />} />
               <Route path="hero" element={<AdminHero />} />
               <Route path="portal" element={<AdminPortal />} />
+              <Route path="enrollments" element={<AdminEnrollments />} />
               <Route path="site-content" element={<AdminSiteContent />} />
             </Route>
             <Route path="*" element={<NotFound />} />
