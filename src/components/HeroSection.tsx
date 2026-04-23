@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Newspaper, Calendar, GraduationCap, FileText, Megaphone, AlertCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import PortalLoginCard from "./PortalLoginCard";
+import NewsCategoriesSidebar from "./NewsCategoriesSidebar";
 import heroGraduation from "@/assets/hero-graduation-blue.jpg";
 import heroCampus from "@/assets/hero-campus-blue.jpg";
 import heroLibrary from "@/assets/hero-library-blue.jpg";
@@ -15,17 +16,6 @@ type Slide = {
   cta_link: string;
   image_url: string | null;
 };
-
-const newsCategories = [
-  { icon: Newspaper, label: "آخر الأخبار", highlight: true },
-  { icon: Megaphone, label: "مفاضلة خريف 2025", accent: true },
-  { icon: FileText, label: "أخبار الجامعة" },
-  { icon: GraduationCap, label: "أخبار الامتحانات" },
-  { icon: Calendar, label: "أخبار شؤون الطلاب" },
-  { icon: FileText, label: "مناقشة رسائل الماجستير والدكتوراه" },
-  { icon: Megaphone, label: "أخبار مركز التدريب" },
-  { icon: AlertCircle, label: "ملاحظات الطلاب", muted: true },
-];
 
 export default function HeroSection() {
   const navigate = useNavigate();
@@ -135,25 +125,7 @@ export default function HeroSection() {
           {/* Sidebar: portal login + news */}
           <aside className="flex flex-col gap-3">
             <PortalLoginCard />
-            <div className="flex flex-col gap-1.5">
-              {newsCategories.map((cat, i) => {
-                const Icon = cat.icon;
-                const base = "flex items-center gap-3 px-4 py-3 text-sm font-semibold rounded-md transition-all duration-200 border-r-4 cursor-pointer";
-                const variant = cat.highlight
-                  ? "bg-primary text-primary-foreground border-primary hover:brightness-110"
-                  : cat.accent
-                  ? "bg-accent text-accent-foreground border-accent hover:brightness-110"
-                  : cat.muted
-                  ? "bg-muted text-foreground/70 border-border hover:bg-muted/80"
-                  : "bg-card text-foreground border-border hover:border-primary hover:text-primary shadow-sm";
-                return (
-                  <button key={i} className={`${base} ${variant}`}>
-                    <Icon size={16} className="shrink-0" />
-                    <span className="text-right flex-1 leading-tight">{cat.label}</span>
-                  </button>
-                );
-              })}
-            </div>
+            <NewsCategoriesSidebar />
           </aside>
         </div>
       </div>
