@@ -86,12 +86,32 @@ export default function TeacherStudents() {
       .channel(`teacher-enrollments-${courseIds[0]}`)
       .on(
         "postgres_changes",
-        { event: "*", schema: "public", table: "enrollments" },
+        { event: "INSERT", schema: "public", table: "enrollments" },
         (payload) => {
-          const row = (payload.new ?? payload.old) as { course_id?: string } | null;
+          const row = payload.new as { course_id?: string } | null;
           if (row?.course_id && courseIds.includes(row.course_id)) {
+            toast({
+              title: "🔔 طلب انضمام جديد",
+              description: "وصلك طلب جديد من طالب — راجع القائمة.",
+            });
             load();
           }
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "enrollments" },
+        (payload) => {
+          const row = payload.new as { course_id?: string } | null;
+          if (row?.course_id && courseIds.includes(row.course_id)) load();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "enrollments" },
+        (payload) => {
+          const row = payload.old as { course_id?: string } | null;
+          if (row?.course_id && courseIds.includes(row.course_id)) load();
         }
       )
       .subscribe();
