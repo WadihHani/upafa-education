@@ -16,33 +16,45 @@ export default function Dashboard() {
     pendingEnrollments: 0,
   });
 
+  const fetchCounts = async () => {
+    const [t, c, p, s, h, po, co, en] = await Promise.all([
+      supabase.from("profiles").select("id", { count: "exact", head: true }),
+      supabase.from("conferences").select("id", { count: "exact", head: true }),
+      supabase.from("programs").select("id", { count: "exact", head: true }),
+      supabase.from("site_content").select("id", { count: "exact", head: true }),
+      supabase.from("hero_slides").select("id", { count: "exact", head: true }),
+      supabase.from("portal_items").select("id", { count: "exact", head: true }),
+      supabase.from("courses").select("id", { count: "exact", head: true }),
+      supabase
+        .from("enrollments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "pending"),
+    ]);
+    setCounts({
+      users: t.count ?? 0,
+      conferences: c.count ?? 0,
+      programs: p.count ?? 0,
+      content: s.count ?? 0,
+      hero: h.count ?? 0,
+      portal: po.count ?? 0,
+      courses: co.count ?? 0,
+      pendingEnrollments: en.count ?? 0,
+    });
+  };
+
   useEffect(() => {
-    const fetchCounts = async () => {
-      const [t, c, p, s, h, po, co, en] = await Promise.all([
-        supabase.from("profiles").select("id", { count: "exact", head: true }),
-        supabase.from("conferences").select("id", { count: "exact", head: true }),
-        supabase.from("programs").select("id", { count: "exact", head: true }),
-        supabase.from("site_content").select("id", { count: "exact", head: true }),
-        supabase.from("hero_slides").select("id", { count: "exact", head: true }),
-        supabase.from("portal_items").select("id", { count: "exact", head: true }),
-        supabase.from("courses").select("id", { count: "exact", head: true }),
-        supabase
-          .from("enrollments")
-          .select("id", { count: "exact", head: true })
-          .eq("status", "pending"),
-      ]);
-      setCounts({
-        users: t.count ?? 0,
-        conferences: c.count ?? 0,
-        programs: p.count ?? 0,
-        content: s.count ?? 0,
-        hero: h.count ?? 0,
-        portal: po.count ?? 0,
-        courses: co.count ?? 0,
-        pendingEnrollments: en.count ?? 0,
-      });
-    };
     fetchCounts();
+    const channel = supabase
+      .channel("admin-dashboard-enrollments")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enrollments" },
+        () => fetchCounts()
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const stats = [
