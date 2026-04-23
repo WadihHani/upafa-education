@@ -21,8 +21,8 @@ import Faq from "./pages/Faq";
 import ProgramLevel from "./pages/ProgramLevel";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
-import AdminTeam from "./pages/admin/AdminTeam";
 import AdminConferences from "./pages/admin/AdminConferences";
+import AdminUsers from "./pages/admin/AdminUsers";
 import AdminPrograms from "./pages/admin/AdminPrograms";
 import AdminContent from "./pages/admin/AdminContent";
 import AdminHero from "./pages/admin/AdminHero";
@@ -59,7 +59,7 @@ const App = () => (
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="team" element={<AdminTeam />} />
+              <Route path="users" element={<AdminUsers />} />
               <Route path="conferences" element={<AdminConferences />} />
               <Route path="programs" element={<AdminPrograms />} />
               <Route path="content" element={<AdminContent />} />
