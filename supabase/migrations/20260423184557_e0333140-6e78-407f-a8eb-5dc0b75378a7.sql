@@ -1,0 +1,1 @@
+DELETE FROM public.portal_items WHERE id = '0f0da4f9-aa9d-4838-8b9e-0c2351b64634';
