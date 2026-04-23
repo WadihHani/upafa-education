@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import AnnouncementsBoard from "@/components/AnnouncementsBoard";
 import SystemsCards from "@/components/SystemsCards";
 import VisionSection from "@/components/VisionSection";
 import SocialFloat from "@/components/SocialFloat";
@@ -12,6 +13,7 @@ const Index = () => {
       <SocialFloat />
       <main className="flex-1">
         <HeroSection />
+        <AnnouncementsBoard />
         <SystemsCards />
         <VisionSection />
       </main>
