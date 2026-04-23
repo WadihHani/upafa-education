@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LogIn, User, KeyRound, GraduationCap, BookOpen } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 type Role = "student" | "instructor";
 
 export default function PortalLoginCard() {
+  const navigate = useNavigate();
   const [role, setRole] = useState<Role>("student");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -23,14 +25,15 @@ export default function PortalLoginCard() {
     setSubmitting(true);
     // UI-only: real authentication will be wired later by the admin.
     setTimeout(() => {
-      toast({
-        title: "البوابة قيد الإعداد",
-        description:
-          role === "student"
-            ? "سيتم تفعيل دخول بوابة الطالب قريباً. تواصل مع الإدارة للحصول على بيانات الدخول."
-            : "سيتم تفعيل دخول بوابة الأستاذ قريباً. تواصل مع الإدارة للحصول على بيانات الدخول.",
-      });
       setSubmitting(false);
+      if (role === "student") {
+        navigate("/portal/student");
+      } else {
+        toast({
+          title: "بوابة الأستاذ قيد الإعداد",
+          description: "سيتم تفعيل دخول بوابة الأستاذ في الخطوة القادمة.",
+        });
+      }
     }, 400);
   };
 

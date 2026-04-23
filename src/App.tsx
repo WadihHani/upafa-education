@@ -10,6 +10,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Portal from "./pages/Portal";
+import StudentPortal from "./pages/StudentPortal";
 import Publications from "./pages/Publications";
 
 import Conferences from "./pages/Conferences";
@@ -53,6 +54,7 @@ const App = () => (
               <Route path="/conferences" element={<Conferences />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
+            <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
