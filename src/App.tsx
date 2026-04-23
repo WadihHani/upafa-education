@@ -35,7 +35,10 @@ import AdminHero from "./pages/admin/AdminHero";
 import AdminPortal from "./pages/admin/AdminPortal";
 import AdminSiteContent from "./pages/admin/AdminSiteContent";
 import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import AdminMofadlaPrograms from "./pages/admin/AdminMofadlaPrograms";
+import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import StudentCatalog from "./pages/student/StudentCatalog";
+import MofadlaApply from "./pages/MofadlaApply";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
