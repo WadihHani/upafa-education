@@ -44,6 +44,136 @@ export type Database = {
         }
         Relationships: []
       }
+      courses: {
+        Row: {
+          code: string | null
+          created_at: string
+          description: string
+          id: string
+          is_open_for_enrollment: boolean
+          level: string | null
+          teacher_user_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          code?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          is_open_for_enrollment?: boolean
+          level?: string | null
+          teacher_user_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          is_open_for_enrollment?: boolean
+          level?: string | null
+          teacher_user_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      enrollments: {
+        Row: {
+          course_id: string
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          id: string
+          requested_at: string
+          status: Database["public"]["Enums"]["enrollment_status"]
+          student_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          requested_at?: string
+          status?: Database["public"]["Enums"]["enrollment_status"]
+          student_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          requested_at?: string
+          status?: Database["public"]["Enums"]["enrollment_status"]
+          student_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      grades: {
+        Row: {
+          created_at: string
+          enrollment_id: string
+          graded_at: string
+          graded_by: string | null
+          id: string
+          max_score: number | null
+          notes: string | null
+          score: number | null
+          section: Database["public"]["Enums"]["grade_section"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          enrollment_id: string
+          graded_at?: string
+          graded_by?: string | null
+          id?: string
+          max_score?: number | null
+          notes?: string | null
+          score?: number | null
+          section: Database["public"]["Enums"]["grade_section"]
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          enrollment_id?: string
+          graded_at?: string
+          graded_by?: string | null
+          id?: string
+          max_score?: number | null
+          notes?: string | null
+          score?: number | null
+          section?: Database["public"]["Enums"]["grade_section"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grades_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       hero_slides: {
         Row: {
           created_at: string
@@ -77,6 +207,50 @@ export type Database = {
         }
         Relationships: []
       }
+      lecture_materials: {
+        Row: {
+          course_id: string
+          created_at: string
+          description: string
+          external_url: string | null
+          file_path: string | null
+          id: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          description?: string
+          external_url?: string | null
+          file_path?: string | null
+          id?: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          description?: string
+          external_url?: string | null
+          file_path?: string | null
+          id?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lecture_materials_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_items: {
         Row: {
           created_at: string
@@ -107,6 +281,39 @@ export type Database = {
           sort_order?: number
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -233,6 +440,16 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user" | "teacher" | "student"
+      enrollment_status: "pending" | "approved" | "rejected"
+      grade_section:
+        | "recorded_lectures"
+        | "attendance"
+        | "quizzes"
+        | "midterm"
+        | "activities"
+        | "projects"
+        | "final"
+        | "overall"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -361,6 +578,17 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user", "teacher", "student"],
+      enrollment_status: ["pending", "approved", "rejected"],
+      grade_section: [
+        "recorded_lectures",
+        "attendance",
+        "quizzes",
+        "midterm",
+        "activities",
+        "projects",
+        "final",
+        "overall",
+      ],
     },
   },
 } as const
