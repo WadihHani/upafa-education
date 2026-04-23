@@ -140,6 +140,14 @@ export default function StudentPortal() {
 
   const load = async () => {
     if (!user) return;
+    supabase
+      .from("profiles")
+      .select("full_name")
+      .eq("user_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.full_name) setProfileName(data.full_name);
+      });
     const { data: enr } = await supabase
       .from("enrollments")
       .select("id, course_id")
