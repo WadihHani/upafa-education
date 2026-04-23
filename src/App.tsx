@@ -56,6 +56,7 @@ const App = () => (
             </Route>
             <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/login" element={<AdminLogin />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="team" element={<AdminTeam />} />
