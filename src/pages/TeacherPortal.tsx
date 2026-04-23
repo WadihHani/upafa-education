@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X } from "lucide-react";
+import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X, CalendarCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -10,8 +10,9 @@ import { Card, CardContent } from "@/components/ui/card";
 const sections = [
   { label: "مقرراتي", icon: BookOpen, description: "المقررات التي تُدرّسها هذا الفصل.", href: "/portal/teacher/courses" },
   { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر وإدارة طلبات التسجيل.", href: "/portal/teacher/students" },
+  { label: "الحضور والغياب", icon: CalendarCheck, description: "تسجيل حضور الطلاب لكل جلسة.", href: "/portal/teacher/attendance" },
   { label: "المحاضرات والمواد", icon: FolderKanban, description: "رفع المحاضرات المسجلة والمواد التعليمية.", href: "/portal/teacher/materials" },
-  { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتسليم الواجبات.", href: "/portal/teacher/assessments" },
+  { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتقييم تسليمات الطلاب.", href: "/portal/teacher/assessments" },
   { label: "الدرجات", icon: Award, description: "إدخال درجات الطلاب ونشر النتائج.", href: "/portal/teacher/grades" },
 ];
 
