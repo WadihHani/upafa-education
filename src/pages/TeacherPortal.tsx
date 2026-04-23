@@ -4,11 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
 const sections = [
-  { label: "مقرراتي", icon: BookOpen, description: "المقررات التي تُدرّسها هذا الفصل." },
-  { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر وإدارة طلبات التسجيل." },
-  { label: "المحاضرات والمواد", icon: FolderKanban, description: "رفع المحاضرات المسجلة والمواد التعليمية." },
-  { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتسليم الواجبات." },
-  { label: "الدرجات", icon: Award, description: "إدخال درجات الطلاب ونشر النتائج." },
+  { label: "مقرراتي", icon: BookOpen, description: "المقررات التي تُدرّسها هذا الفصل.", href: "/portal/teacher/courses" },
+  { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر وإدارة طلبات التسجيل.", href: "/portal/teacher/students" },
+  { label: "المحاضرات والمواد", icon: FolderKanban, description: "رفع المحاضرات المسجلة والمواد التعليمية.", href: "/portal/teacher/materials" },
+  { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتسليم الواجبات.", href: "/portal/teacher/assessments" },
+  { label: "الدرجات", icon: Award, description: "إدخال درجات الطلاب ونشر النتائج.", href: "/portal/teacher/grades" },
 ];
 
 export default function TeacherPortal() {
@@ -58,7 +58,7 @@ export default function TeacherPortal() {
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-primary mb-1">مرحباً بك في بوابتك</h2>
           <p className="text-sm text-muted-foreground">
-            البوابة قيد الإعداد — سيتم تفعيل الأقسام التالية قريباً.
+            اختر القسم الذي تريد الانتقال إليه.
           </p>
         </div>
 
@@ -66,9 +66,11 @@ export default function TeacherPortal() {
           {sections.map((s) => {
             const Icon = s.icon;
             return (
-              <div
+              <button
                 key={s.label}
-                className="bg-card border border-border rounded-md p-4 hover:shadow-md transition-shadow"
+                type="button"
+                onClick={() => navigate(s.href)}
+                className="text-right bg-card border border-border rounded-md p-4 hover:shadow-md hover:border-accent/50 transition-all"
               >
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-9 h-9 rounded-md bg-accent/15 text-accent flex items-center justify-center">
@@ -79,14 +81,10 @@ export default function TeacherPortal() {
                 <p className="text-xs text-muted-foreground leading-relaxed">
                   {s.description}
                 </p>
-              </div>
+              </button>
             );
           })}
         </div>
-
-        <p className="text-center text-[11px] text-muted-foreground mt-8">
-          سيتم تفعيل البيانات الحقيقية قريباً.
-        </p>
       </main>
     </div>
   );
