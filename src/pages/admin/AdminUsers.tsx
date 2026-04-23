@@ -34,7 +34,7 @@ type Role = "student" | "teacher" | "admin";
 
 const ROLE_LABEL: Record<Role, string> = {
   student: "طالب",
-  teacher: "أستاذ",
+  teacher: "أعضاء الهيئة التدريسية",
   admin: "مسؤول",
 };
 
