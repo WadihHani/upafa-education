@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import NewsCategoriesSidebar from "@/components/NewsCategoriesSidebar";
 import {
   CalendarDays,
   ChevronLeft,
@@ -115,8 +116,10 @@ export default function NewsPost() {
 
   return (
     <article dir="rtl" className="bg-muted/20 min-h-[60vh] py-10 md:py-14">
-      <div className="container mx-auto px-4 max-w-4xl">
-        {/* Breadcrumb */}
+      <div className="container mx-auto px-4">
+        <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start max-w-6xl mx-auto">
+          <div className="min-w-0">
+            {/* Breadcrumb */}
         <nav className="text-xs text-muted-foreground flex items-center gap-1 flex-wrap mb-5">
           <Link to="/" className="hover:text-primary">الرئيسية</Link>
           <ChevronLeft size={12} />
@@ -225,15 +228,19 @@ export default function NewsPost() {
           </Button>
         )}
 
-        <div className="mt-10 pt-6 border-t border-border">
-          {category && (
-            <Button asChild variant="outline" className="gap-1">
-              <Link to={`/news/${category.key}`}>
-                <ChevronLeft size={14} />
-                كل منشورات: {category.title}
-              </Link>
-            </Button>
-          )}
+            <div className="mt-10 pt-6 border-t border-border">
+              {category && (
+                <Button asChild variant="outline" className="gap-1">
+                  <Link to={`/news/${category.key}`}>
+                    <ChevronLeft size={14} />
+                    كل منشورات: {category.title}
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <NewsCategoriesSidebar sticky highlightActive />
         </div>
       </div>
     </article>

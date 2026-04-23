@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getNewsIcon } from "@/lib/news-icons";
+import NewsCategoriesSidebar from "@/components/NewsCategoriesSidebar";
 import {
   ArrowLeft,
   CalendarDays,
@@ -136,26 +137,32 @@ export default function NewsCategory() {
       {/* List */}
       <section className="py-10 md:py-16 bg-muted/20 min-h-[40vh]">
         <div className="container mx-auto px-4">
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+          <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start">
+            <div>
+              {loading ? (
+                <div className="flex justify-center py-12">
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+                </div>
+              ) : posts.length === 0 ? (
+                <Card>
+                  <CardContent className="py-16 text-center">
+                    <Inbox className="mx-auto text-muted-foreground/40 mb-3" size={44} />
+                    <p className="text-muted-foreground">
+                      لا توجد منشورات في هذا القسم بعد.
+                    </p>
+                  </CardContent>
+                </Card>
+              ) : (
+                <div className="grid md:grid-cols-2 gap-5">
+                  {posts.map((p) => (
+                    <PostCard key={p.id} post={p} categoryKey={categoryKey!} />
+                  ))}
+                </div>
+              )}
             </div>
-          ) : posts.length === 0 ? (
-            <Card>
-              <CardContent className="py-16 text-center">
-                <Inbox className="mx-auto text-muted-foreground/40 mb-3" size={44} />
-                <p className="text-muted-foreground">
-                  لا توجد منشورات في هذا القسم بعد.
-                </p>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {posts.map((p) => (
-                <PostCard key={p.id} post={p} categoryKey={categoryKey!} />
-              ))}
-            </div>
-          )}
+
+            <NewsCategoriesSidebar sticky highlightActive />
+          </div>
         </div>
       </section>
     </div>
