@@ -1,8 +1,10 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
+import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
@@ -12,7 +14,8 @@ const navItems = [
   { label: "المؤتمرات", path: "/admin/conferences", icon: CalendarDays },
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },
   { label: "البوابات", path: "/admin/portal", icon: DoorOpen },
-  { label: "طلبات التسجيل", path: "/admin/enrollments", icon: ClipboardList },
+  { label: "المقررات", path: "/admin/courses", icon: BookOpen },
+  { label: "طلبات الانضمام", path: "/admin/enrollments", icon: ClipboardList, badgeKey: "pending_enrollments" as const },
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
   { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
   { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
@@ -21,6 +24,20 @@ const navItems = [
 export default function AdminLayout() {
   const { isAdmin, loading, signOut } = useAuth();
   const location = useLocation();
+  const [pendingEnrollments, setPendingEnrollments] = useState(0);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    const fetchCount = async () => {
+      const { count } = await supabase
+        .from("enrollments")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "pending");
+      setPendingEnrollments(count ?? 0);
+    };
+    fetchCount();
+    // refresh when route changes (after admin acts on a request)
+  }, [isAdmin, location.pathname]);
 
   if (loading) {
     return (
@@ -34,6 +51,10 @@ export default function AdminLayout() {
     return <AdminLogin />;
   }
 
+  const badges: Record<string, number> = {
+    pending_enrollments: pendingEnrollments,
+  };
+
   return (
     <div className="min-h-screen flex bg-muted/30" dir="rtl">
       {/* Sidebar */}
@@ -46,6 +67,7 @@ export default function AdminLayout() {
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = location.pathname === item.path;
+            const badgeCount = item.badgeKey ? badges[item.badgeKey] : 0;
             return (
               <Link
                 key={item.path}
@@ -57,7 +79,12 @@ export default function AdminLayout() {
                 }`}
               >
                 <Icon size={18} />
-                {item.label}
+                <span className="flex-1">{item.label}</span>
+                {badgeCount > 0 && (
+                  <span className="bg-accent text-accent-foreground text-[10px] font-bold rounded-full min-w-[20px] h-5 px-1.5 inline-flex items-center justify-center">
+                    {badgeCount}
+                  </span>
+                )}
               </Link>
             );
           })}

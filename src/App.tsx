@@ -35,6 +35,7 @@ import AdminHero from "./pages/admin/AdminHero";
 import AdminPortal from "./pages/admin/AdminPortal";
 import AdminSiteContent from "./pages/admin/AdminSiteContent";
 import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import AdminCourses from "./pages/admin/AdminCourses";
 import AdminMofadlaPrograms from "./pages/admin/AdminMofadlaPrograms";
 import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import StudentCatalog from "./pages/student/StudentCatalog";
@@ -93,6 +94,7 @@ const App = () => (
               <Route path="hero" element={<AdminHero />} />
               <Route path="portal" element={<AdminPortal />} />
               <Route path="enrollments" element={<AdminEnrollments />} />
+              <Route path="courses" element={<AdminCourses />} />
               <Route path="mofadla/programs" element={<AdminMofadlaPrograms />} />
               <Route path="mofadla/applications" element={<AdminMofadlaApplications />} />
               <Route path="news" element={<AdminNewsCategories />} />
