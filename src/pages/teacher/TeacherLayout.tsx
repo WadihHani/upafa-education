@@ -66,7 +66,7 @@ export default function TeacherLayout({
             العودة إلى البوابة
           </button>
         )}
-        <Outlet />
+        {children}
       </main>
     </div>
   );
