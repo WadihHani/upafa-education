@@ -6,9 +6,6 @@ import {
   PlayCircle,
   CalendarCheck,
   ClipboardList,
-  FileText,
-  Layers,
-  FolderKanban,
   Award,
   BookOpen,
   Bell,
@@ -122,7 +119,8 @@ const SECTION_LABEL: Record<string, string> = {
 
 export default function StudentPortal() {
   const navigate = useNavigate();
-  const { user, profile } = useAuth();
+  const { user } = useAuth();
+  const [profileName, setProfileName] = useState<string>("");
   const [active, setActive] = useState<SectionKey>("overview");
 
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
