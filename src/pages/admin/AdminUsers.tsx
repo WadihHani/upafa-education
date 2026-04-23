@@ -38,6 +38,9 @@ const ROLE_LABEL: Record<Role, string> = {
   admin: "مسؤول",
 };
 
+// Roles the admin can assign when creating/editing users
+const ASSIGNABLE_ROLES: Role[] = ["student", "teacher"];
+
 export default function AdminUsers() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
   const [loading, setLoading] = useState(true);
@@ -186,8 +189,8 @@ export default function AdminUsers() {
         </Button>
       </div>
 
-      <div className="flex gap-2 mb-4">
-        {(["all", "student", "teacher", "admin"] as const).map((f) => (
+      <div className="flex gap-2 mb-4 flex-wrap">
+        {(["all", "student", "teacher"] as const).map((f) => (
           <Button
             key={f}
             variant={filter === f ? "default" : "outline"}
@@ -324,7 +327,9 @@ export default function AdminUsers() {
               />
             </div>
             <div>
-              <label className="text-sm font-medium mb-1 block">رقم الهاتف</label>
+              <label className="text-sm font-medium mb-1 block">
+                رقم الهاتف <span className="text-xs text-muted-foreground">(اختياري)</span>
+              </label>
               <Input
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -342,9 +347,9 @@ export default function AdminUsers() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="student">طالب</SelectItem>
-                  <SelectItem value="teacher">أستاذ</SelectItem>
-                  <SelectItem value="admin">مسؤول</SelectItem>
+                  {ASSIGNABLE_ROLES.map((r) => (
+                    <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
