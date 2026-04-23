@@ -64,6 +64,7 @@ const App = () => (
               
               <Route path="/conferences" element={<Conferences />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/mofadla" element={<MofadlaApply />} />
             </Route>
             <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/portal/student/catalog" element={<StudentCatalog />} />
@@ -84,6 +85,8 @@ const App = () => (
               <Route path="hero" element={<AdminHero />} />
               <Route path="portal" element={<AdminPortal />} />
               <Route path="enrollments" element={<AdminEnrollments />} />
+              <Route path="mofadla/programs" element={<AdminMofadlaPrograms />} />
+              <Route path="mofadla/applications" element={<AdminMofadlaApplications />} />
               <Route path="site-content" element={<AdminSiteContent />} />
             </Route>
             <Route path="*" element={<NotFound />} />
