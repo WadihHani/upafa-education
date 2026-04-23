@@ -19,8 +19,7 @@ export default function AdminLogin() {
     setLoading(true);
     try {
       await signIn(email, password);
-      // Force reload so AdminLayout re-evaluates auth state cleanly
-      window.location.href = "/admin";
+      navigate("/admin", { replace: true });
     } catch (error: any) {
       toast({
         title: "خطأ في تسجيل الدخول",
