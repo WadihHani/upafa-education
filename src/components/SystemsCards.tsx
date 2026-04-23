@@ -7,7 +7,7 @@ const systems = [
   { label: "البريد الجامعي", sub: "University Email", icon: Mail, color: "hsl(0, 65%, 50%)", href: "/portal" },
   { label: "المكتبة الرقمية", sub: "E-Library", icon: Library, color: "hsl(160, 55%, 40%)", href: "/publications" },
   { label: "الموسوعة", sub: "Pedia", icon: FileSearch, color: "hsl(280, 50%, 45%)", href: "/publications" },
-  { label: "بوابة الأساتذة", sub: "Faculty", icon: Users, color: "hsl(25, 80%, 50%)", href: "/team" },
+  { label: "بوابة أعضاء الهيئة التدريسية", sub: "Faculty", icon: Users, color: "hsl(25, 80%, 50%)", href: "/team" },
 ];
 
 export default function SystemsCards() {
