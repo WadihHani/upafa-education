@@ -120,7 +120,7 @@ const SECTION_LABEL: Record<string, string> = {
 export default function StudentPortal() {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [profileName, setProfileName] = useState<string>("");
+  const [profileName, setProfileName] = useState<string>("الطالب");
   const [active, setActive] = useState<SectionKey>("overview");
 
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
@@ -255,7 +255,7 @@ export default function StudentPortal() {
     load();
   };
 
-  const studentName = profile?.full_name || "الطالب";
+  const studentName = profileName;
 
   // Stats
   const stats = useMemo(() => {
