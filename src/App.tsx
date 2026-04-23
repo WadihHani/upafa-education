@@ -17,6 +17,7 @@ import TeacherStudents from "./pages/teacher/TeacherStudents";
 import TeacherMaterials from "./pages/teacher/TeacherMaterials";
 import TeacherAssessments from "./pages/teacher/TeacherAssessments";
 import TeacherGrades from "./pages/teacher/TeacherGrades";
+import TeacherAttendance from "./pages/teacher/TeacherAttendance";
 import Publications from "./pages/Publications";
 
 import Conferences from "./pages/Conferences";
@@ -83,6 +84,7 @@ const App = () => (
             <Route path="/portal/teacher/materials" element={<TeacherMaterials />} />
             <Route path="/portal/teacher/assessments" element={<TeacherAssessments />} />
             <Route path="/portal/teacher/grades" element={<TeacherGrades />} />
+            <Route path="/portal/teacher/attendance" element={<TeacherAttendance />} />
             <Route path="/login" element={<AdminLogin />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminLayout />}>
