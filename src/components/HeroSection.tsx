@@ -23,7 +23,7 @@ const newsCategories = [
   { icon: GraduationCap, label: "أخبار الامتحانات" },
   { icon: Calendar, label: "أخبار شؤون الطلاب" },
   { icon: FileText, label: "مناقشة رسائل الماجستير والدكتوراه" },
-  { icon: Megaphone, label: "أخبار مركز التدريب والتعلم مدى الحياة" },
+  { icon: Megaphone, label: "أخبار مركز التدريب" },
   { icon: AlertCircle, label: "ملاحظات الطلاب", muted: true },
 ];
 
