@@ -94,6 +94,22 @@ export default function StudentPortal() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
+        <div className="mb-5 bg-card border border-border rounded-md p-4 flex items-center justify-between gap-4 flex-wrap shadow-sm">
+          <div>
+            <h2 className="text-sm font-bold text-primary mb-0.5">المقررات المتاحة للتسجيل</h2>
+            <p className="text-xs text-muted-foreground">
+              تصفّح المقررات المفتوحة وأرسل طلب الانضمام إلى المحاضر.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("/portal/student/catalog")}
+            className="text-xs font-bold bg-accent text-accent-foreground px-3 py-2 rounded-md hover:brightness-110 transition-all"
+          >
+            تصفح المقررات
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5">
           {/* Sidebar */}
           <aside className="bg-card border border-border rounded-md overflow-hidden h-fit shadow-sm">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -17,24 +17,29 @@ export function useTeacherCourses() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  const fetchCourses = useCallback(async () => {
     if (!user) {
       setCourses([]);
       setLoading(false);
       return;
     }
-    (async () => {
-      setLoading(true);
-      const { data, error } = await supabase
-        .from("courses")
-        .select("id, title, code, level, description, is_open_for_enrollment")
-        .eq("teacher_user_id", user.id)
-        .order("created_at", { ascending: false });
-      if (error) setError(error.message);
-      else setCourses(data ?? []);
-      setLoading(false);
-    })();
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("courses")
+      .select("id, title, code, level, description, is_open_for_enrollment")
+      .eq("teacher_user_id", user.id)
+      .order("created_at", { ascending: false });
+    if (error) setError(error.message);
+    else {
+      setCourses(data ?? []);
+      setError(null);
+    }
+    setLoading(false);
   }, [user]);
 
-  return { courses, loading, error };
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
+
+  return { courses, loading, error, refetch: fetchCourses };
 }
