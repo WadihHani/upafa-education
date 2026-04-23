@@ -72,6 +72,23 @@ export default function StudentCatalog() {
 
   useEffect(() => {
     load();
+    if (!user) return;
+    const channel = supabase
+      .channel(`student-enrollments-${user.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "enrollments",
+          filter: `student_user_id=eq.${user.id}`,
+        },
+        () => load()
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.id]);
 

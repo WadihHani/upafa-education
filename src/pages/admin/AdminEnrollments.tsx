@@ -71,6 +71,17 @@ export default function AdminEnrollments() {
 
   useEffect(() => {
     load();
+    const channel = supabase
+      .channel("admin-enrollments")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enrollments" },
+        () => load()
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const updateStatus = async (id: string, status: "approved" | "rejected") => {

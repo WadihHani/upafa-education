@@ -79,6 +79,28 @@ export default function TeacherStudents() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coursesLoading, courseIds.join(",")]);
 
+  // Realtime: refresh when any enrollment on this teacher's courses changes
+  useEffect(() => {
+    if (courseIds.length === 0) return;
+    const channel = supabase
+      .channel(`teacher-enrollments-${courseIds[0]}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enrollments" },
+        (payload) => {
+          const row = (payload.new ?? payload.old) as { course_id?: string } | null;
+          if (row?.course_id && courseIds.includes(row.course_id)) {
+            load();
+          }
+        }
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [courseIds.join(",")]);
+
   const updateStatus = async (id: string, status: "approved" | "rejected") => {
     setSavingId(id);
     const { error } = await supabase
