@@ -39,6 +39,7 @@ import AdminMofadlaPrograms from "./pages/admin/AdminMofadlaPrograms";
 import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import StudentCatalog from "./pages/student/StudentCatalog";
 import MofadlaApply from "./pages/MofadlaApply";
+import Mofadla from "./pages/Mofadla";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,8 +65,9 @@ const App = () => (
               
               <Route path="/conferences" element={<Conferences />} />
               <Route path="/contact" element={<Contact />} />
-              <Route path="/mofadla" element={<MofadlaApply />} />
+              <Route path="/mofadla" element={<Mofadla />} />
             </Route>
+            <Route path="/mofadla/apply" element={<MofadlaApply />} />
             <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/portal/student/catalog" element={<StudentCatalog />} />
             <Route path="/portal/teacher" element={<TeacherPortal />} />
