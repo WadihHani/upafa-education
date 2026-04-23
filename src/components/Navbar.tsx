@@ -34,7 +34,6 @@ const navLinks: NavItem[] = [
     ],
   },
   { label: "البوابة", href: "/portal" },
-  { label: "الهيئة الإدارية والتدريسية", href: "/team" },
   { label: "المنشورات", href: "/publications" },
   { label: "اتصل بنا", href: "/contact" },
 ];
