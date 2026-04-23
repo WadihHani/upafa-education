@@ -24,7 +24,7 @@ const newsCategories = [
   { icon: Calendar, label: "أخبار شؤون الطلاب" },
   { icon: FileText, label: "مناقشة رسائل الماجستير والدكتوراه" },
   { icon: Megaphone, label: "أخبار مركز التدريب والتعلم مدى الحياة" },
-  { icon: AlertCircle, label: "عقوبات الطلاب", muted: true },
+  { icon: AlertCircle, label: "ملاحظات الطلاب", muted: true },
 ];
 
 export default function HeroSection() {
