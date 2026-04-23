@@ -11,7 +11,7 @@ import About from "./pages/About";
 import Programs from "./pages/Programs";
 import Portal from "./pages/Portal";
 import Publications from "./pages/Publications";
-import Team from "./pages/Team";
+
 import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
 import Faculties from "./pages/Faculties";
