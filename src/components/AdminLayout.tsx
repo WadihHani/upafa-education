@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
 
 const navItems = [
@@ -12,6 +12,8 @@ const navItems = [
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },
   { label: "البوابات", path: "/admin/portal", icon: DoorOpen },
   { label: "طلبات التسجيل", path: "/admin/enrollments", icon: ClipboardList },
+  { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
+  { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
   { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
 ];
 

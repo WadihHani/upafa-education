@@ -251,6 +251,202 @@ export type Database = {
           },
         ]
       }
+      mofadla_application_grades: {
+        Row: {
+          application_id: string
+          created_at: string
+          id: string
+          max_score: number
+          score: number
+          sort_order: number
+          subject: string
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          id?: string
+          max_score?: number
+          score?: number
+          sort_order?: number
+          subject: string
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          id?: string
+          max_score?: number
+          score?: number
+          sort_order?: number
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mofadla_application_grades_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "mofadla_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mofadla_application_preferences: {
+        Row: {
+          application_id: string
+          created_at: string
+          id: string
+          preference_order: number
+          program_id: string
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          id?: string
+          preference_order: number
+          program_id: string
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          id?: string
+          preference_order?: number
+          program_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mofadla_application_preferences_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "mofadla_applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mofadla_application_preferences_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "mofadla_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mofadla_applications: {
+        Row: {
+          accepted_program_id: string | null
+          address: string
+          admin_notes: string
+          birth_date: string | null
+          branch: Database["public"]["Enums"]["mofadla_branch"]
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          email: string
+          exam_number: string
+          full_name: string
+          gender: string
+          graduation_year: number | null
+          id: string
+          national_id: string
+          notes: string
+          phone: string
+          status: Database["public"]["Enums"]["application_status"]
+          total_score: number
+          updated_at: string
+        }
+        Insert: {
+          accepted_program_id?: string | null
+          address?: string
+          admin_notes?: string
+          birth_date?: string | null
+          branch: Database["public"]["Enums"]["mofadla_branch"]
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          email?: string
+          exam_number?: string
+          full_name: string
+          gender?: string
+          graduation_year?: number | null
+          id?: string
+          national_id: string
+          notes?: string
+          phone?: string
+          status?: Database["public"]["Enums"]["application_status"]
+          total_score?: number
+          updated_at?: string
+        }
+        Update: {
+          accepted_program_id?: string | null
+          address?: string
+          admin_notes?: string
+          birth_date?: string | null
+          branch?: Database["public"]["Enums"]["mofadla_branch"]
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          email?: string
+          exam_number?: string
+          full_name?: string
+          gender?: string
+          graduation_year?: number | null
+          id?: string
+          national_id?: string
+          notes?: string
+          phone?: string
+          status?: Database["public"]["Enums"]["application_status"]
+          total_score?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mofadla_applications_accepted_program_id_fkey"
+            columns: ["accepted_program_id"]
+            isOneToOne: false
+            referencedRelation: "mofadla_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mofadla_programs: {
+        Row: {
+          created_at: string
+          description: string
+          faculty: string
+          id: string
+          is_open: boolean
+          min_score: number
+          name: string
+          required_branch: Database["public"]["Enums"]["mofadla_branch"]
+          seats: number
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          faculty?: string
+          id?: string
+          is_open?: boolean
+          min_score?: number
+          name: string
+          required_branch?: Database["public"]["Enums"]["mofadla_branch"]
+          seats?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          faculty?: string
+          id?: string
+          is_open?: boolean
+          min_score?: number
+          name?: string
+          required_branch?: Database["public"]["Enums"]["mofadla_branch"]
+          seats?: number
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       portal_items: {
         Row: {
           created_at: string
@@ -440,6 +636,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user" | "teacher" | "student"
+      application_status: "pending" | "accepted" | "rejected" | "waitlisted"
       enrollment_status: "pending" | "approved" | "rejected"
       grade_section:
         | "recorded_lectures"
@@ -450,6 +647,7 @@ export type Database = {
         | "projects"
         | "final"
         | "overall"
+      mofadla_branch: "scientific" | "literary" | "both"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -578,6 +776,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user", "teacher", "student"],
+      application_status: ["pending", "accepted", "rejected", "waitlisted"],
       enrollment_status: ["pending", "approved", "rejected"],
       grade_section: [
         "recorded_lectures",
@@ -589,6 +788,7 @@ export const Constants = {
         "final",
         "overall",
       ],
+      mofadla_branch: ["scientific", "literary", "both"],
     },
   },
 } as const
