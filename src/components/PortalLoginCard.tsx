@@ -46,7 +46,7 @@ export default function PortalLoginCard() {
           description:
             role === "student"
               ? "هذا الحساب ليس حساب طالب."
-              : "هذا الحساب ليس حساب أستاذ.",
+              : "هذا الحساب ليس حساب عضو هيئة تدريسية.",
           variant: "destructive",
         });
         return;
@@ -97,7 +97,7 @@ export default function PortalLoginCard() {
           }`}
         >
           <BookOpen size={14} />
-          بوابة الأستاذ
+          بوابة أعضاء الهيئة التدريسية
         </button>
       </div>
 
