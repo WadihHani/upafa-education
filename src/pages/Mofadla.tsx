@@ -1,0 +1,445 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  GraduationCap,
+  CalendarDays,
+  FileCheck2,
+  ClipboardList,
+  CheckCircle2,
+  ArrowLeft,
+  Phone,
+  Mail,
+  MapPin,
+  AlertCircle,
+  Users,
+  BookOpen,
+  ScrollText,
+  Clock,
+} from "lucide-react";
+
+const REQUIRED_DOCS = [
+  "صورة شخصية حديثة بخلفية بيضاء",
+  "صورة عن الهوية الشخصية / الرقم الوطني",
+  "وثيقة درجات شهادة الثانوية العامة (الأصلية)",
+  "صورة مصدّقة عن شهادة الثانوية العامة",
+  "إخراج قيد فردي حديث (لا يتجاوز 3 أشهر)",
+  "صورة عن الوثائق العسكرية (للذكور)",
+  "إيصال دفع رسم التقديم",
+];
+
+const TIMELINE = [
+  {
+    title: "فتح باب التقديم",
+    date: "1 / 9 / 2025",
+    desc: "بدء استقبال طلبات المفاضلة عبر الموقع الإلكتروني.",
+    Icon: ClipboardList,
+  },
+  {
+    title: "آخر موعد للتقديم",
+    date: "30 / 9 / 2025",
+    desc: "آخر يوم لاستكمال الطلب ورفع الوثائق المطلوبة.",
+    Icon: Clock,
+  },
+  {
+    title: "إعلان النتائج",
+    date: "15 / 10 / 2025",
+    desc: "نشر نتائج القبول حسب ترتيب الرغبات والمعدّل.",
+    Icon: CheckCircle2,
+  },
+  {
+    title: "بدء التسجيل",
+    date: "20 / 10 / 2025",
+    desc: "تسجيل الطلاب المقبولين ودفع الرسوم الجامعية.",
+    Icon: BookOpen,
+  },
+];
+
+const STEPS = [
+  { n: 1, title: "أدخل بياناتك الشخصية", desc: "اسم رباعي، رقم وطني، تواصل، وعنوان." },
+  { n: 2, title: "أضف علاماتك", desc: "اختر الفرع وأدخل علامات كل مادة بدقة." },
+  { n: 3, title: "رتّب الرغبات", desc: "اختر البرامج التي تناسبك ورتّبها حسب الأولوية." },
+  { n: 4, title: "أرسل الطلب", desc: "احصل على رقم الطلب واحتفظ به للمراجعة." },
+];
+
+type Program = {
+  id: string;
+  name: string;
+  faculty: string;
+  seats: number;
+  min_score: number;
+  required_branch: "scientific" | "literary" | "both";
+};
+
+const branchLabel = (b: Program["required_branch"]) =>
+  b === "scientific" ? "علمي" : b === "literary" ? "أدبي" : "علمي + أدبي";
+
+export default function Mofadla() {
+  const [programs, setPrograms] = useState<Program[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("mofadla_programs")
+        .select("id,name,faculty,seats,min_score,required_branch")
+        .eq("is_open", true)
+        .order("sort_order", { ascending: true });
+      setPrograms((data as Program[]) ?? []);
+      setLoading(false);
+    })();
+  }, []);
+
+  const totalSeats = programs.reduce((s, p) => s + (p.seats || 0), 0);
+
+  return (
+    <div dir="rtl">
+      {/* Hero */}
+      <section className="relative bg-primary text-primary-foreground overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-10 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle at 80% 20%, hsl(var(--accent)) 0%, transparent 50%)",
+          }}
+        />
+        <div className="container mx-auto px-4 py-16 md:py-24 relative">
+          <div className="max-w-3xl">
+            <Badge className="bg-accent text-accent-foreground hover:bg-accent mb-4 text-xs font-bold">
+              مفاضلة خريف 2025
+            </Badge>
+            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
+              التقديم على المفاضلة الجامعية
+            </h1>
+            <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl">
+              فُتح باب التقديم على مفاضلة خريف 2025 في جامعة UPAFA – فرع سوريا. أكمل
+              طلبك إلكترونياً خلال دقائق، اختر الكلية والاختصاص المناسبين لك، وثبّت
+              مقعدك الجامعي.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button
+                asChild
+                size="lg"
+                className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2"
+              >
+                <Link to="/mofadla/apply">
+                  <ClipboardList size={18} />
+                  قدّم الآن
+                </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2"
+              >
+                <a href="#programs">
+                  <BookOpen size={18} />
+                  عرض البرامج المتاحة
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          {/* Quick stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-3xl">
+            <StatCard label="البرامج المتاحة" value={loading ? "…" : String(programs.length)} Icon={GraduationCap} />
+            <StatCard label="إجمالي المقاعد" value={loading ? "…" : String(totalSeats)} Icon={Users} />
+            <StatCard label="آخر موعد" value="30 / 9" Icon={CalendarDays} />
+            <StatCard label="إعلان النتائج" value="15 / 10" Icon={CheckCircle2} />
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="py-14 md:py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="الجدول الزمني"
+            title="مواعيد المفاضلة"
+            subtitle="احرص على التقديم قبل انتهاء الموعد المحدّد لضمان قبول طلبك."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+            {TIMELINE.map((t) => (
+              <Card
+                key={t.title}
+                className="border-t-4 border-t-accent hover:shadow-md transition-shadow"
+              >
+                <CardContent className="p-5">
+                  <div className="w-11 h-11 rounded-md bg-accent/15 text-primary flex items-center justify-center mb-3">
+                    <t.Icon size={20} />
+                  </div>
+                  <h3 className="font-bold text-primary mb-1">{t.title}</h3>
+                  <p className="text-sm font-bold text-accent mb-2">{t.date}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{t.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Required documents */}
+      <section className="py-14 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-10 items-start">
+            <div>
+              <SectionHeading
+                badge="الوثائق المطلوبة"
+                title="ما تحتاجه لإتمام التقديم"
+                subtitle="جهّز نسخاً واضحة من الوثائق التالية قبل البدء بالتقديم."
+                align="start"
+              />
+              <ul className="space-y-2 mt-6">
+                {REQUIRED_DOCS.map((doc, i) => (
+                  <li
+                    key={doc}
+                    className="flex items-start gap-3 bg-card border border-border rounded-md px-4 py-3"
+                  >
+                    <span className="mt-0.5 w-6 h-6 rounded-full bg-accent text-accent-foreground text-xs font-bold flex items-center justify-center shrink-0">
+                      {i + 1}
+                    </span>
+                    <span className="text-sm text-foreground leading-relaxed">{doc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* How it works */}
+            <div>
+              <SectionHeading
+                badge="كيف تتقدّم؟"
+                title="خطوات بسيطة لإكمال طلبك"
+                subtitle="نظام التقديم إلكتروني بالكامل ولن يستغرق منك أكثر من 10 دقائق."
+                align="start"
+              />
+              <ol className="mt-6 space-y-3">
+                {STEPS.map((s) => (
+                  <li
+                    key={s.n}
+                    className="flex gap-4 bg-card border border-border rounded-md p-4"
+                  >
+                    <div className="w-10 h-10 rounded-md bg-primary text-primary-foreground font-bold flex items-center justify-center shrink-0">
+                      {s.n}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-primary mb-0.5 text-sm">{s.title}</h4>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Programs */}
+      <section id="programs" className="py-14 md:py-20 bg-background scroll-mt-24">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="البرامج المتاحة"
+            title="اختصاصات مفاضلة خريف 2025"
+            subtitle="اطّلع على البرامج المفتوحة للتقديم وعدد المقاعد والحدّ الأدنى للقبول."
+          />
+
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+            </div>
+          ) : programs.length === 0 ? (
+            <Card className="mt-10">
+              <CardContent className="py-12 text-center">
+                <AlertCircle className="mx-auto text-muted-foreground/40 mb-3" size={40} />
+                <p className="text-sm text-muted-foreground">
+                  لا توجد برامج مفتوحة للتقديم حالياً. يرجى المتابعة لاحقاً.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+              {programs.map((p) => (
+                <Card
+                  key={p.id}
+                  className="hover:shadow-md hover:border-primary/40 transition-all"
+                >
+                  <CardContent className="p-5">
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-md bg-primary/10 text-primary flex items-center justify-center">
+                        <GraduationCap size={20} />
+                      </div>
+                      <Badge variant="outline" className="text-[10px]">
+                        {branchLabel(p.required_branch)}
+                      </Badge>
+                    </div>
+                    <h3 className="font-bold text-primary mb-1">{p.name}</h3>
+                    {p.faculty && (
+                      <p className="text-xs text-muted-foreground mb-3">{p.faculty}</p>
+                    )}
+                    <div className="flex items-center justify-between text-xs pt-3 border-t border-border">
+                      <span className="text-muted-foreground">
+                        المقاعد: <strong className="text-foreground">{p.seats}</strong>
+                      </span>
+                      <span className="text-muted-foreground">
+                        الحد الأدنى:{" "}
+                        <strong className="text-foreground">{Number(p.min_score)}</strong>
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Important notes */}
+      <section className="py-14 md:py-20 bg-muted/30">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <SectionHeading
+            badge="ملاحظات هامة"
+            title="قبل أن تبدأ التقديم"
+            subtitle="معلومات يجب عليك معرفتها لضمان قبول طلبك."
+          />
+          <Card className="mt-10 border-r-4 border-r-accent">
+            <CardContent className="p-6">
+              <ul className="space-y-3 text-sm leading-relaxed">
+                {[
+                  "الطلب الإلكتروني نهائي بعد الإرسال ولا يمكن تعديله — راجع بياناتك جيداً.",
+                  "ترتيب الرغبات مهمّ: سيُقبل الطالب في أعلى رغبة تسمح بها علامته ومقاعدها متوفرة.",
+                  "أيّ بيانات أو علامات غير صحيحة تؤدي إلى استبعاد الطلب نهائياً.",
+                  "احتفظ برقم الطلب الذي يظهر بعد الإرسال للرجوع إليه عند الاستفسار.",
+                  "ستتواصل معك إدارة الجامعة عبر الهاتف أو البريد عند صدور النتائج.",
+                ].map((note) => (
+                  <li key={note} className="flex items-start gap-3">
+                    <FileCheck2 size={18} className="text-accent shrink-0 mt-0.5" />
+                    <span className="text-foreground">{note}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* CTA + Contact */}
+      <section className="py-14 md:py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-3 gap-8 items-center">
+            <div className="lg:col-span-2">
+              <h2 className="text-2xl md:text-4xl font-extrabold mb-3 leading-tight">
+                جاهز للتقديم؟ ثبّت مقعدك الآن
+              </h2>
+              <p className="text-primary-foreground/85 leading-relaxed mb-5 text-base">
+                ابدأ تعبئة طلبك مباشرة. لن يستغرق الأمر أكثر من 10 دقائق، وستحصل على رقم
+                طلب فوري لمتابعة حالة قبولك.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2"
+                >
+                  <Link to="/mofadla/apply">
+                    قدّم الآن
+                    <ArrowLeft size={18} />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2"
+                >
+                  <Link to="/faq">
+                    <ScrollText size={18} />
+                    أسئلة شائعة
+                  </Link>
+                </Button>
+              </div>
+            </div>
+
+            <Card className="bg-primary-foreground/5 border-primary-foreground/15 backdrop-blur">
+              <CardContent className="p-5 space-y-3">
+                <h3 className="font-bold text-primary-foreground mb-2">
+                  للاستفسار والدعم
+                </h3>
+                <ContactRow Icon={Phone} text="+963 11 000 0000" />
+                <ContactRow Icon={Mail} text="mofadla@upafa.education" />
+                <ContactRow Icon={MapPin} text="دمشق – سوريا" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function SectionHeading({
+  badge,
+  title,
+  subtitle,
+  align = "center",
+}: {
+  badge: string;
+  title: string;
+  subtitle?: string;
+  align?: "center" | "start";
+}) {
+  return (
+    <div className={align === "center" ? "text-center max-w-2xl mx-auto" : "text-start"}>
+      <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">
+        {badge}
+      </span>
+      <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  Icon,
+}: {
+  label: string;
+  value: string;
+  Icon: typeof GraduationCap;
+}) {
+  return (
+    <div className="bg-primary-foreground/10 backdrop-blur rounded-md p-3 border border-primary-foreground/15">
+      <Icon size={18} className="text-accent mb-1.5" />
+      <div className="text-xl md:text-2xl font-extrabold leading-none">{value}</div>
+      <div className="text-[11px] text-primary-foreground/75 mt-1">{label}</div>
+    </div>
+  );
+}
+
+function ContactRow({
+  Icon,
+  text,
+}: {
+  Icon: typeof Phone;
+  text: string;
+}) {
+  return (
+    <div className="flex items-center gap-3 text-sm text-primary-foreground/90">
+      <span className="w-8 h-8 rounded-md bg-accent/20 text-accent flex items-center justify-center shrink-0">
+        <Icon size={14} />
+      </span>
+      <span dir="ltr" className="font-medium">
+        {text}
+      </span>
+    </div>
+  );
+}

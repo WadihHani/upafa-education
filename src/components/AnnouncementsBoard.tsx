@@ -57,7 +57,7 @@ export default function AnnouncementsBoard() {
                 className="inline-flex items-center gap-2 bg-accent text-accent-foreground font-bold px-5 py-3 rounded-md shadow-sm hover:brightness-110 transition"
               >
                 <GraduationCap size={18} />
-                التقديم على المفاضلة
+                تفاصيل المفاضلة
               </Link>
               <Link
                 to="/programs"
