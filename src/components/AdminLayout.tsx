@@ -36,7 +36,18 @@ export default function AdminLayout() {
       setPendingEnrollments(count ?? 0);
     };
     fetchCount();
-    // refresh when route changes (after admin acts on a request)
+
+    const channel = supabase
+      .channel("admin-layout-enrollments")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enrollments" },
+        () => fetchCount()
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [isAdmin, location.pathname]);
 
   if (loading) {

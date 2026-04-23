@@ -19,27 +19,38 @@ export default function TeacherPortal() {
   const { user } = useAuth();
   const [pendingCount, setPendingCount] = useState(0);
 
+  const fetchPending = async (uid: string) => {
+    const { data: cs } = await supabase
+      .from("courses")
+      .select("id")
+      .eq("teacher_user_id", uid);
+    const ids = (cs ?? []).map((c) => c.id);
+    if (ids.length === 0) {
+      setPendingCount(0);
+      return;
+    }
+    const { count } = await supabase
+      .from("enrollments")
+      .select("id", { count: "exact", head: true })
+      .in("course_id", ids)
+      .eq("status", "pending");
+    setPendingCount(count ?? 0);
+  };
+
   useEffect(() => {
     if (!user) return;
-    const fetchPending = async () => {
-      // get my courses, then count pending enrollments on them
-      const { data: cs } = await supabase
-        .from("courses")
-        .select("id")
-        .eq("teacher_user_id", user.id);
-      const ids = (cs ?? []).map((c) => c.id);
-      if (ids.length === 0) {
-        setPendingCount(0);
-        return;
-      }
-      const { count } = await supabase
-        .from("enrollments")
-        .select("id", { count: "exact", head: true })
-        .in("course_id", ids)
-        .eq("status", "pending");
-      setPendingCount(count ?? 0);
+    fetchPending(user.id);
+    const channel = supabase
+      .channel(`teacher-portal-enrollments-${user.id}`)
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "enrollments" },
+        () => fetchPending(user.id)
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(channel);
     };
-    fetchPending();
   }, [user]);
 
   const handleLogout = async () => {
