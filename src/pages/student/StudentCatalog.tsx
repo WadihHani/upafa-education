@@ -78,7 +78,42 @@ export default function StudentCatalog() {
       .on(
         "postgres_changes",
         {
-          event: "*",
+          event: "UPDATE",
+          schema: "public",
+          table: "enrollments",
+          filter: `student_user_id=eq.${user.id}`,
+        },
+        (payload) => {
+          const newRow = payload.new as { status?: string; course_id?: string } | null;
+          const oldRow = payload.old as { status?: string } | null;
+          if (newRow && oldRow && newRow.status !== oldRow.status) {
+            if (newRow.status === "approved") {
+              toast({ title: "🎉 تم قبول طلبك", description: "أصبحت مسجلاً في المقرر." });
+            } else if (newRow.status === "rejected") {
+              toast({
+                title: "تم رفض الطلب",
+                description: "تواصل مع الإدارة لمزيد من التفاصيل.",
+                variant: "destructive",
+              });
+            }
+          }
+          load();
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "enrollments",
+          filter: `student_user_id=eq.${user.id}`,
+        },
+        () => load()
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
           schema: "public",
           table: "enrollments",
           filter: `student_user_id=eq.${user.id}`,
