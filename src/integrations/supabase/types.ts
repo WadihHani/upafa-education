@@ -14,6 +14,169 @@ export type Database = {
   }
   public: {
     Tables: {
+      assessment_submissions: {
+        Row: {
+          assessment_id: string
+          content: string
+          feedback: string
+          file_path: string | null
+          graded_at: string | null
+          graded_by: string | null
+          id: string
+          link_url: string | null
+          score: number | null
+          status: Database["public"]["Enums"]["submission_status"]
+          student_user_id: string
+          submitted_at: string
+          updated_at: string
+        }
+        Insert: {
+          assessment_id: string
+          content?: string
+          feedback?: string
+          file_path?: string | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          link_url?: string | null
+          score?: number | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          student_user_id: string
+          submitted_at?: string
+          updated_at?: string
+        }
+        Update: {
+          assessment_id?: string
+          content?: string
+          feedback?: string
+          file_path?: string | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          link_url?: string | null
+          score?: number | null
+          status?: Database["public"]["Enums"]["submission_status"]
+          student_user_id?: string
+          submitted_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessment_submissions_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "assessments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      assessments: {
+        Row: {
+          course_id: string
+          created_at: string
+          created_by: string | null
+          description: string
+          due_at: string | null
+          id: string
+          is_published: boolean
+          kind: Database["public"]["Enums"]["assessment_kind"]
+          max_score: number
+          resource_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          due_at?: string | null
+          id?: string
+          is_published?: boolean
+          kind?: Database["public"]["Enums"]["assessment_kind"]
+          max_score?: number
+          resource_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          due_at?: string | null
+          id?: string
+          is_published?: boolean
+          kind?: Database["public"]["Enums"]["assessment_kind"]
+          max_score?: number
+          resource_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "assessments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      attendance_records: {
+        Row: {
+          course_id: string
+          created_at: string
+          enrollment_id: string
+          id: string
+          marked_by: string | null
+          notes: string
+          session_date: string
+          status: Database["public"]["Enums"]["attendance_status"]
+          student_user_id: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          enrollment_id: string
+          id?: string
+          marked_by?: string | null
+          notes?: string
+          session_date: string
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_user_id: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          enrollment_id?: string
+          id?: string
+          marked_by?: string | null
+          notes?: string
+          session_date?: string
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_user_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_records_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_records_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conferences: {
         Row: {
           created_at: string
@@ -738,6 +901,8 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user" | "teacher" | "student"
       application_status: "pending" | "accepted" | "rejected" | "waitlisted"
+      assessment_kind: "quiz" | "assignment" | "project" | "exam"
+      attendance_status: "present" | "absent" | "late" | "excused"
       enrollment_status: "pending" | "approved" | "rejected"
       grade_section:
         | "recorded_lectures"
@@ -749,6 +914,7 @@ export type Database = {
         | "final"
         | "overall"
       mofadla_branch: "scientific" | "literary" | "both"
+      submission_status: "submitted" | "graded" | "late"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -878,6 +1044,8 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user", "teacher", "student"],
       application_status: ["pending", "accepted", "rejected", "waitlisted"],
+      assessment_kind: ["quiz", "assignment", "project", "exam"],
+      attendance_status: ["present", "absent", "late", "excused"],
       enrollment_status: ["pending", "approved", "rejected"],
       grade_section: [
         "recorded_lectures",
@@ -890,6 +1058,7 @@ export const Constants = {
         "overall",
       ],
       mofadla_branch: ["scientific", "literary", "both"],
+      submission_status: ["submitted", "graded", "late"],
     },
   },
 } as const
