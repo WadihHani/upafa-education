@@ -447,6 +447,107 @@ export type Database = {
         }
         Relationships: []
       }
+      news_categories: {
+        Row: {
+          created_at: string
+          icon_name: string
+          id: string
+          is_active: boolean
+          is_highlighted: boolean
+          key: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          icon_name?: string
+          id?: string
+          is_active?: boolean
+          is_highlighted?: boolean
+          key: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          icon_name?: string
+          id?: string
+          is_active?: boolean
+          is_highlighted?: boolean
+          key?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      news_posts: {
+        Row: {
+          attachment_name: string | null
+          attachment_url: string | null
+          category_id: string
+          content: string
+          cover_image_url: string | null
+          created_at: string
+          external_link: string | null
+          id: string
+          is_published: boolean
+          published_at: string
+          slug: string | null
+          sort_order: number
+          summary: string
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          attachment_name?: string | null
+          attachment_url?: string | null
+          category_id: string
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          external_link?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string
+          slug?: string | null
+          sort_order?: number
+          summary?: string
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          attachment_name?: string | null
+          attachment_url?: string | null
+          category_id?: string
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          external_link?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string
+          slug?: string | null
+          sort_order?: number
+          summary?: string
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "news_posts_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "news_categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_items: {
         Row: {
           created_at: string
