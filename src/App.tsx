@@ -95,6 +95,8 @@ const App = () => (
               <Route path="enrollments" element={<AdminEnrollments />} />
               <Route path="mofadla/programs" element={<AdminMofadlaPrograms />} />
               <Route path="mofadla/applications" element={<AdminMofadlaApplications />} />
+              <Route path="news" element={<AdminNewsCategories />} />
+              <Route path="news/:categoryId/posts" element={<AdminNewsPosts />} />
               <Route path="site-content" element={<AdminSiteContent />} />
             </Route>
             <Route path="*" element={<NotFound />} />
