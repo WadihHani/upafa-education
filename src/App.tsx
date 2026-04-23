@@ -40,6 +40,10 @@ import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import StudentCatalog from "./pages/student/StudentCatalog";
 import MofadlaApply from "./pages/MofadlaApply";
 import Mofadla from "./pages/Mofadla";
+import NewsCategory from "./pages/NewsCategory";
+import NewsPost from "./pages/NewsPost";
+import AdminNewsCategories from "./pages/admin/AdminNewsCategories";
+import AdminNewsPosts from "./pages/admin/AdminNewsPosts";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -66,6 +70,8 @@ const App = () => (
               <Route path="/conferences" element={<Conferences />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/mofadla" element={<Mofadla />} />
+              <Route path="/news/:categoryKey" element={<NewsCategory />} />
+              <Route path="/news/:categoryKey/:postId" element={<NewsPost />} />
             </Route>
             <Route path="/mofadla/apply" element={<MofadlaApply />} />
             <Route path="/portal/student" element={<StudentPortal />} />

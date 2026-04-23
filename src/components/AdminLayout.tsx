@@ -1,12 +1,13 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
 
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
   { label: "شرائح الهيرو", path: "/admin/hero", icon: Image },
+  { label: "أقسام الأخبار", path: "/admin/news", icon: Newspaper },
   { label: "المستخدمون", path: "/admin/users", icon: Users },
   { label: "المؤتمرات", path: "/admin/conferences", icon: CalendarDays },
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },

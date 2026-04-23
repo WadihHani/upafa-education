@@ -1,31 +1,31 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Megaphone,
-  Newspaper,
-  FileText,
-  GraduationCap,
-  Calendar,
-  BookOpen,
-  AlertCircle,
-} from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { GraduationCap, BookOpen, Newspaper } from "lucide-react";
+import { getNewsIcon } from "@/lib/news-icons";
 
-type Item = {
-  label: string;
-  href: string;
-  Icon: typeof Newspaper;
-  external?: boolean;
+type Category = {
+  id: string;
+  key: string;
+  title: string;
+  icon_name: string;
+  is_highlighted: boolean;
 };
 
-const items: Item[] = [
-  { label: "أخبار الجامعة", href: "/about", Icon: Newspaper },
-  { label: "أخبار الامتحانات", href: "/programs", Icon: GraduationCap },
-  { label: "أخبار شؤون الطلاب", href: "/portal", Icon: Calendar },
-  { label: "مناقشة رسائل الماجستير والدكتوراه", href: "/publications", Icon: FileText },
-  { label: "أخبار مركز التدريب", href: "/conferences", Icon: Megaphone },
-  { label: "ملاحظات الطلاب", href: "/contact", Icon: AlertCircle, external: false },
-];
-
 export default function AnnouncementsBoard() {
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("news_categories")
+        .select("id,key,title,icon_name,is_highlighted")
+        .eq("is_active", true)
+        .order("sort_order", { ascending: true });
+      setCategories(data ?? []);
+    })();
+  }, []);
+
   return (
     <section
       aria-labelledby="announcements-heading"
@@ -34,7 +34,7 @@ export default function AnnouncementsBoard() {
     >
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-3 gap-8 items-start">
-          {/* Left/main intro */}
+          {/* Intro */}
           <div className="lg:col-span-2 space-y-4">
             <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full">
               أهم الإعلانات
@@ -69,7 +69,7 @@ export default function AnnouncementsBoard() {
             </div>
           </div>
 
-          {/* SVU-style announcements list */}
+          {/* Categories list */}
           <aside className="lg:col-span-1 w-full" aria-label="آخر الأخبار">
             <div className="bg-primary text-primary-foreground rounded-md px-4 py-3 flex items-center justify-between shadow-md">
               <span className="font-bold text-sm">آخر الأخبار</span>
@@ -77,31 +77,36 @@ export default function AnnouncementsBoard() {
             </div>
 
             <ul className="mt-2 space-y-2">
-              {/* Highlighted Mofadla item */}
-              <li>
-                <Link
-                  to="/mofadla"
-                  className="group flex items-center justify-between gap-3 bg-accent text-accent-foreground rounded-md px-4 py-3 shadow-sm hover:brightness-110 transition"
-                >
-                  <span className="font-bold text-sm">مفاضلة خريف 2025</span>
-                  <Megaphone
-                    size={18}
-                    className="shrink-0 group-hover:scale-110 transition-transform"
-                  />
-                </Link>
-              </li>
-
-              {items.map(({ label, href, Icon }) => (
-                <li key={label}>
-                  <Link
-                    to={href}
-                    className="flex items-center justify-between gap-3 bg-card border border-border rounded-md px-4 py-3 text-sm font-medium text-foreground hover:border-primary hover:text-primary hover:shadow-sm transition"
-                  >
-                    <span>{label}</span>
-                    <Icon size={16} className="text-muted-foreground shrink-0" />
-                  </Link>
-                </li>
-              ))}
+              {categories.length === 0
+                ? Array.from({ length: 6 }).map((_, i) => (
+                    <li
+                      key={i}
+                      className="h-12 bg-muted/50 rounded-md animate-pulse"
+                    />
+                  ))
+                : categories.map((c) => {
+                    const Icon = getNewsIcon(c.icon_name);
+                    const highlighted = c.is_highlighted;
+                    const target = c.key === "mofadla" ? "/mofadla" : `/news/${c.key}`;
+                    return (
+                      <li key={c.id}>
+                        <Link
+                          to={target}
+                          className={`group flex items-center justify-between gap-3 rounded-md px-4 py-3 text-sm font-medium transition shadow-sm ${
+                            highlighted
+                              ? "bg-accent text-accent-foreground font-bold hover:brightness-110"
+                              : "bg-card border border-border text-foreground hover:border-primary hover:text-primary"
+                          }`}
+                        >
+                          <span>{c.title}</span>
+                          <Icon
+                            size={16}
+                            className={`shrink-0 ${highlighted ? "" : "text-muted-foreground"}`}
+                          />
+                        </Link>
+                      </li>
+                    );
+                  })}
             </ul>
           </aside>
         </div>
