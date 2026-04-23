@@ -3,7 +3,7 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const systems = [
   { label: "بوابة الطلاب", sub: "Student Portal", icon: GraduationCap, color: "hsl(215, 65%, 35%)", href: "/portal" },
-  { label: "نظام التعلم", sub: "LMS", icon: BookOpen, color: "hsl(43, 90%, 52%)", href: "/portal" },
+  { label: "نظام التعلم", sub: "", icon: BookOpen, color: "hsl(43, 90%, 52%)", href: "/portal" },
   { label: "البريد الجامعي", sub: "University Email", icon: Mail, color: "hsl(0, 65%, 50%)", href: "/portal" },
   { label: "المكتبة الرقمية", sub: "E-Library", icon: Library, color: "hsl(160, 55%, 40%)", href: "/publications" },
   { label: "الموسوعة", sub: "Pedia", icon: FileSearch, color: "hsl(280, 50%, 45%)", href: "/publications" },
