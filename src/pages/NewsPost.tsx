@@ -228,15 +228,19 @@ export default function NewsPost() {
           </Button>
         )}
 
-        <div className="mt-10 pt-6 border-t border-border">
-          {category && (
-            <Button asChild variant="outline" className="gap-1">
-              <Link to={`/news/${category.key}`}>
-                <ChevronLeft size={14} />
-                كل منشورات: {category.title}
-              </Link>
-            </Button>
-          )}
+            <div className="mt-10 pt-6 border-t border-border">
+              {category && (
+                <Button asChild variant="outline" className="gap-1">
+                  <Link to={`/news/${category.key}`}>
+                    <ChevronLeft size={14} />
+                    كل منشورات: {category.title}
+                  </Link>
+                </Button>
+              )}
+            </div>
+          </div>
+
+          <NewsCategoriesSidebar sticky highlightActive />
         </div>
       </div>
     </article>
