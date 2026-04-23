@@ -7,7 +7,7 @@ import AdminLogin from "@/pages/AdminLogin";
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
   { label: "شرائح الهيرو", path: "/admin/hero", icon: Image },
-  { label: "أعضاء الفريق", path: "/admin/team", icon: Users },
+  { label: "المستخدمون", path: "/admin/users", icon: Users },
   { label: "المؤتمرات", path: "/admin/conferences", icon: CalendarDays },
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },
   { label: "البوابات", path: "/admin/portal", icon: DoorOpen },

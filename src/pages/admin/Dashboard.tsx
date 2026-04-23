@@ -5,12 +5,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  const [counts, setCounts] = useState({ team: 0, conferences: 0, programs: 0, content: 0, hero: 0, portal: 0 });
+  const [counts, setCounts] = useState({ users: 0, conferences: 0, programs: 0, content: 0, hero: 0, portal: 0 });
 
   useEffect(() => {
     const fetchCounts = async () => {
       const [t, c, p, s, h, po] = await Promise.all([
-        supabase.from("team_members").select("id", { count: "exact", head: true }),
+        supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("conferences").select("id", { count: "exact", head: true }),
         supabase.from("programs").select("id", { count: "exact", head: true }),
         supabase.from("site_content").select("id", { count: "exact", head: true }),
@@ -18,7 +18,7 @@ export default function Dashboard() {
         supabase.from("portal_items").select("id", { count: "exact", head: true }),
       ]);
       setCounts({
-        team: t.count ?? 0,
+        users: t.count ?? 0,
         conferences: c.count ?? 0,
         programs: p.count ?? 0,
         content: s.count ?? 0,
@@ -31,7 +31,7 @@ export default function Dashboard() {
 
   const stats = [
     { label: "شرائح الهيرو", count: counts.hero, icon: Image, color: "bg-pink-500/10 text-pink-600", path: "/admin/hero" },
-    { label: "أعضاء الفريق", count: counts.team, icon: Users, color: "bg-blue-500/10 text-blue-600", path: "/admin/team" },
+    { label: "المستخدمون", count: counts.users, icon: Users, color: "bg-blue-500/10 text-blue-600", path: "/admin/users" },
     { label: "المؤتمرات", count: counts.conferences, icon: CalendarDays, color: "bg-amber-500/10 text-amber-600", path: "/admin/conferences" },
     { label: "البرامج", count: counts.programs, icon: GraduationCap, color: "bg-green-500/10 text-green-600", path: "/admin/programs" },
     { label: "البوابات", count: counts.portal, icon: DoorOpen, color: "bg-indigo-500/10 text-indigo-600", path: "/admin/portal" },
