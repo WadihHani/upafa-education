@@ -1,9 +1,18 @@
-import { Outlet, useNavigate, Link } from "react-router-dom";
+import { ReactNode } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { BookOpen, LogOut, Bell, User, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
-export default function TeacherLayout({ title, showBack = true }: { title?: string; showBack?: boolean }) {
+export default function TeacherLayout({
+  title,
+  showBack = true,
+  children,
+}: {
+  title?: string;
+  showBack?: boolean;
+  children: ReactNode;
+}) {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
