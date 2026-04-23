@@ -199,7 +199,7 @@ export default function AdminCourses() {
                         <Users size={11} /> مقبول: {k.approved}
                       </Badge>
                       {k.pending > 0 && (
-                        <Badge className="text-[11px] bg-amber-500 text-white hover:bg-amber-500/90">
+                        <Badge className="text-[11px] bg-accent text-accent-foreground hover:bg-accent/90">
                           قيد المراجعة: {k.pending}
                         </Badge>
                       )}
