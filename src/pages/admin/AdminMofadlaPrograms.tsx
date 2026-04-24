@@ -23,7 +23,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, GraduationCap } from "lucide-react";
 
-type Branch = "scientific" | "literary" | "both";
+type Branch = "scientific" | "literary" | "both" | "industrial" | "vocational" | "arts" | "sharia";
 
 type Program = {
   id: string;
