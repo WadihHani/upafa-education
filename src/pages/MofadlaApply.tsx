@@ -183,9 +183,11 @@ export default function MofadlaApply() {
     if (!validateStep1() || !validateStep2() || !validateStep3()) return;
     setSubmitting(true);
 
-    const { data: appRow, error: appErr } = await supabase
+    const appId = uuidv4();
+    const { error: appErr } = await supabase
       .from("mofadla_applications")
       .insert({
+        id: appId,
         full_name: personal.full_name.trim(),
         national_id: personal.national_id.trim(),
         exam_number: personal.exam_number.trim(),
@@ -198,21 +200,18 @@ export default function MofadlaApply() {
         total_score: averageNum,
         graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
         notes: extraNotes.trim(),
-      })
-      .select("id")
-      .single();
+      });
 
-    if (appErr || !appRow) {
+    if (appErr) {
       setSubmitting(false);
       toast({
         title: "تعذر إرسال الطلب",
-        description: appErr?.message ?? "خطأ غير معروف",
+        description: appErr.message ?? "خطأ غير معروف",
         variant: "destructive",
       });
       return;
     }
 
-    const appId = appRow.id;
 
     // store the average as a single grade entry for record
     const { error: gErr } = await supabase.from("mofadla_application_grades").insert([
