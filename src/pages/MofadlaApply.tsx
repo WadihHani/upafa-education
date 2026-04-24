@@ -297,19 +297,17 @@ export default function MofadlaApply() {
 
     const appId = appRow.id;
 
-    const filledGrades = grades.filter((g) => g.score !== "");
-    if (filledGrades.length > 0) {
-      const { error: gErr } = await supabase.from("mofadla_application_grades").insert(
-        filledGrades.map((g, i) => ({
-          application_id: appId,
-          subject: g.subject,
-          score: parseFloat(g.score),
-          max_score: parseFloat(g.max) || 100,
-          sort_order: i,
-        }))
-      );
-      if (gErr) console.error(gErr);
-    }
+    // store the average as a single grade entry for record
+    const { error: gErr } = await supabase.from("mofadla_application_grades").insert([
+      {
+        application_id: appId,
+        subject: "المعدل العام",
+        score: averageNum,
+        max_score: 100,
+        sort_order: 0,
+      },
+    ]);
+    if (gErr) console.error(gErr);
 
     if (preferences.length > 0) {
       const { error: pErr } = await supabase.from("mofadla_application_preferences").insert(
