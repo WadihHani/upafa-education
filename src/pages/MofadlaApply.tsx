@@ -162,23 +162,10 @@ export default function MofadlaApply() {
     graduation_year: "" as string | "",
   });
 
-  // step 2: branch + grades
+  // step 2: branch + average grade
   const [branch, setBranch] = useState<Branch>("scientific");
-  const [grades, setGrades] = useState<{ subject: string; score: string; max: string }[]>([]);
-
-  useEffect(() => {
-    const subjects = SUBJECTS_BY_BRANCH[branch] ?? SCIENTIFIC_SUBJECTS;
-    setGrades(subjects.map((s) => ({ subject: s, score: "", max: "100" })));
-  }, [branch]);
-
-  const totalScore = useMemo(
-    () => grades.reduce((sum, g) => sum + (parseFloat(g.score) || 0), 0),
-    [grades]
-  );
-  const totalMax = useMemo(
-    () => grades.reduce((sum, g) => sum + (parseFloat(g.max) || 0), 0),
-    [grades]
-  );
+  const [average, setAverage] = useState<string>("");
+  const averageNum = useMemo(() => parseFloat(average) || 0, [average]);
 
   // step 3: programs + preferences
   const [programs, setPrograms] = useState<Program[]>([]);
