@@ -913,7 +913,14 @@ export type Database = {
         | "projects"
         | "final"
         | "overall"
-      mofadla_branch: "scientific" | "literary" | "both"
+      mofadla_branch:
+        | "scientific"
+        | "literary"
+        | "both"
+        | "industrial"
+        | "vocational"
+        | "arts"
+        | "sharia"
       submission_status: "submitted" | "graded" | "late"
     }
     CompositeTypes: {
@@ -1057,7 +1064,15 @@ export const Constants = {
         "final",
         "overall",
       ],
-      mofadla_branch: ["scientific", "literary", "both"],
+      mofadla_branch: [
+        "scientific",
+        "literary",
+        "both",
+        "industrial",
+        "vocational",
+        "arts",
+        "sharia",
+      ],
       submission_status: ["submitted", "graded", "late"],
     },
   },
