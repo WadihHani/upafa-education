@@ -23,7 +23,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { ClipboardList, Eye, Trash2 } from "lucide-react";
 
 type Status = "pending" | "accepted" | "rejected" | "waitlisted";
-type Branch = "scientific" | "literary" | "both";
+type Branch = "scientific" | "literary" | "both" | "industrial" | "vocational" | "arts" | "sharia";
 
 type Application = {
   id: string;
