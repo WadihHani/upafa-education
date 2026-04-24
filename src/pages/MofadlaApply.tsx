@@ -408,7 +408,7 @@ export default function MofadlaApply() {
             {step === 2 && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                  <h2 className="font-bold text-primary">العلامات</h2>
+                  <h2 className="font-bold text-primary">المعدل</h2>
                   <div className="flex items-center gap-2">
                     <label className="text-xs font-medium">الفرع:</label>
                     <Select value={branch} onValueChange={(v) => setBranch(v as Branch)}>
