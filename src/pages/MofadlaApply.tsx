@@ -568,7 +568,7 @@ export default function MofadlaApply() {
                           {preferences.map((pid, idx) => {
                             const p = programs.find((x) => x.id === pid);
                             if (!p) return null;
-                            const eligibleByScore = totalScore >= Number(p.min_score);
+                            const eligibleByScore = averageNum >= Number(p.min_score);
                             return (
                               <li
                                 key={pid}
