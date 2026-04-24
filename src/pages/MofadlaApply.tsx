@@ -295,7 +295,7 @@ export default function MofadlaApply() {
         <div className="flex items-center justify-between mb-8 text-xs">
           {[
             { n: 1, label: "البيانات الشخصية" },
-            { n: 2, label: "العلامات" },
+            { n: 2, label: "المعدل" },
             { n: 3, label: "ترتيب الرغبات" },
           ].map((s, i, arr) => (
             <div key={s.n} className="flex items-center flex-1">
