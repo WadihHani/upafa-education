@@ -49,7 +49,13 @@ const empty = {
 };
 
 const branchLabel = (b: Branch) =>
-  b === "scientific" ? "علمي" : b === "literary" ? "أدبي" : "علمي + أدبي";
+  b === "scientific" ? "علمي"
+  : b === "literary" ? "أدبي"
+  : b === "industrial" ? "صناعي"
+  : b === "vocational" ? "مهني"
+  : b === "arts" ? "فني"
+  : b === "sharia" ? "شرعي"
+  : "علمي + أدبي";
 
 export default function AdminMofadlaPrograms() {
   const [items, setItems] = useState<Program[]>([]);
