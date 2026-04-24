@@ -521,6 +521,10 @@ export default function MofadlaApply() {
                       <SelectContent>
                         <SelectItem value="scientific">علمي</SelectItem>
                         <SelectItem value="literary">أدبي</SelectItem>
+                        <SelectItem value="industrial">صناعي</SelectItem>
+                        <SelectItem value="vocational">مهني</SelectItem>
+                        <SelectItem value="arts">فني</SelectItem>
+                        <SelectItem value="sharia">شرعي</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
