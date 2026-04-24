@@ -23,7 +23,7 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, GraduationCap } from "lucide-react";
 
-type Branch = "scientific" | "literary" | "both";
+type Branch = "scientific" | "literary" | "both" | "industrial" | "vocational" | "arts" | "sharia";
 
 type Program = {
   id: string;
@@ -49,7 +49,13 @@ const empty = {
 };
 
 const branchLabel = (b: Branch) =>
-  b === "scientific" ? "علمي" : b === "literary" ? "أدبي" : "علمي + أدبي";
+  b === "scientific" ? "علمي"
+  : b === "literary" ? "أدبي"
+  : b === "industrial" ? "صناعي"
+  : b === "vocational" ? "مهني"
+  : b === "arts" ? "فني"
+  : b === "sharia" ? "شرعي"
+  : "علمي + أدبي";
 
 export default function AdminMofadlaPrograms() {
   const [items, setItems] = useState<Program[]>([]);
@@ -266,6 +272,10 @@ export default function AdminMofadlaPrograms() {
                   <SelectItem value="both">علمي + أدبي</SelectItem>
                   <SelectItem value="scientific">علمي</SelectItem>
                   <SelectItem value="literary">أدبي</SelectItem>
+                  <SelectItem value="industrial">صناعي</SelectItem>
+                  <SelectItem value="vocational">مهني</SelectItem>
+                  <SelectItem value="arts">فني</SelectItem>
+                  <SelectItem value="sharia">شرعي</SelectItem>
                 </SelectContent>
               </Select>
             </div>

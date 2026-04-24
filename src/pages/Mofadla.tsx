@@ -70,11 +70,17 @@ type Program = {
   faculty: string;
   seats: number;
   min_score: number;
-  required_branch: "scientific" | "literary" | "both";
+  required_branch: "scientific" | "literary" | "both" | "industrial" | "vocational" | "arts" | "sharia";
 };
 
 const branchLabel = (b: Program["required_branch"]) =>
-  b === "scientific" ? "علمي" : b === "literary" ? "أدبي" : "علمي + أدبي";
+  b === "scientific" ? "علمي"
+  : b === "literary" ? "أدبي"
+  : b === "industrial" ? "صناعي"
+  : b === "vocational" ? "مهني"
+  : b === "arts" ? "فني"
+  : b === "sharia" ? "شرعي"
+  : "علمي + أدبي";
 
 export default function Mofadla() {
   const [programs, setPrograms] = useState<Program[]>([]);
