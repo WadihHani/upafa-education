@@ -634,7 +634,7 @@ export default function MofadlaApply() {
                         {eligiblePrograms
                           .filter((p) => !preferences.includes(p.id))
                           .map((p) => {
-                            const eligibleByScore = totalScore >= Number(p.min_score);
+                            const eligibleByScore = averageNum >= Number(p.min_score);
                             return (
                               <div
                                 key={p.id}
