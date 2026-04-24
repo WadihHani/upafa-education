@@ -28,7 +28,8 @@ import {
   CircleAlert,
 } from "lucide-react";
 
-type Branch = "scientific" | "literary";
+type Branch = "scientific" | "literary" | "industrial" | "vocational" | "arts" | "sharia";
+type ProgramBranch = Branch | "both";
 type Program = {
   id: string;
   name: string;
@@ -36,7 +37,7 @@ type Program = {
   description: string;
   seats: number;
   min_score: number;
-  required_branch: "scientific" | "literary" | "both";
+  required_branch: ProgramBranch;
   is_open: boolean;
 };
 
@@ -61,6 +62,68 @@ const LITERARY_SUBJECTS = [
   "التربية الدينية",
   "التربية الوطنية",
 ];
+
+const INDUSTRIAL_SUBJECTS = [
+  "العربية",
+  "الإنجليزية",
+  "الرياضيات",
+  "الفيزياء",
+  "الرسم الفني",
+  "التكنولوجيا",
+  "التخصص العملي",
+  "التربية الوطنية",
+];
+
+const VOCATIONAL_SUBJECTS = [
+  "العربية",
+  "الإنجليزية",
+  "الرياضيات",
+  "العلوم",
+  "التخصص النظري",
+  "التخصص العملي",
+  "التربية الدينية",
+  "التربية الوطنية",
+];
+
+const ARTS_SUBJECTS = [
+  "العربية",
+  "الإنجليزية",
+  "تاريخ الفن",
+  "الرسم",
+  "التصميم",
+  "التخصص العملي",
+  "التربية الدينية",
+  "التربية الوطنية",
+];
+
+const SHARIA_SUBJECTS = [
+  "العربية",
+  "الإنجليزية",
+  "الفقه",
+  "التفسير",
+  "الحديث",
+  "العقيدة",
+  "التاريخ الإسلامي",
+  "التربية الوطنية",
+];
+
+const SUBJECTS_BY_BRANCH: Record<Branch, string[]> = {
+  scientific: SCIENTIFIC_SUBJECTS,
+  literary: LITERARY_SUBJECTS,
+  industrial: INDUSTRIAL_SUBJECTS,
+  vocational: VOCATIONAL_SUBJECTS,
+  arts: ARTS_SUBJECTS,
+  sharia: SHARIA_SUBJECTS,
+};
+
+const BRANCH_LABEL: Record<Branch, string> = {
+  scientific: "علمي",
+  literary: "أدبي",
+  industrial: "صناعي",
+  vocational: "مهني",
+  arts: "فني",
+  sharia: "شرعي",
+};
 
 const personalSchema = z.object({
   full_name: z.string().trim().min(3, "الاسم مطلوب").max(200),
