@@ -278,7 +278,7 @@ export default function MofadlaApply() {
         email: personal.email.trim(),
         address: personal.address.trim(),
         branch,
-        total_score: totalScore,
+        total_score: averageNum,
         graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
         notes: extraNotes.trim(),
       })
