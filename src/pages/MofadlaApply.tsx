@@ -509,49 +509,32 @@ export default function MofadlaApply() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {grades.map((g, i) => (
-                    <div
-                      key={g.subject}
-                      className="bg-muted/30 rounded-md p-3 border border-border"
-                    >
-                      <div className="text-xs font-bold text-primary mb-2">{g.subject}</div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          placeholder="العلامة"
-                          min={0}
-                          step={0.01}
-                          value={g.score}
-                          onChange={(e) => {
-                            const next = [...grades];
-                            next[i] = { ...g, score: e.target.value };
-                            setGrades(next);
-                          }}
-                          className="text-center"
-                        />
-                        <span className="text-muted-foreground text-xs">/</span>
-                        <Input
-                          type="number"
-                          placeholder="من"
-                          min={1}
-                          value={g.max}
-                          onChange={(e) => {
-                            const next = [...grades];
-                            next[i] = { ...g, max: e.target.value };
-                            setGrades(next);
-                          }}
-                          className="text-center w-20"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                <div className="bg-muted/30 rounded-md p-4 border border-border">
+                  <label className="text-sm font-bold text-primary mb-2 block">
+                    معدل الثانوية العامة (أو معدل آخر شهادة)
+                  </label>
+                  <p className="text-[11px] text-muted-foreground mb-3">
+                    أدخل المعدل العام كنسبة مئوية من 100.
+                  </p>
+                  <div className="flex items-center gap-2 max-w-xs">
+                    <Input
+                      type="number"
+                      placeholder="مثال: 87.5"
+                      min={0}
+                      max={100}
+                      step={0.01}
+                      value={average}
+                      onChange={(e) => setAverage(e.target.value)}
+                      className="text-center text-lg font-bold"
+                    />
+                    <span className="text-muted-foreground text-sm">/ 100</span>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between bg-accent/10 border border-accent/30 rounded-md px-4 py-3">
-                  <span className="text-sm font-bold text-primary">المجموع</span>
+                  <span className="text-sm font-bold text-primary">المعدل المُدخل</span>
                   <span className="text-lg font-bold text-accent">
-                    {totalScore.toFixed(2)} / {totalMax.toFixed(0)}
+                    {averageNum.toFixed(2)} / 100
                   </span>
                 </div>
               </div>
