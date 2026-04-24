@@ -214,19 +214,13 @@ export default function MofadlaApply() {
   };
 
   const validateStep2 = () => {
-    const filledCount = grades.filter((g) => g.score !== "").length;
-    if (filledCount === 0) {
-      toast({ title: "أدخل علاماتك", variant: "destructive" });
+    if (average === "" || isNaN(averageNum)) {
+      toast({ title: "أدخل المعدل", variant: "destructive" });
       return false;
     }
-    for (const g of grades) {
-      if (g.score === "") continue;
-      const sc = parseFloat(g.score);
-      const mx = parseFloat(g.max);
-      if (isNaN(sc) || sc < 0 || isNaN(mx) || mx <= 0 || sc > mx) {
-        toast({ title: `علامة غير صالحة لمادة ${g.subject}`, variant: "destructive" });
-        return false;
-      }
+    if (averageNum < 0 || averageNum > 100) {
+      toast({ title: "المعدل يجب أن يكون بين 0 و 100", variant: "destructive" });
+      return false;
     }
     return true;
   };
