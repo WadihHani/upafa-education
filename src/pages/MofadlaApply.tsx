@@ -167,7 +167,7 @@ export default function MofadlaApply() {
   const [grades, setGrades] = useState<{ subject: string; score: string; max: string }[]>([]);
 
   useEffect(() => {
-    const subjects = branch === "scientific" ? SCIENTIFIC_SUBJECTS : LITERARY_SUBJECTS;
+    const subjects = SUBJECTS_BY_BRANCH[branch] ?? SCIENTIFIC_SUBJECTS;
     setGrades(subjects.map((s) => ({ subject: s, score: "", max: "100" })));
   }, [branch]);
 
