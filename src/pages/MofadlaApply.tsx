@@ -41,90 +41,6 @@ type Program = {
   is_open: boolean;
 };
 
-const SCIENTIFIC_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "الرياضيات",
-  "الفيزياء",
-  "الكيمياء",
-  "العلوم",
-  "التربية الدينية",
-  "التربية الوطنية",
-];
-
-const LITERARY_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "التاريخ",
-  "الجغرافيا",
-  "الفلسفة",
-  "الرياضيات",
-  "التربية الدينية",
-  "التربية الوطنية",
-];
-
-const INDUSTRIAL_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "الرياضيات",
-  "الفيزياء",
-  "الرسم الفني",
-  "التكنولوجيا",
-  "التخصص العملي",
-  "التربية الوطنية",
-];
-
-const VOCATIONAL_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "الرياضيات",
-  "العلوم",
-  "التخصص النظري",
-  "التخصص العملي",
-  "التربية الدينية",
-  "التربية الوطنية",
-];
-
-const ARTS_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "تاريخ الفن",
-  "الرسم",
-  "التصميم",
-  "التخصص العملي",
-  "التربية الدينية",
-  "التربية الوطنية",
-];
-
-const SHARIA_SUBJECTS = [
-  "العربية",
-  "الإنجليزية",
-  "الفقه",
-  "التفسير",
-  "الحديث",
-  "العقيدة",
-  "التاريخ الإسلامي",
-  "التربية الوطنية",
-];
-
-const SUBJECTS_BY_BRANCH: Record<Branch, string[]> = {
-  scientific: SCIENTIFIC_SUBJECTS,
-  literary: LITERARY_SUBJECTS,
-  industrial: INDUSTRIAL_SUBJECTS,
-  vocational: VOCATIONAL_SUBJECTS,
-  arts: ARTS_SUBJECTS,
-  sharia: SHARIA_SUBJECTS,
-};
-
-const BRANCH_LABEL: Record<Branch, string> = {
-  scientific: "علمي",
-  literary: "أدبي",
-  industrial: "صناعي",
-  vocational: "مهني",
-  arts: "فني",
-  sharia: "شرعي",
-};
-
 const personalSchema = z.object({
   full_name: z.string().trim().min(3, "الاسم مطلوب").max(200),
   national_id: z.string().trim().min(3, "الرقم الوطني مطلوب").max(50),
@@ -162,23 +78,10 @@ export default function MofadlaApply() {
     graduation_year: "" as string | "",
   });
 
-  // step 2: branch + grades
+  // step 2: branch + average grade
   const [branch, setBranch] = useState<Branch>("scientific");
-  const [grades, setGrades] = useState<{ subject: string; score: string; max: string }[]>([]);
-
-  useEffect(() => {
-    const subjects = SUBJECTS_BY_BRANCH[branch] ?? SCIENTIFIC_SUBJECTS;
-    setGrades(subjects.map((s) => ({ subject: s, score: "", max: "100" })));
-  }, [branch]);
-
-  const totalScore = useMemo(
-    () => grades.reduce((sum, g) => sum + (parseFloat(g.score) || 0), 0),
-    [grades]
-  );
-  const totalMax = useMemo(
-    () => grades.reduce((sum, g) => sum + (parseFloat(g.max) || 0), 0),
-    [grades]
-  );
+  const [average, setAverage] = useState<string>("");
+  const averageNum = useMemo(() => parseFloat(average) || 0, [average]);
 
   // step 3: programs + preferences
   const [programs, setPrograms] = useState<Program[]>([]);
@@ -227,19 +130,13 @@ export default function MofadlaApply() {
   };
 
   const validateStep2 = () => {
-    const filledCount = grades.filter((g) => g.score !== "").length;
-    if (filledCount === 0) {
-      toast({ title: "أدخل علاماتك", variant: "destructive" });
+    if (average === "" || isNaN(averageNum)) {
+      toast({ title: "أدخل المعدل", variant: "destructive" });
       return false;
     }
-    for (const g of grades) {
-      if (g.score === "") continue;
-      const sc = parseFloat(g.score);
-      const mx = parseFloat(g.max);
-      if (isNaN(sc) || sc < 0 || isNaN(mx) || mx <= 0 || sc > mx) {
-        toast({ title: `علامة غير صالحة لمادة ${g.subject}`, variant: "destructive" });
-        return false;
-      }
+    if (averageNum < 0 || averageNum > 100) {
+      toast({ title: "المعدل يجب أن يكون بين 0 و 100", variant: "destructive" });
+      return false;
     }
     return true;
   };
@@ -297,7 +194,7 @@ export default function MofadlaApply() {
         email: personal.email.trim(),
         address: personal.address.trim(),
         branch,
-        total_score: totalScore,
+        total_score: averageNum,
         graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
         notes: extraNotes.trim(),
       })
@@ -316,19 +213,17 @@ export default function MofadlaApply() {
 
     const appId = appRow.id;
 
-    const filledGrades = grades.filter((g) => g.score !== "");
-    if (filledGrades.length > 0) {
-      const { error: gErr } = await supabase.from("mofadla_application_grades").insert(
-        filledGrades.map((g, i) => ({
-          application_id: appId,
-          subject: g.subject,
-          score: parseFloat(g.score),
-          max_score: parseFloat(g.max) || 100,
-          sort_order: i,
-        }))
-      );
-      if (gErr) console.error(gErr);
-    }
+    // store the average as a single grade entry for record
+    const { error: gErr } = await supabase.from("mofadla_application_grades").insert([
+      {
+        application_id: appId,
+        subject: "المعدل العام",
+        score: averageNum,
+        max_score: 100,
+        sort_order: 0,
+      },
+    ]);
+    if (gErr) console.error(gErr);
 
     if (preferences.length > 0) {
       const { error: pErr } = await supabase.from("mofadla_application_preferences").insert(
@@ -392,7 +287,7 @@ export default function MofadlaApply() {
             التقديم على المفاضلة
           </h1>
           <p className="text-sm text-muted-foreground">
-            أدخل بياناتك وعلاماتك ورتّب رغباتك بدقة. سيتم النظر في طلبك حسب علاماتك وترتيب رغباتك.
+            أدخل بياناتك ومعدلك ورتّب رغباتك بدقة. سيتم النظر في طلبك حسب معدلك وترتيب رغباتك.
           </p>
         </div>
 
@@ -400,7 +295,7 @@ export default function MofadlaApply() {
         <div className="flex items-center justify-between mb-8 text-xs">
           {[
             { n: 1, label: "البيانات الشخصية" },
-            { n: 2, label: "العلامات" },
+            { n: 2, label: "المعدل" },
             { n: 3, label: "ترتيب الرغبات" },
           ].map((s, i, arr) => (
             <div key={s.n} className="flex items-center flex-1">
@@ -513,7 +408,7 @@ export default function MofadlaApply() {
             {step === 2 && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between flex-wrap gap-3">
-                  <h2 className="font-bold text-primary">العلامات</h2>
+                  <h2 className="font-bold text-primary">المعدل</h2>
                   <div className="flex items-center gap-2">
                     <label className="text-xs font-medium">الفرع:</label>
                     <Select value={branch} onValueChange={(v) => setBranch(v as Branch)}>
@@ -530,49 +425,32 @@ export default function MofadlaApply() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {grades.map((g, i) => (
-                    <div
-                      key={g.subject}
-                      className="bg-muted/30 rounded-md p-3 border border-border"
-                    >
-                      <div className="text-xs font-bold text-primary mb-2">{g.subject}</div>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          placeholder="العلامة"
-                          min={0}
-                          step={0.01}
-                          value={g.score}
-                          onChange={(e) => {
-                            const next = [...grades];
-                            next[i] = { ...g, score: e.target.value };
-                            setGrades(next);
-                          }}
-                          className="text-center"
-                        />
-                        <span className="text-muted-foreground text-xs">/</span>
-                        <Input
-                          type="number"
-                          placeholder="من"
-                          min={1}
-                          value={g.max}
-                          onChange={(e) => {
-                            const next = [...grades];
-                            next[i] = { ...g, max: e.target.value };
-                            setGrades(next);
-                          }}
-                          className="text-center w-20"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                <div className="bg-muted/30 rounded-md p-4 border border-border">
+                  <label className="text-sm font-bold text-primary mb-2 block">
+                    معدل الثانوية العامة (أو معدل آخر شهادة)
+                  </label>
+                  <p className="text-[11px] text-muted-foreground mb-3">
+                    أدخل المعدل العام كنسبة مئوية من 100.
+                  </p>
+                  <div className="flex items-center gap-2 max-w-xs">
+                    <Input
+                      type="number"
+                      placeholder="مثال: 87.5"
+                      min={0}
+                      max={100}
+                      step={0.01}
+                      value={average}
+                      onChange={(e) => setAverage(e.target.value)}
+                      className="text-center text-lg font-bold"
+                    />
+                    <span className="text-muted-foreground text-sm">/ 100</span>
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-between bg-accent/10 border border-accent/30 rounded-md px-4 py-3">
-                  <span className="text-sm font-bold text-primary">المجموع</span>
+                  <span className="text-sm font-bold text-primary">المعدل المُدخل</span>
                   <span className="text-lg font-bold text-accent">
-                    {totalScore.toFixed(2)} / {totalMax.toFixed(0)}
+                    {averageNum.toFixed(2)} / 100
                   </span>
                 </div>
               </div>
@@ -606,7 +484,7 @@ export default function MofadlaApply() {
                           {preferences.map((pid, idx) => {
                             const p = programs.find((x) => x.id === pid);
                             if (!p) return null;
-                            const eligibleByScore = totalScore >= Number(p.min_score);
+                            const eligibleByScore = averageNum >= Number(p.min_score);
                             return (
                               <li
                                 key={pid}
@@ -672,7 +550,7 @@ export default function MofadlaApply() {
                         {eligiblePrograms
                           .filter((p) => !preferences.includes(p.id))
                           .map((p) => {
-                            const eligibleByScore = totalScore >= Number(p.min_score);
+                            const eligibleByScore = averageNum >= Number(p.min_score);
                             return (
                               <div
                                 key={p.id}
