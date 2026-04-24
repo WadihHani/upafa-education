@@ -55,7 +55,13 @@ type Preference = {
 type Program = { id: string; name: string };
 
 const branchLabel = (b: Branch) =>
-  b === "scientific" ? "علمي" : b === "literary" ? "أدبي" : "علمي/أدبي";
+  b === "scientific" ? "علمي"
+  : b === "literary" ? "أدبي"
+  : b === "industrial" ? "صناعي"
+  : b === "vocational" ? "مهني"
+  : b === "arts" ? "فني"
+  : b === "sharia" ? "شرعي"
+  : "علمي/أدبي";
 
 const statusLabel = (s: Status) =>
   s === "accepted" ? "مقبول" : s === "rejected" ? "مرفوض" : s === "waitlisted" ? "احتياط" : "قيد المراجعة";
