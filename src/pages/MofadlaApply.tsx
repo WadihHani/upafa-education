@@ -108,13 +108,7 @@ export default function MofadlaApply() {
     })();
   }, []);
 
-  const eligiblePrograms = useMemo(
-    () =>
-      programs.filter(
-        (p) => p.required_branch === "both" || p.required_branch === branch
-      ),
-    [programs, branch]
-  );
+  const eligiblePrograms = useMemo(() => programs, [programs]);
 
   const [extraNotes, setExtraNotes] = useState("");
 
