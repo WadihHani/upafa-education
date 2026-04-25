@@ -153,7 +153,7 @@ export default function Mofadla() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-3xl">
             <StatCard label="البرامج المتاحة" value={loading ? "…" : String(programs.length)} Icon={GraduationCap} />
             <StatCard label="إجمالي المقاعد" value={loading ? "…" : String(totalSeats)} Icon={Users} />
-            <StatCard label="آخر موعد" value="30 / 9" Icon={CalendarDays} />
+            <StatCard label="آخر موعد" value="6 / 10" Icon={CalendarDays} />
             <StatCard label="إعلان النتائج" value="15 / 10" Icon={CheckCircle2} />
           </div>
         </div>
