@@ -364,10 +364,11 @@ export default function MofadlaApply() {
                     </Select>
                   </div>
                   <FieldInput
-                    label="رقم الهاتف *"
+                    label="رقم الهاتف * (مع رمز الدولة، مثال: ‎+963 أو ‎+966)"
                     value={personal.phone}
                     onChange={(v) => setPersonal({ ...personal, phone: v })}
                     ltr
+                    placeholder="+963 9XX XXX XXX"
                   />
                   <FieldInput
                     label="البريد الإلكتروني"
@@ -629,6 +630,7 @@ function FieldInput({
   ltr,
   full,
   type,
+  placeholder,
 }: {
   label: string;
   value: string;
@@ -636,6 +638,7 @@ function FieldInput({
   ltr?: boolean;
   full?: boolean;
   type?: string;
+  placeholder?: string;
 }) {
   return (
     <div className={full ? "sm:col-span-2" : ""}>
@@ -645,6 +648,7 @@ function FieldInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         dir={ltr ? "ltr" : undefined}
+        placeholder={placeholder}
       />
     </div>
   );
