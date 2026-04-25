@@ -47,6 +47,7 @@ import NewsPost from "./pages/NewsPost";
 import AdminNewsCategories from "./pages/admin/AdminNewsCategories";
 import AdminNewsPosts from "./pages/admin/AdminNewsPosts";
 import NotFound from "./pages/NotFound";
+import Unsubscribe from "./pages/Unsubscribe";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
               <Route path="/news/:categoryKey/:postId" element={<NewsPost />} />
             </Route>
             <Route path="/mofadla/apply" element={<MofadlaApply />} />
+            <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/portal/student/catalog" element={<StudentCatalog />} />
             <Route path="/portal/teacher" element={<TeacherPortal />} />
