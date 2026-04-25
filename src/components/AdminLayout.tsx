@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen, Globe } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -19,6 +19,7 @@ const navItems = [
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
   { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
   { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
+  { label: "حالة DNS للبريد", path: "/admin/dns-status", icon: Globe },
 ];
 
 export default function AdminLayout() {
