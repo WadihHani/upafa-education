@@ -51,6 +51,7 @@ const personalSchema = z.object({
   phone: z.string().trim().min(6, "الهاتف مطلوب").max(30),
   email: z.string().trim().email("البريد غير صالح").max(255).optional().or(z.literal("")),
   address: z.string().trim().max(500).optional().or(z.literal("")),
+  last_certificate: z.string().trim().min(2, "اسم الشهادة مطلوب").max(200),
   graduation_year: z
     .number({ invalid_type_error: "سنة غير صالحة" })
     .int()
