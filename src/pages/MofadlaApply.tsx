@@ -51,6 +51,7 @@ const personalSchema = z.object({
   phone: z.string().trim().min(6, "الهاتف مطلوب").max(30),
   email: z.string().trim().email("البريد غير صالح").max(255).optional().or(z.literal("")),
   address: z.string().trim().max(500).optional().or(z.literal("")),
+  last_certificate: z.string().trim().min(2, "اسم الشهادة مطلوب").max(200),
   graduation_year: z
     .number({ invalid_type_error: "سنة غير صالحة" })
     .int()
@@ -76,11 +77,12 @@ export default function MofadlaApply() {
     phone: "",
     email: "",
     address: "",
+    last_certificate: "",
     graduation_year: "" as string | "",
   });
 
-  // step 2: branch + average grade
-  const [branch, setBranch] = useState<Branch>("scientific");
+  // step 2: average grade (branch removed — kept internally for DB compatibility)
+  const branch: Branch = "scientific";
   const [average, setAverage] = useState<string>("");
   const averageNum = useMemo(() => parseFloat(average) || 0, [average]);
 
@@ -106,13 +108,7 @@ export default function MofadlaApply() {
     })();
   }, []);
 
-  const eligiblePrograms = useMemo(
-    () =>
-      programs.filter(
-        (p) => p.required_branch === "both" || p.required_branch === branch
-      ),
-    [programs, branch]
-  );
+  const eligiblePrograms = useMemo(() => programs, [programs]);
 
   const [extraNotes, setExtraNotes] = useState("");
 
@@ -199,7 +195,10 @@ export default function MofadlaApply() {
         branch,
         total_score: averageNum,
         graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
-        notes: extraNotes.trim(),
+        notes: [
+          personal.last_certificate.trim() ? `آخر شهادة: ${personal.last_certificate.trim()}` : "",
+          extraNotes.trim(),
+        ].filter(Boolean).join("\n"),
       });
 
     if (appErr) {
@@ -403,6 +402,12 @@ export default function MofadlaApply() {
                     type="email"
                   />
                   <FieldInput
+                    label="آخر شهادة حصلت عليها *"
+                    value={personal.last_certificate}
+                    onChange={(v) => setPersonal({ ...personal, last_certificate: v })}
+                    full
+                  />
+                  <FieldInput
                     label="سنة التخرج"
                     value={personal.graduation_year}
                     onChange={(v) => setPersonal({ ...personal, graduation_year: v })}
@@ -423,23 +428,7 @@ export default function MofadlaApply() {
 
             {step === 2 && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between flex-wrap gap-3">
-                  <h2 className="font-bold text-primary">المعدل</h2>
-                  <div className="flex items-center gap-2">
-                    <label className="text-xs font-medium">الفرع:</label>
-                    <Select value={branch} onValueChange={(v) => setBranch(v as Branch)}>
-                      <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="scientific">علمي</SelectItem>
-                        <SelectItem value="literary">أدبي</SelectItem>
-                        <SelectItem value="industrial">صناعي</SelectItem>
-                        <SelectItem value="vocational">مهني</SelectItem>
-                        <SelectItem value="arts">فني</SelectItem>
-                        <SelectItem value="sharia">شرعي</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                <h2 className="font-bold text-primary">المعدل</h2>
 
                 <div className="bg-muted/30 rounded-md p-4 border border-border">
                   <label className="text-sm font-bold text-primary mb-2 block">
