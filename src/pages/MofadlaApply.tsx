@@ -364,10 +364,11 @@ export default function MofadlaApply() {
                     </Select>
                   </div>
                   <FieldInput
-                    label="رقم الهاتف *"
+                    label="رقم الهاتف * (مع رمز الدولة، مثال: ‎+963 أو ‎+966)"
                     value={personal.phone}
                     onChange={(v) => setPersonal({ ...personal, phone: v })}
                     ltr
+                    placeholder="+963 9XX XXX XXX"
                   />
                   <FieldInput
                     label="البريد الإلكتروني"
