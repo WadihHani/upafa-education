@@ -233,12 +233,21 @@ export default function MofadlaApply() {
             <p className="text-sm text-muted-foreground mb-1">
               رقم الطلب
             </p>
-            <p className="text-xs font-mono bg-muted/50 rounded px-2 py-1 inline-block mb-4" dir="ltr">
+            <p className="text-xs font-mono bg-muted/50 rounded px-2 py-1 inline-block mb-5" dir="ltr">
               {submittedId}
             </p>
-            <p className="text-xs text-muted-foreground mb-6">
-              احتفظ برقم الطلب للمراجعة. ستتواصل معك الإدارة عبر الهاتف أو البريد عند صدور النتائج.
-            </p>
+
+            <div className="bg-accent/10 border border-accent/30 rounded-lg p-4 mb-6 text-right">
+              <p className="text-sm font-semibold text-primary mb-2">
+                ماذا يحدث الآن؟
+              </p>
+              <ul className="text-xs text-muted-foreground space-y-1.5 leading-relaxed list-disc pr-4">
+                <li>سيتم مراجعة بياناتك من قِبَل الإدارة.</li>
+                <li>عند قبولك، سيتم التواصل معك مباشرة عبر الهاتف أو البريد الإلكتروني.</li>
+                <li>يرجى الاحتفاظ برقم الطلب أعلاه للمتابعة.</li>
+              </ul>
+            </div>
+
             <Button onClick={() => navigate("/")} className="w-full">
               العودة إلى الصفحة الرئيسية
             </Button>
