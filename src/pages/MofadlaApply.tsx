@@ -77,11 +77,12 @@ export default function MofadlaApply() {
     phone: "",
     email: "",
     address: "",
+    last_certificate: "",
     graduation_year: "" as string | "",
   });
 
-  // step 2: branch + average grade
-  const [branch, setBranch] = useState<Branch>("scientific");
+  // step 2: average grade (branch removed — kept internally for DB compatibility)
+  const branch: Branch = "scientific";
   const [average, setAverage] = useState<string>("");
   const averageNum = useMemo(() => parseFloat(average) || 0, [average]);
 
