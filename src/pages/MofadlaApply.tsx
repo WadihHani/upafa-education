@@ -236,6 +236,22 @@ export default function MofadlaApply() {
       if (pErr) console.error(pErr);
     }
 
+    // Send confirmation email to the student (non-blocking)
+    if (personal.email.trim()) {
+      try {
+        await supabase.functions.invoke("send-transactional-email", {
+          body: {
+            templateName: "mofadla-confirmation",
+            recipientEmail: personal.email.trim(),
+            idempotencyKey: `mofadla-confirm-${appId}`,
+            templateData: { fullName: personal.full_name.trim() },
+          },
+        });
+      } catch (emailErr) {
+        console.error("Failed to send confirmation email", emailErr);
+      }
+    }
+
     setSubmitting(false);
     setSubmittedId(appId);
     setStep(4);
