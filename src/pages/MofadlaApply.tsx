@@ -195,7 +195,10 @@ export default function MofadlaApply() {
         branch,
         total_score: averageNum,
         graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
-        notes: extraNotes.trim(),
+        notes: [
+          personal.last_certificate.trim() ? `آخر شهادة: ${personal.last_certificate.trim()}` : "",
+          extraNotes.trim(),
+        ].filter(Boolean).join("\n"),
       });
 
     if (appErr) {
