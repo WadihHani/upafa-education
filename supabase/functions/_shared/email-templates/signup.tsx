@@ -11,6 +11,7 @@ import {
   Html,
   Link,
   Preview,
+  Section,
   Text,
 } from 'npm:@react-email/components@0.0.22'
 
@@ -27,31 +28,41 @@ export const SignupEmail = ({
   recipient,
   confirmationUrl,
 }: SignupEmailProps) => (
-  <Html lang="en" dir="ltr">
+  <Html lang="ar" dir="rtl">
     <Head />
-    <Preview>Confirm your email for {siteName}</Preview>
+    <Preview>تأكيد بريدك الإلكتروني في {siteName}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Heading style={h1}>Confirm your email</Heading>
-        <Text style={text}>
-          Thanks for signing up for{' '}
-          <Link href={siteUrl} style={link}>
-            <strong>{siteName}</strong>
-          </Link>
-          !
-        </Text>
-        <Text style={text}>
-          Please confirm your email address (
-          <Link href={`mailto:${recipient}`} style={link}>
-            {recipient}
-          </Link>
-          ) by clicking the button below:
-        </Text>
-        <Button style={button} href={confirmationUrl}>
-          Verify Email
-        </Button>
-        <Text style={footer}>
-          If you didn't create an account, you can safely ignore this email.
+        <Section style={header}>
+          <Heading style={brand}>جامعة أفريقيا الفرنسية العربية</Heading>
+        </Section>
+        <Section style={card}>
+          <Heading style={h1}>تأكيد البريد الإلكتروني</Heading>
+          <Text style={text}>
+            شكراً لتسجيلك في{' '}
+            <Link href={siteUrl} style={link}>
+              <strong>{siteName}</strong>
+            </Link>
+            .
+          </Text>
+          <Text style={text}>
+            يرجى تأكيد عنوان بريدك الإلكتروني (
+            <Link href={`mailto:${recipient}`} style={link}>
+              {recipient}
+            </Link>
+            ) بالضغط على الزر أدناه:
+          </Text>
+          <Section style={{ textAlign: 'center', margin: '30px 0' }}>
+            <Button style={button} href={confirmationUrl}>
+              تأكيد البريد الإلكتروني
+            </Button>
+          </Section>
+          <Text style={footer}>
+            إذا لم تقم بإنشاء حساب، يمكنك تجاهل هذه الرسالة بأمان.
+          </Text>
+        </Section>
+        <Text style={brandFooter}>
+          مكتب القبول — جامعة أفريقيا الفرنسية العربية
         </Text>
       </Container>
     </Body>
@@ -60,27 +71,61 @@ export const SignupEmail = ({
 
 export default SignupEmail
 
-const main = { backgroundColor: '#ffffff', fontFamily: 'Arial, sans-serif' }
-const container = { padding: '20px 25px' }
+const main = {
+  backgroundColor: '#ffffff',
+  fontFamily: "'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif",
+}
+const container = { padding: '20px 25px', maxWidth: '600px' }
+const header = {
+  borderBottom: '3px solid hsl(43, 90%, 52%)',
+  paddingBottom: '12px',
+  marginBottom: '20px',
+}
+const brand = {
+  fontSize: '18px',
+  fontWeight: 'bold' as const,
+  color: 'hsl(215, 65%, 28%)',
+  margin: '0',
+  textAlign: 'center' as const,
+}
+const card = {
+  backgroundColor: '#ffffff',
+  border: '1px solid hsl(215, 20%, 88%)',
+  borderRadius: '8px',
+  padding: '28px',
+}
 const h1 = {
   fontSize: '22px',
   fontWeight: 'bold' as const,
-  color: '#000000',
+  color: 'hsl(215, 65%, 28%)',
   margin: '0 0 20px',
 }
 const text = {
-  fontSize: '14px',
-  color: '#55575d',
-  lineHeight: '1.5',
-  margin: '0 0 25px',
+  fontSize: '15px',
+  color: 'hsl(215, 30%, 25%)',
+  lineHeight: '1.7',
+  margin: '0 0 18px',
 }
-const link = { color: 'inherit', textDecoration: 'underline' }
+const link = { color: 'hsl(215, 65%, 28%)', textDecoration: 'underline' }
 const button = {
-  backgroundColor: '#000000',
+  backgroundColor: 'hsl(215, 65%, 28%)',
   color: '#ffffff',
-  fontSize: '14px',
+  fontSize: '15px',
+  fontWeight: 'bold' as const,
   borderRadius: '8px',
-  padding: '12px 20px',
+  padding: '14px 32px',
   textDecoration: 'none',
+  display: 'inline-block',
 }
-const footer = { fontSize: '12px', color: '#999999', margin: '30px 0 0' }
+const footer = {
+  fontSize: '13px',
+  color: 'hsl(215, 10%, 45%)',
+  margin: '25px 0 0',
+  lineHeight: '1.6',
+}
+const brandFooter = {
+  fontSize: '12px',
+  color: 'hsl(215, 10%, 45%)',
+  textAlign: 'center' as const,
+  margin: '20px 0 0',
+}
