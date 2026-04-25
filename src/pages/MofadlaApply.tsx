@@ -425,23 +425,7 @@ export default function MofadlaApply() {
 
             {step === 2 && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between flex-wrap gap-3">
-                  <h2 className="font-bold text-primary">المعدل</h2>
-                  <div className="flex items-center gap-2">
-                    <label className="text-xs font-medium">الفرع:</label>
-                    <Select value={branch} onValueChange={(v) => setBranch(v as Branch)}>
-                      <SelectTrigger className="w-32"><SelectValue /></SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="scientific">علمي</SelectItem>
-                        <SelectItem value="literary">أدبي</SelectItem>
-                        <SelectItem value="industrial">صناعي</SelectItem>
-                        <SelectItem value="vocational">مهني</SelectItem>
-                        <SelectItem value="arts">فني</SelectItem>
-                        <SelectItem value="sharia">شرعي</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                <h2 className="font-bold text-primary">المعدل</h2>
 
                 <div className="bg-muted/30 rounded-md p-4 border border-border">
                   <label className="text-sm font-bold text-primary mb-2 block">
