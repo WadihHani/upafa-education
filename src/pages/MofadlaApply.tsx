@@ -630,6 +630,7 @@ function FieldInput({
   ltr,
   full,
   type,
+  placeholder,
 }: {
   label: string;
   value: string;
@@ -637,6 +638,7 @@ function FieldInput({
   ltr?: boolean;
   full?: boolean;
   type?: string;
+  placeholder?: string;
 }) {
   return (
     <div className={full ? "sm:col-span-2" : ""}>
@@ -646,6 +648,7 @@ function FieldInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         dir={ltr ? "ltr" : undefined}
+        placeholder={placeholder}
       />
     </div>
   );
