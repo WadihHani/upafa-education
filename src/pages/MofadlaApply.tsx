@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { v4 as uuidv4 } from "uuid";
+
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -179,77 +179,43 @@ export default function MofadlaApply() {
     if (!validateStep1() || !validateStep2() || !validateStep3()) return;
     setSubmitting(true);
 
-    const appId = uuidv4();
-    const { error: appErr } = await supabase
-      .from("mofadla_applications")
-      .insert({
-        id: appId,
-        full_name: personal.full_name.trim(),
-        national_id: personal.national_id.trim(),
-        exam_number: personal.exam_number.trim(),
-        birth_date: personal.birth_date || null,
-        gender: personal.gender,
-        phone: personal.phone.trim(),
-        email: personal.email.trim(),
-        address: personal.address.trim(),
-        branch,
-        total_score: averageNum,
-        graduation_year: personal.graduation_year ? parseInt(personal.graduation_year) : null,
-        notes: [
-          personal.last_certificate.trim() ? `آخر شهادة: ${personal.last_certificate.trim()}` : "",
-          extraNotes.trim(),
-        ].filter(Boolean).join("\n"),
-      });
+    const { data, error } = await supabase.functions.invoke(
+      "submit-mofadla-application",
+      {
+        body: {
+          personal: {
+            full_name: personal.full_name.trim(),
+            national_id: personal.national_id.trim(),
+            exam_number: personal.exam_number.trim(),
+            birth_date: personal.birth_date || null,
+            gender: personal.gender,
+            phone: personal.phone.trim(),
+            email: personal.email.trim(),
+            address: personal.address.trim(),
+            graduation_year: personal.graduation_year
+              ? parseInt(personal.graduation_year)
+              : null,
+            last_certificate: personal.last_certificate.trim(),
+          },
+          branch,
+          average: averageNum,
+          preferences,
+          notes: extraNotes.trim(),
+        },
+      },
+    );
 
-    if (appErr) {
+    if (error || !data?.id) {
       setSubmitting(false);
       toast({
         title: "تعذر إرسال الطلب",
-        description: appErr.message ?? "خطأ غير معروف",
+        description: error?.message ?? data?.error ?? "خطأ غير معروف",
         variant: "destructive",
       });
       return;
     }
 
-
-    // store the average as a single grade entry for record
-    const { error: gErr } = await supabase.from("mofadla_application_grades").insert([
-      {
-        application_id: appId,
-        subject: "المعدل العام",
-        score: averageNum,
-        max_score: 100,
-        sort_order: 0,
-      },
-    ]);
-    if (gErr) console.error(gErr);
-
-    if (preferences.length > 0) {
-      const { error: pErr } = await supabase.from("mofadla_application_preferences").insert(
-        preferences.map((pid, i) => ({
-          application_id: appId,
-          program_id: pid,
-          preference_order: i + 1,
-        }))
-      );
-      if (pErr) console.error(pErr);
-    }
-
-    // Send confirmation email to the student (non-blocking)
-    if (personal.email.trim()) {
-      try {
-        await supabase.functions.invoke("send-transactional-email", {
-          body: {
-            templateName: "mofadla-confirmation",
-            recipientEmail: personal.email.trim(),
-            idempotencyKey: `mofadla-confirm-${appId}`,
-            templateData: { fullName: personal.full_name.trim() },
-          },
-        });
-      } catch (emailErr) {
-        console.error("Failed to send confirmation email", emailErr);
-      }
-    }
+    const appId = data.id as string;
 
     setSubmitting(false);
     setSubmittedId(appId);
