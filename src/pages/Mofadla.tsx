@@ -33,25 +33,25 @@ const REQUIRED_DOCS = [
 const TIMELINE = [
   {
     title: "فتح باب التقديم",
-    date: "1 / 9 / 2025",
-    desc: "بدء استقبال طلبات المفاضلة عبر الموقع الإلكتروني.",
+    date: "27 / 4 / 2026",
+    desc: "بدء استقبال طلبات المفاضلة عبر الموقع الإلكتروني يوم الاثنين.",
     Icon: ClipboardList,
   },
   {
     title: "آخر موعد للتقديم",
-    date: "30 / 9 / 2025",
+    date: "6 / 10 / 2026",
     desc: "آخر يوم لاستكمال الطلب ورفع الوثائق المطلوبة.",
     Icon: Clock,
   },
   {
     title: "إعلان النتائج",
-    date: "15 / 10 / 2025",
+    date: "15 / 10 / 2026",
     desc: "نشر نتائج القبول حسب ترتيب الرغبات والمعدّل.",
     Icon: CheckCircle2,
   },
   {
     title: "بدء التسجيل",
-    date: "20 / 10 / 2025",
+    date: "15 / 10 / 2026",
     desc: "تسجيل الطلاب المقبولين ودفع الرسوم الجامعية.",
     Icon: BookOpen,
   },
@@ -114,13 +114,13 @@ export default function Mofadla() {
         <div className="container mx-auto px-4 py-16 md:py-24 relative">
           <div className="max-w-3xl">
             <Badge className="bg-accent text-accent-foreground hover:bg-accent mb-4 text-xs font-bold">
-              مفاضلة خريف 2025
+              مفاضلة خريف 2026
             </Badge>
             <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
               التقديم على المفاضلة الجامعية
             </h1>
             <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl">
-              فُتح باب التقديم على مفاضلة خريف 2025 في جامعة UPAFA – فرع سوريا. أكمل
+              فُتح باب التقديم على مفاضلة خريف 2026 في جامعة UPAFA – فرع سوريا. أكمل
               طلبك إلكترونياً خلال دقائق، اختر الكلية والاختصاص المناسبين لك، وثبّت
               مقعدك الجامعي.
             </p>
@@ -153,7 +153,7 @@ export default function Mofadla() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-3xl">
             <StatCard label="البرامج المتاحة" value={loading ? "…" : String(programs.length)} Icon={GraduationCap} />
             <StatCard label="إجمالي المقاعد" value={loading ? "…" : String(totalSeats)} Icon={Users} />
-            <StatCard label="آخر موعد" value="30 / 9" Icon={CalendarDays} />
+            <StatCard label="آخر موعد" value="6 / 10" Icon={CalendarDays} />
             <StatCard label="إعلان النتائج" value="15 / 10" Icon={CheckCircle2} />
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <SectionHeading
             badge="البرامج المتاحة"
-            title="اختصاصات مفاضلة خريف 2025"
+            title="اختصاصات مفاضلة خريف 2026"
             subtitle="اطّلع على البرامج المفتوحة للتقديم وعدد المقاعد والحدّ الأدنى للقبول."
           />
 
