@@ -399,6 +399,12 @@ export default function MofadlaApply() {
                     type="email"
                   />
                   <FieldInput
+                    label="آخر شهادة حصلت عليها *"
+                    value={personal.last_certificate}
+                    onChange={(v) => setPersonal({ ...personal, last_certificate: v })}
+                    full
+                  />
+                  <FieldInput
                     label="سنة التخرج"
                     value={personal.graduation_year}
                     onChange={(v) => setPersonal({ ...personal, graduation_year: v })}
