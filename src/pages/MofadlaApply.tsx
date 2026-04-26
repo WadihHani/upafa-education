@@ -194,6 +194,14 @@ export default function MofadlaApply() {
   // ========== submit ==========
   const submit = async () => {
     if (!validateStep1() || !validateStep2() || !validateStep3()) return;
+    if (turnstileSiteKey && !turnstileToken) {
+      toast({
+        title: "يرجى إكمال التحقق الأمني",
+        description: "اضغط على مربع \"أنا لست روبوتاً\" قبل الإرسال",
+        variant: "destructive",
+      });
+      return;
+    }
     setSubmitting(true);
 
     const { data, error } = await supabase.functions.invoke(
@@ -218,6 +226,7 @@ export default function MofadlaApply() {
           average: averageNum,
           preferences,
           notes: extraNotes.trim(),
+          turnstileToken,
         },
       },
     );
