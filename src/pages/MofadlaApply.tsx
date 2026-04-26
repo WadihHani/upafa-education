@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 import {
   ArrowLeft,
   ArrowRight,
@@ -27,6 +28,7 @@ import {
   Plus,
   ClipboardList,
   CircleAlert,
+  ShieldCheck,
 } from "lucide-react";
 
 type Branch = "scientific" | "literary" | "industrial" | "vocational" | "arts" | "sharia";
