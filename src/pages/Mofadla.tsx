@@ -382,8 +382,14 @@ export default function Mofadla() {
                 <h3 className="font-bold text-primary-foreground mb-2">
                   للاستفسار والدعم
                 </h3>
-                <ContactRow Icon={Phone} text="+963 11 000 0000" />
-                <ContactRow Icon={Mail} text="mofadla@upafa.education" />
+                <ContactRow Icon={Phone} text="+963 989 801 010" href="tel:+963989801010" />
+                <ContactRow
+                  Icon={MessageCircle}
+                  text="واتساب: +963 989 801 010"
+                  href="https://wa.me/963989801010"
+                  external
+                />
+                <ContactRow Icon={Mail} text="academic@upafa.education" href="mailto:academic@upafa.education" />
                 <ContactRow Icon={MapPin} text="دمشق – سوريا" />
               </CardContent>
             </Card>
