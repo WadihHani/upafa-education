@@ -450,18 +450,41 @@ function StatCard({
 function ContactRow({
   Icon,
   text,
+  href,
+  external,
 }: {
   Icon: typeof Phone;
   text: string;
+  href?: string;
+  external?: boolean;
 }) {
-  return (
-    <div className="flex items-center gap-3 text-sm text-primary-foreground/90">
+  const content = (
+    <>
       <span className="w-8 h-8 rounded-md bg-accent/20 text-accent flex items-center justify-center shrink-0">
         <Icon size={14} />
       </span>
       <span dir="ltr" className="font-medium">
         {text}
       </span>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className="flex items-center gap-3 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3 text-sm text-primary-foreground/90">
+      {content}
     </div>
   );
 }
