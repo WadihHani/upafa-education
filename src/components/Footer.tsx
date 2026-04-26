@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 import { useSiteContent } from "@/hooks/use-site-content";
 
 export default function Footer() {
-  const { get, getTitle } = useSiteContent();
+  const { get } = useSiteContent();
 
   const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
   const footerAbout = get("footer_about", "فرع سوريا – نسعى لتقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة عبر منصات التعليم عن بعد.");
   const address = get("contact_address", "دمشق، عين كرش");
   const phone = get("contact_phone", "+963 989 801 010");
-  const email = get("contact_email", "info@upafa.sy");
+  const email = get("contact_email", "academic@upafa.education");
+  const phoneDigits = phone.replace(/\D/g, "");
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -39,9 +40,33 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">تواصل معنا</h3>
             <div className="space-y-3 text-sm text-primary-foreground/70">
-              <div className="flex items-center gap-2"><MapPin size={16} className="shrink-0" /><span>{address}</span></div>
-              <div className="flex items-center gap-2"><Phone size={16} className="shrink-0" /><span dir="ltr">{phone}</span></div>
-              <div className="flex items-center gap-2"><Mail size={16} className="shrink-0" /><span>{email}</span></div>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} className="shrink-0" />
+                <span>{address}</span>
+              </div>
+              <a
+                href={`tel:${phoneDigits}`}
+                className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
+              >
+                <Phone size={16} className="shrink-0" />
+                <span dir="ltr">{phone}</span>
+              </a>
+              <a
+                href={`https://wa.me/${phoneDigits}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
+              >
+                <MessageCircle size={16} className="shrink-0" />
+                <span dir="ltr">واتساب: {phone}</span>
+              </a>
+              <a
+                href={`mailto:${email}`}
+                className="flex items-center gap-2 hover:text-primary-foreground transition-colors"
+              >
+                <Mail size={16} className="shrink-0" />
+                <span>{email}</span>
+              </a>
             </div>
           </div>
         </div>
