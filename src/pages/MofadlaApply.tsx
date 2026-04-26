@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 import {
   ArrowLeft,
   ArrowRight,
@@ -27,6 +28,7 @@ import {
   Plus,
   ClipboardList,
   CircleAlert,
+  ShieldCheck,
 } from "lucide-react";
 
 type Branch = "scientific" | "literary" | "industrial" | "vocational" | "arts" | "sharia";
@@ -66,6 +68,21 @@ export default function MofadlaApply() {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [submitting, setSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
+
+  // captcha
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [turnstileSiteKey, setTurnstileSiteKey] = useState<string>("");
+
+  useEffect(() => {
+    supabase.functions
+      .invoke("get-turnstile-config")
+      .then(({ data }) => {
+        if (data?.siteKey) setTurnstileSiteKey(data.siteKey as string);
+      })
+      .catch(() => {
+        /* ignore — captcha will simply not render */
+      });
+  }, []);
 
   // step 1: personal
   const [personal, setPersonal] = useState({
@@ -177,6 +194,14 @@ export default function MofadlaApply() {
   // ========== submit ==========
   const submit = async () => {
     if (!validateStep1() || !validateStep2() || !validateStep3()) return;
+    if (turnstileSiteKey && !turnstileToken) {
+      toast({
+        title: "يرجى إكمال التحقق الأمني",
+        description: "اضغط على مربع \"أنا لست روبوتاً\" قبل الإرسال",
+        variant: "destructive",
+      });
+      return;
+    }
     setSubmitting(true);
 
     const { data, error } = await supabase.functions.invoke(
@@ -201,12 +226,14 @@ export default function MofadlaApply() {
           average: averageNum,
           preferences,
           notes: extraNotes.trim(),
+          turnstileToken,
         },
       },
     );
 
     if (error || !data?.id) {
       setSubmitting(false);
+      setTurnstileToken(""); // captcha tokens are single-use; force re-verify on retry
       toast({
         title: "تعذر إرسال الطلب",
         description: error?.message ?? data?.error ?? "خطأ غير معروف",
@@ -589,6 +616,22 @@ export default function MofadlaApply() {
               </div>
             )}
 
+            {/* Captcha — shown on the final step only */}
+            {step === 3 && turnstileSiteKey && (
+              <div className="mt-6 pt-5 border-t border-border">
+                <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
+                  <ShieldCheck size={14} className="text-accent" />
+                  <span>يرجى إكمال التحقق الأمني قبل إرسال الطلب</span>
+                </div>
+                <TurnstileWidget
+                  siteKey={turnstileSiteKey}
+                  onVerify={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken("")}
+                  onError={() => setTurnstileToken("")}
+                />
+              </div>
+            )}
+
             {/* Navigation */}
             <div className="flex items-center justify-between mt-7 pt-5 border-t border-border">
               <Button
@@ -608,7 +651,7 @@ export default function MofadlaApply() {
                 <Button
                   type="button"
                   onClick={submit}
-                  disabled={submitting}
+                  disabled={submitting || (!!turnstileSiteKey && !turnstileToken)}
                   className="gap-1 bg-accent text-accent-foreground hover:brightness-110"
                 >
                   <ClipboardList size={14} />

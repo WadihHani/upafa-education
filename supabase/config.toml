@@ -17,3 +17,5 @@ project_id = "zojhaliacwyyuvmrlmby"
     verify_jwt = false
   [functions.submit-mofadla-application]
     verify_jwt = false
+  [functions.get-turnstile-config]
+    verify_jwt = false
