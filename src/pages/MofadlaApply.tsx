@@ -69,6 +69,21 @@ export default function MofadlaApply() {
   const [submitting, setSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
 
+  // captcha
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const [turnstileSiteKey, setTurnstileSiteKey] = useState<string>("");
+
+  useEffect(() => {
+    supabase.functions
+      .invoke("get-turnstile-config")
+      .then(({ data }) => {
+        if (data?.siteKey) setTurnstileSiteKey(data.siteKey as string);
+      })
+      .catch(() => {
+        /* ignore — captcha will simply not render */
+      });
+  }, []);
+
   // step 1: personal
   const [personal, setPersonal] = useState({
     full_name: "",
