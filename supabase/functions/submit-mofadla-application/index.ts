@@ -63,6 +63,55 @@ Deno.serve(async (req) => {
       );
     }
 
+    // ===== Cloudflare Turnstile verification =====
+    const turnstileSecret = Deno.env.get("TURNSTILE_SECRET_KEY");
+    if (turnstileSecret) {
+      const token = s(body?.turnstileToken, 2048);
+      if (!token) {
+        return new Response(
+          JSON.stringify({ error: "يرجى إكمال التحقق من أنك لست روبوتاً" }),
+          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+      try {
+        const ip =
+          req.headers.get("cf-connecting-ip") ||
+          req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+          "";
+        const form = new FormData();
+        form.append("secret", turnstileSecret);
+        form.append("response", token);
+        if (ip) form.append("remoteip", ip);
+
+        const verifyRes = await fetch(
+          "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+          { method: "POST", body: form },
+        );
+        const verifyJson = (await verifyRes.json()) as {
+          success: boolean;
+          "error-codes"?: string[];
+        };
+        if (!verifyJson.success) {
+          console.warn("turnstile failed", verifyJson["error-codes"]);
+          return new Response(
+            JSON.stringify({
+              error: "فشل التحقق الأمني، يرجى إعادة المحاولة",
+            }),
+            {
+              status: 400,
+              headers: { ...corsHeaders, "Content-Type": "application/json" },
+            },
+          );
+        }
+      } catch (verifyErr) {
+        console.error("turnstile verify error", verifyErr);
+        return new Response(
+          JSON.stringify({ error: "تعذر التحقق الأمني، حاول لاحقاً" }),
+          { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+        );
+      }
+    }
+
     const branch = VALID_BRANCHES.has(body?.branch) ? body.branch : "scientific";
     const average = Math.max(0, Math.min(100, Number(body?.average) || 0));
     const preferences = Array.isArray(body?.preferences)
