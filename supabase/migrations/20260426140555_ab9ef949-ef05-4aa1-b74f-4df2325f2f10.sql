@@ -1,0 +1,1 @@
+UPDATE public.site_content SET content = 'academic@upafa.education' WHERE section_key = 'contact_email';
