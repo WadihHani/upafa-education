@@ -27,6 +27,7 @@ interface RequestBody {
   average: number;
   preferences: string[];
   notes?: string;
+  turnstileToken?: string;
 }
 
 const VALID_BRANCHES = new Set([
