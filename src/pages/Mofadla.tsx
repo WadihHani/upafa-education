@@ -19,6 +19,7 @@ import {
   BookOpen,
   ScrollText,
   Clock,
+  MessageCircle,
 } from "lucide-react";
 
 const REQUIRED_DOCS = [
