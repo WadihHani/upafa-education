@@ -233,6 +233,7 @@ export default function MofadlaApply() {
 
     if (error || !data?.id) {
       setSubmitting(false);
+      setTurnstileToken(""); // captcha tokens are single-use; force re-verify on retry
       toast({
         title: "تعذر إرسال الطلب",
         description: error?.message ?? data?.error ?? "خطأ غير معروف",
