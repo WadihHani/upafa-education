@@ -153,27 +153,43 @@ export default function Mofadla() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Academic Calendar */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
           <SectionHeading
-            badge="الجدول الزمني"
-            title="مواعيد المفاضلة"
-            subtitle="احرص على التقديم قبل انتهاء الموعد المحدّد لضمان قبول طلبك."
+            badge="التقويم الجامعي"
+            title="التقويم الجامعي للعام الدراسي 2026 - 2027"
+            subtitle="جدول الفصلين الدراسيين: التسجيل، بداية الفصل، والامتحانات."
           />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
-            {TIMELINE.map((t) => (
+          <div className="grid md:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
+            {ACADEMIC_CALENDAR.map((sem) => (
               <Card
-                key={t.title}
-                className="border-t-4 border-t-accent hover:shadow-md transition-shadow"
+                key={sem.semester}
+                className="border-t-4 border-t-accent hover:shadow-md transition-shadow overflow-hidden"
               >
-                <CardContent className="p-5">
-                  <div className="w-11 h-11 rounded-md bg-accent/15 text-primary flex items-center justify-center mb-3">
-                    <t.Icon size={20} />
+                <div className="bg-primary text-primary-foreground px-5 py-4 flex items-center justify-between">
+                  <div>
+                    <h3 className="font-extrabold text-lg">{sem.semester}</h3>
+                    <p className="text-xs text-primary-foreground/80 mt-0.5">{sem.duration}</p>
                   </div>
-                  <h3 className="font-bold text-primary mb-1">{t.title}</h3>
-                  <p className="text-sm font-bold text-accent mb-2">{t.date}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{t.desc}</p>
+                  <div className="w-11 h-11 rounded-md bg-accent text-accent-foreground flex items-center justify-center">
+                    <CalendarDays size={20} />
+                  </div>
+                </div>
+                <CardContent className="p-0">
+                  <ul className="divide-y divide-border">
+                    {sem.rows.map((r) => (
+                      <li key={r.label} className="flex items-center gap-3 px-5 py-4">
+                        <div className="w-9 h-9 rounded-md bg-accent/15 text-primary flex items-center justify-center shrink-0">
+                          <r.Icon size={16} />
+                        </div>
+                        <div className="flex-1 flex items-center justify-between gap-3">
+                          <span className="text-sm font-bold text-primary">{r.label}</span>
+                          <span className="text-sm font-bold text-accent">{r.value}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
