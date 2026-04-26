@@ -30,30 +30,24 @@ const REQUIRED_DOCS = [
   "إيصال دفع رسم التقديم",
 ];
 
-const TIMELINE = [
+const ACADEMIC_CALENDAR = [
   {
-    title: "فتح باب التقديم",
-    date: "27 / 4 / 2026",
-    desc: "بدء استقبال طلبات المفاضلة عبر الموقع الإلكتروني يوم الاثنين.",
-    Icon: ClipboardList,
+    semester: "الفصل الأول",
+    duration: "16 أسبوعاً تقريباً",
+    rows: [
+      { label: "بدء التسجيل", value: "آب + أيلول", Icon: ClipboardList },
+      { label: "بداية الفصل", value: "تشرين الأول", Icon: BookOpen },
+      { label: "الامتحانات", value: "آخر كانون الثاني", Icon: FileCheck2 },
+    ],
   },
   {
-    title: "آخر موعد للتقديم",
-    date: "6 / 10 / 2026",
-    desc: "آخر يوم لاستكمال الطلب ورفع الوثائق المطلوبة.",
-    Icon: Clock,
-  },
-  {
-    title: "إعلان النتائج",
-    date: "15 / 10 / 2026",
-    desc: "نشر نتائج القبول حسب ترتيب الرغبات والمعدّل.",
-    Icon: CheckCircle2,
-  },
-  {
-    title: "بدء التسجيل",
-    date: "15 / 10 / 2026",
-    desc: "تسجيل الطلاب المقبولين ودفع الرسوم الجامعية.",
-    Icon: BookOpen,
+    semester: "الفصل الثاني",
+    duration: "16 أسبوعاً تقريباً",
+    rows: [
+      { label: "بدء التسجيل", value: "بداية شباط", Icon: ClipboardList },
+      { label: "بداية الفصل الثاني", value: "شباط", Icon: BookOpen },
+      { label: "الامتحانات", value: "حزيران", Icon: FileCheck2 },
+    ],
   },
 ];
 
