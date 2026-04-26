@@ -19,6 +19,7 @@ import {
   BookOpen,
   ScrollText,
   Clock,
+  MessageCircle,
 } from "lucide-react";
 
 const REQUIRED_DOCS = [
@@ -382,8 +383,14 @@ export default function Mofadla() {
                 <h3 className="font-bold text-primary-foreground mb-2">
                   للاستفسار والدعم
                 </h3>
-                <ContactRow Icon={Phone} text="+963 11 000 0000" />
-                <ContactRow Icon={Mail} text="mofadla@upafa.education" />
+                <ContactRow Icon={Phone} text="+963 989 801 010" href="tel:+963989801010" />
+                <ContactRow
+                  Icon={MessageCircle}
+                  text="واتساب: +963 989 801 010"
+                  href="https://wa.me/963989801010"
+                  external
+                />
+                <ContactRow Icon={Mail} text="academic@upafa.education" href="mailto:academic@upafa.education" />
                 <ContactRow Icon={MapPin} text="دمشق – سوريا" />
               </CardContent>
             </Card>
@@ -443,18 +450,41 @@ function StatCard({
 function ContactRow({
   Icon,
   text,
+  href,
+  external,
 }: {
   Icon: typeof Phone;
   text: string;
+  href?: string;
+  external?: boolean;
 }) {
-  return (
-    <div className="flex items-center gap-3 text-sm text-primary-foreground/90">
+  const content = (
+    <>
       <span className="w-8 h-8 rounded-md bg-accent/20 text-accent flex items-center justify-center shrink-0">
         <Icon size={14} />
       </span>
       <span dir="ltr" className="font-medium">
         {text}
       </span>
+    </>
+  );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        target={external ? "_blank" : undefined}
+        rel={external ? "noopener noreferrer" : undefined}
+        className="flex items-center gap-3 text-sm text-primary-foreground/90 hover:text-primary-foreground transition-colors"
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3 text-sm text-primary-foreground/90">
+      {content}
     </div>
   );
 }
