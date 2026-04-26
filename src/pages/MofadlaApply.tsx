@@ -616,6 +616,22 @@ export default function MofadlaApply() {
               </div>
             )}
 
+            {/* Captcha — shown on the final step only */}
+            {step === 3 && turnstileSiteKey && (
+              <div className="mt-6 pt-5 border-t border-border">
+                <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
+                  <ShieldCheck size={14} className="text-accent" />
+                  <span>يرجى إكمال التحقق الأمني قبل إرسال الطلب</span>
+                </div>
+                <TurnstileWidget
+                  siteKey={turnstileSiteKey}
+                  onVerify={(token) => setTurnstileToken(token)}
+                  onExpire={() => setTurnstileToken("")}
+                  onError={() => setTurnstileToken("")}
+                />
+              </div>
+            )}
+
             {/* Navigation */}
             <div className="flex items-center justify-between mt-7 pt-5 border-t border-border">
               <Button
@@ -635,7 +651,7 @@ export default function MofadlaApply() {
                 <Button
                   type="button"
                   onClick={submit}
-                  disabled={submitting}
+                  disabled={submitting || (!!turnstileSiteKey && !turnstileToken)}
                   className="gap-1 bg-accent text-accent-foreground hover:brightness-110"
                 >
                   <ClipboardList size={14} />
