@@ -20,6 +20,8 @@ import {
   ScrollText,
   Clock,
   MessageCircle,
+  Download,
+  FileText,
 } from "lucide-react";
 
 const REQUIRED_DOCS = [
@@ -253,8 +255,54 @@ export default function Mofadla() {
         </div>
       </section>
 
+      {/* Downloads */}
+      <section className="py-14 md:py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="ملفات للتحميل"
+            title="الوثائق والإجراءات الرسمية"
+            subtitle="حمّل الملفات التالية للاطلاع على إجراءات القيد وجداول البرامج بشكل تفصيلي."
+          />
+          <div className="grid md:grid-cols-3 gap-4 mt-10">
+            {[
+              {
+                title: "إجراءات القيد لدرجة الإجازة",
+                desc: "الشروط والوثائق المطلوبة للقيد في مرحلة الإجازة.",
+                href: "/downloads/registration-bachelor.pdf",
+              },
+              {
+                title: "إجراءات القيد لدرجة الماجستير",
+                desc: "الشروط والوثائق المطلوبة للقيد في مرحلة الماجستير.",
+                href: "/downloads/registration-master.pdf",
+              },
+              {
+                title: "جداول البرامج",
+                desc: "الجداول التفصيلية للبرامج الأكاديمية المتاحة.",
+                href: "/downloads/programs-schedule.pdf",
+              },
+            ].map((f) => (
+              <Card key={f.href} className="hover:shadow-md hover:border-primary/40 transition-all">
+                <CardContent className="p-5 flex flex-col h-full">
+                  <div className="w-12 h-12 rounded-md bg-primary/10 text-primary flex items-center justify-center mb-4">
+                    <FileText size={24} />
+                  </div>
+                  <h3 className="font-bold text-primary mb-2">{f.title}</h3>
+                  <p className="text-xs text-muted-foreground mb-4 leading-relaxed flex-1">{f.desc}</p>
+                  <Button asChild variant="outline" size="sm" className="gap-2 w-full">
+                    <a href={f.href} target="_blank" rel="noopener noreferrer" download>
+                      <Download size={16} />
+                      تحميل PDF
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Programs */}
-      <section id="programs" className="py-14 md:py-20 bg-background scroll-mt-24">
+      <section id="programs" className="py-14 md:py-20 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4">
           <SectionHeading
             badge="البرامج المتاحة"
