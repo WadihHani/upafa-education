@@ -109,13 +109,13 @@ export default function Mofadla() {
         <div className="container mx-auto px-4 py-16 md:py-24 relative">
           <div className="max-w-3xl">
             <Badge className="bg-accent text-accent-foreground hover:bg-accent mb-4 text-xs font-bold">
-              مفاضلة خريف 2026
+              مفاضلة صيف 2026
             </Badge>
             <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
               التقديم على المفاضلة الجامعية
             </h1>
             <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl">
-              فُتح باب التقديم على مفاضلة خريف 2026 في جامعة UPAFA – فرع سوريا. أكمل
+              فُتح باب التقديم على مفاضلة صيف 2026 في جامعة UPAFA – فرع سوريا. أكمل
               طلبك إلكترونياً خلال دقائق، اختر الكلية والاختصاص المناسبين لك، وثبّت
               مقعدك الجامعي.
             </p>
@@ -258,7 +258,7 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <SectionHeading
             badge="البرامج المتاحة"
-            title="اختصاصات مفاضلة خريف 2026"
+            title="اختصاصات مفاضلة صيف 2026"
             subtitle="اطّلع على البرامج المفتوحة للتقديم وعدد المقاعد والحدّ الأدنى للقبول."
           />
 
