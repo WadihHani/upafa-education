@@ -301,7 +301,7 @@ export default function Mofadla() {
                       </span>
                       <span className="text-muted-foreground">
                         الحد الأدنى:{" "}
-                        <strong className="text-foreground">{Number(p.min_score)}</strong>
+                        <strong className="text-foreground">{Number(p.min_score)}%</strong>
                       </span>
                     </div>
                   </CardContent>
