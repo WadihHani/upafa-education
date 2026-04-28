@@ -266,16 +266,6 @@ export default function Mofadla() {
           <div className="grid md:grid-cols-3 gap-4 mt-10">
             {[
               {
-                title: "إجراءات القيد لدرجة الإجازة",
-                desc: "الشروط والوثائق المطلوبة للقيد في مرحلة الإجازة.",
-                href: "/downloads/registration-bachelor.pdf",
-              },
-              {
-                title: "إجراءات القيد لدرجة الماجستير",
-                desc: "الشروط والوثائق المطلوبة للقيد في مرحلة الماجستير.",
-                href: "/downloads/registration-master.pdf",
-              },
-              {
                 title: "جداول البرامج",
                 desc: "الجداول التفصيلية للبرامج الأكاديمية المتاحة.",
                 href: "/downloads/programs-schedule.pdf",
