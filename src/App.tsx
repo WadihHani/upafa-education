@@ -24,6 +24,7 @@ import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
 import Faculties from "./pages/Faculties";
 import Tuition from "./pages/Tuition";
+import TuitionFees from "./pages/TuitionFees";
 import Faq from "./pages/Faq";
 import ProgramLevel from "./pages/ProgramLevel";
 import AdminLogin from "./pages/AdminLogin";
@@ -67,6 +68,7 @@ const App = () => (
               <Route path="/programs/:level" element={<ProgramLevel />} />
               <Route path="/faculties" element={<Faculties />} />
               <Route path="/tuition" element={<Tuition />} />
+              <Route path="/tuition-fees" element={<TuitionFees />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/portal" element={<Portal />} />
               <Route path="/publications" element={<Publications />} />
