@@ -23,6 +23,7 @@ const navLinks: NavItem[] = [
     ],
   },
   { label: "المؤتمرات والندوات", href: "/conferences" },
+  { label: "الرسوم والتسجيل", href: "/tuition-fees" },
   { label: "المفاضلة", href: "/mofadla" },
   {
     label: "البرامج",
