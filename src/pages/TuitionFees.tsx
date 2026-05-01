@@ -1,5 +1,4 @@
-import { Download, GraduationCap, BookOpen, FileCheck, AlertCircle, Monitor, CheckCircle2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { GraduationCap, BookOpen, FileCheck, AlertCircle, Monitor, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const bachelorFees = [
