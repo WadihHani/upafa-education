@@ -45,11 +45,6 @@ export default function TuitionFees() {
           <p className="text-foreground/70 leading-[2] mt-6">
             شروط القبول والوثائق المطلوبة وجداول الرسوم الدراسية لمرحلتي الإجازة الجامعية والماجستير في جامعة أفريقيا الفرنسية-العربية.
           </p>
-          <Button asChild className="mt-6 gap-2">
-            <a href="/downloads/tuition-fees-2026.pdf" download>
-              <Download size={16} /> تحميل التعميم الرسمي (PDF)
-            </a>
-          </Button>
         </div>
 
         {/* Admission requirements */}
