@@ -103,69 +103,111 @@ export default function TuitionFees() {
           </CardContent>
         </Card>
 
-        {/* Bachelor fees table */}
+        {/* Bachelor fees */}
         <div className="max-w-5xl mx-auto mb-12">
           <h2 className="text-2xl font-bold text-primary mb-4">جدول رسوم درجة الإجازة – البكالوريوس</h2>
-          <div className="bg-card rounded-xl shadow-md overflow-hidden border border-border/50">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-primary text-primary-foreground">
-                  <tr>
-                    <th className="p-3 text-right font-bold">التخصص</th>
-                    <th className="p-3 text-right font-bold">الإجمالي</th>
-                    <th className="p-3 text-right font-bold">عدد المواد</th>
-                    <th className="p-3 text-right font-bold">رسوم المادة</th>
-                    <th className="p-3 text-right font-bold">رسوم التخرج</th>
-                    <th className="p-3 text-right font-bold">عدد المستويات</th>
+          {/* Desktop table */}
+          <div className="hidden md:block bg-card rounded-xl shadow-md overflow-hidden border border-border/50">
+            <table className="w-full text-sm">
+              <thead className="bg-primary text-primary-foreground">
+                <tr>
+                  <th className="p-3 text-right font-bold">التخصص</th>
+                  <th className="p-3 text-right font-bold">الإجمالي</th>
+                  <th className="p-3 text-right font-bold">عدد المواد</th>
+                  <th className="p-3 text-right font-bold">رسوم المادة</th>
+                  <th className="p-3 text-right font-bold">رسوم التخرج</th>
+                  <th className="p-3 text-right font-bold">عدد المستويات</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {bachelorFees.map((r) => (
+                  <tr key={r.specialty} className="hover:bg-muted/40 transition-colors">
+                    <td className="p-3 font-bold text-primary">{r.specialty}</td>
+                    <td className="p-3 text-foreground/80">{r.total}</td>
+                    <td className="p-3 text-foreground/80">{r.courses}</td>
+                    <td className="p-3 text-foreground/80">{r.perCourse}</td>
+                    <td className="p-3 text-foreground/80">{r.graduation}</td>
+                    <td className="p-3 text-foreground/80">{r.levels}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {bachelorFees.map((r) => (
-                    <tr key={r.specialty} className="hover:bg-muted/40 transition-colors">
-                      <td className="p-3 font-bold text-primary">{r.specialty}</td>
-                      <td className="p-3 text-foreground/80">{r.total}</td>
-                      <td className="p-3 text-foreground/80">{r.courses}</td>
-                      <td className="p-3 text-foreground/80">{r.perCourse}</td>
-                      <td className="p-3 text-foreground/80">{r.graduation}</td>
-                      <td className="p-3 text-foreground/80">{r.levels}</td>
-                    </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-4">
+            {bachelorFees.map((r) => (
+              <div key={r.specialty} className="bg-card rounded-xl shadow-md border border-border/50 overflow-hidden">
+                <div className="bg-primary text-primary-foreground px-4 py-3 font-bold">{r.specialty}</div>
+                <dl className="divide-y divide-border text-sm">
+                  {[
+                    ["الإجمالي", r.total],
+                    ["عدد المواد", r.courses],
+                    ["رسوم المادة", r.perCourse],
+                    ["رسوم التخرج", r.graduation],
+                    ["عدد المستويات", r.levels],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between px-4 py-2.5">
+                      <dt className="text-foreground/60">{k}</dt>
+                      <dd className="font-semibold text-foreground">{v}</dd>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </dl>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Master fees table */}
+        {/* Master fees */}
         <div className="max-w-5xl mx-auto mb-12">
           <h2 className="text-2xl font-bold text-primary mb-4">جدول رسوم الدراسات العليا – الماجستير</h2>
-          <div className="bg-card rounded-xl shadow-md overflow-hidden border border-border/50">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead className="bg-primary text-primary-foreground">
-                  <tr>
-                    <th className="p-3 text-right font-bold">البرنامج</th>
-                    <th className="p-3 text-right font-bold">الدرجة</th>
-                    <th className="p-3 text-right font-bold">الإجمالي</th>
-                    <th className="p-3 text-right font-bold">المستويات</th>
-                    <th className="p-3 text-right font-bold">رسوم المستوى</th>
-                    <th className="p-3 text-right font-bold">رسوم التخرج</th>
+          {/* Desktop table */}
+          <div className="hidden md:block bg-card rounded-xl shadow-md overflow-hidden border border-border/50">
+            <table className="w-full text-sm">
+              <thead className="bg-primary text-primary-foreground">
+                <tr>
+                  <th className="p-3 text-right font-bold">البرنامج</th>
+                  <th className="p-3 text-right font-bold">الدرجة</th>
+                  <th className="p-3 text-right font-bold">الإجمالي</th>
+                  <th className="p-3 text-right font-bold">المستويات</th>
+                  <th className="p-3 text-right font-bold">رسوم المستوى</th>
+                  <th className="p-3 text-right font-bold">رسوم التخرج</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {masterFees.map((r, i) => (
+                  <tr key={i} className="hover:bg-muted/40 transition-colors">
+                    <td className="p-3 font-bold text-primary">{r.program}</td>
+                    <td className="p-3 text-foreground/80">{r.degree}</td>
+                    <td className="p-3 text-foreground/80">{r.total}</td>
+                    <td className="p-3 text-foreground/80">{r.levels}</td>
+                    <td className="p-3 text-foreground/80">{r.perLevel}</td>
+                    <td className="p-3 text-foreground/80">{r.graduation}</td>
                   </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {masterFees.map((r, i) => (
-                    <tr key={i} className="hover:bg-muted/40 transition-colors">
-                      <td className="p-3 font-bold text-primary">{r.program}</td>
-                      <td className="p-3 text-foreground/80">{r.degree}</td>
-                      <td className="p-3 text-foreground/80">{r.total}</td>
-                      <td className="p-3 text-foreground/80">{r.levels}</td>
-                      <td className="p-3 text-foreground/80">{r.perLevel}</td>
-                      <td className="p-3 text-foreground/80">{r.graduation}</td>
-                    </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-4">
+            {masterFees.map((r, i) => (
+              <div key={i} className="bg-card rounded-xl shadow-md border border-border/50 overflow-hidden">
+                <div className="bg-primary text-primary-foreground px-4 py-3 font-bold">{r.program}</div>
+                <dl className="divide-y divide-border text-sm">
+                  {[
+                    ["الدرجة", r.degree],
+                    ["الإجمالي", r.total],
+                    ["المستويات", r.levels],
+                    ["رسوم المستوى", r.perLevel],
+                    ["رسوم التخرج", r.graduation],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex justify-between px-4 py-2.5">
+                      <dt className="text-foreground/60">{k}</dt>
+                      <dd className="font-semibold text-foreground">{v}</dd>
+                    </div>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                </dl>
+              </div>
+            ))}
           </div>
         </div>
 
