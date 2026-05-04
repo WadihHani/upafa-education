@@ -1,5 +1,6 @@
+import type { ElementType } from "react";
 import { useParams, Link } from "react-router-dom";
-import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe, ClipboardList, Languages, ListChecks } from "lucide-react";
+import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe, ClipboardList, ListChecks } from "lucide-react";
 
 type RegistrationInfo = {
   conditions?: { title: string; items: string[] };
