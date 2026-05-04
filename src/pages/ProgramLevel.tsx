@@ -1,5 +1,124 @@
+import type { ElementType } from "react";
 import { useParams, Link } from "react-router-dom";
-import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe } from "lucide-react";
+import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe, ClipboardList, ListChecks } from "lucide-react";
+
+type RegistrationInfo = {
+  conditions?: { title: string; items: string[] };
+  documents?: { title: string; items: string[] };
+  steps: { title: string; items: string[] };
+  applyMethods?: { title: string; items: string[] };
+  completion?: { title: string; items: string[] };
+  upgrade?: { title: string; items: string[] };
+  notes?: string[];
+};
+
+const REGISTRATION: Record<string, RegistrationInfo> = {
+  bachelor: {
+    documents: {
+      title: "الوثائق المطلوبة للقيد (للمستجدين)",
+      items: [
+        "صورة مصدقة عن الشهادة الثانوية الأصلية.",
+        "صورة عن الهوية الشخصية (للوجهين) أو قيد نفوس حديث (للسوريين) أو صورة عن جواز السفر (لغير السوريين).",
+        "صورة شخصية حديثة.",
+        "استمارة المفاضلة الإلكترونية: يتم فيها ملء البيانات الكاملة ووضع الرغبات.",
+        "لطلاب الانتقال: صورة عن كشف العلامات للمواد المنجزة في الجامعة السابقة لإجراء المعادلة لدى القسم المختص.",
+      ],
+    },
+    steps: {
+      title: "خطوات إجراءات القيد",
+      items: [
+        "استخراج إشعار القبول: بعد صدور نتائج القبول، يتوجه الطالب إلى القسم الذي قُبل به للتأكد من وجود اسمه في قوائم المقبولين.",
+        "تسديد الرسوم الدراسية: يتم الدفع نقداً في إدارة الجامعة أو عبر الدفع الإلكتروني حسب النظام المتبع، أو عبر إحدى مكاتب التحويل المباشر.",
+        "تسليم الملف: يُسلم الطالب جميع الوثائق السابقة إلى الموظف المختص في قسم شؤون الطلاب بالجامعة أو لدى وكلاء الجامعة.",
+      ],
+    },
+    applyMethods: {
+      title: "طرق التقديم المتاحة",
+      items: [
+        "الموقع الرسمي: التقديم عبر رابط استمارة التسجيل المباشر.",
+        "الواتساب: إرسال صور الوثائق المطلوبة إلى مكتب التسجيل والقبول في دمشق عبر الرقم المخصص.",
+        "مكاتب التسجيل والقبول ووكلاء الجامعة في دمشق وجميع الفروع.",
+      ],
+    },
+    notes: [
+      "تشترط الجامعة أن تكون الشهادات العلمية مصدقة أصولاً، والقبول متاح لبرامج الإجازة (البكالوريوس)، الماجستير، والدكتوراه.",
+      "لمعرفة المواعيد الدقيقة والرسوم الحالية لعام 2026 يمكن مراجعة صفحة الرسوم الدراسية أو التواصل مع مكتب القبول والتسجيل.",
+    ],
+  },
+  master: {
+    conditions: {
+      title: "الشروط العامة للقيد",
+      items: [
+        "أن يكون الطالب حاصلاً على درجة الإجازة بتقدير «جيد» على الأقل من إحدى كليات الجامعات الحكومية السورية أو ما يعادلها من كلية أخرى أو معهد عالٍ معترف به من مجلس الجامعة، وأن تكون الإجازة مناسبة للقيد بدرجة الماجستير.",
+        "اجتياز امتحان اللغة الأجنبية للقيد (مستوى الإنكليزية 3 من 6).",
+        "أن تكون الإجازة في نفس الاختصاص أو في اختصاص معادل يقبله القسم.",
+      ],
+    },
+    steps: {
+      title: "خطوات إجراءات القيد",
+      items: [
+        "التقديم: يتم تقديم الطلبات إلكترونياً أو في جميع مراكز التسجيل المحددة.",
+        "امتحان اللغة: اجتياز امتحان القيد باللغة الأجنبية (أو تقديم وثيقة نجاح سارية).",
+        "إعلان النتائج والتسجيل: بعد صدور نتائج القبول، يتم تسليم الأوراق الثبوتية الورقية والإلكترونية (مصدقة التخرج، الهوية، وثيقة اللغة، صورة شخصية) إلى قسم الدراسات العليا بالجامعة أو مكاتبها الفرعية.",
+        "تثبيت القيد: دفع الرسوم الدراسية المطلوبة لتثبيت القيد في إدارة الجامعة أو مكاتبها الفرعية.",
+      ],
+    },
+    notes: [
+      "يمكن التسجيل عبر الإنترنت أو من خلال مكتب التسجيل والقبول ووكلاء الجامعة في دمشق وجميع الفروع.",
+      "لمعرفة المواعيد الدقيقة والرسوم الحالية لعام 2026 يمكن مراجعة صفحة الرسوم الدراسية أو التواصل مع مكتب القبول والتسجيل.",
+    ],
+  },
+  phd: {
+    conditions: {
+      title: "الشروط العامة للقيد",
+      items: [
+        "أن يكون الطالب حاصلاً على درجة الماجستير في الاختصاص الذي يحدده نظام الدراسات العليا الخاص بالقسم بتقدير «جيد» على الأقل، من إحدى الأقسام ذات التخصص في الجامعة الإفريقية الفرنسية العربية أو الكليات في الجامعات الحكومية السورية أو ما يعادلها من كلية أخرى أو معهد عالٍ معترف به من مجلس الجامعة.",
+      ],
+    },
+    documents: {
+      title: "الأوراق المطلوبة للقيد في درجة الدكتوراه (نسخة ورقية + إلكترونية)",
+      items: [
+        "صورة مصدقة عن وثيقة التخرج أو الإجازة.",
+        "صورة مصدقة عن شهادة الماجستير للشهادات السورية.",
+        "صورة مصدقة عن شهادة الماجستير مع صورة قرار معادلة الشهادة للشهادات غير السورية.",
+        "وثيقة نجاح الطالب بامتحان اللغة الأجنبية الخاص بالتسجيل في الدكتوراه (مستوى 4 من 6).",
+        "مخطط البحث موثقاً من الطالب والأستاذ المشرف (والمشارك إن وجد).",
+        "محضر السمنار (المناقشة العلنية) لمخطط البحث موقعاً من النائب العلمي ورئيس القسم المختص والمشرفين وأعضاء مجلس القسم.",
+        "استمارة مشروع البحث العلمي بعد ملء كافة المعلومات فيها وموقعة من رئيس القسم.",
+      ],
+    },
+    upgrade: {
+      title: "نظام الانتقال من الدكتوراه المهنية إلى الأكاديمية",
+      items: [
+        "التقدم بوثيقة الدكتوراه المهنية مصدقة أصولاً.",
+        "يُعفى الطالب من المواد الدراسية المقررة لبرنامج الدكتوراه.",
+        "إعداد رسالة دكتوراه بحثية لمدة سنة واحدة.",
+      ],
+    },
+    steps: {
+      title: "خطوات إجراءات القيد",
+      items: [
+        "التقديم: يتم تقديم الطلبات إلكترونياً أو في جميع مراكز التسجيل المحددة.",
+        "امتحان اللغة: اجتياز امتحان القيد باللغة الأجنبية (أو تقديم وثيقة نجاح سارية).",
+        "إعلان النتائج والتسجيل: بعد صدور نتائج القبول، يتم تسليم الأوراق الثبوتية الورقية والإلكترونية إلى قسم الدراسات العليا بالجامعة أو مكاتبها الفرعية.",
+        "تثبيت القيد: دفع الرسوم الدراسية المطلوبة لتثبيت القيد في إدارة الجامعة أو مكاتبها الفرعية.",
+      ],
+    },
+    completion: {
+      title: "شروط إتمام الدكتوراه",
+      items: [
+        "عدد الساعات المعتمدة: 6 ساعات معتمدة (حسب مجلس البحث العلمي).",
+        "إعداد رسالة دكتوراه بحثية.",
+        "المدة: سنة ونصف حداً أدنى.",
+        "الحصول على شهادة قيادة الحاسب ICDL.",
+      ],
+    },
+    notes: [
+      "يمكن التسجيل عبر الإنترنت أو من خلال مكتب التسجيل والقبول ووكلاء الجامعة في دمشق وجميع الفروع.",
+      "لمعرفة المواعيد الدقيقة والرسوم الحالية لعام 2026 يمكن مراجعة صفحة الرسوم الدراسية أو التواصل مع مكتب القبول والتسجيل.",
+    ],
+  },
+};
 
 type LevelInfo = {
   title: string;
@@ -259,6 +378,10 @@ export default function ProgramLevel() {
           </div>
         )}
 
+        {level && REGISTRATION[level] && (
+          <RegistrationBlock info={REGISTRATION[level]} />
+        )}
+
         <div className="text-center">
           <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
             تواصل معنا للتسجيل
@@ -266,5 +389,60 @@ export default function ProgramLevel() {
         </div>
       </div>
     </section>
+  );
+}
+
+function RegSection({ icon: Icon, title, items, ordered = false }: { icon: ElementType; title: string; items: string[]; ordered?: boolean }) {
+  return (
+    <div className="mb-6 last:mb-0">
+      <div className="flex items-center gap-2 mb-3">
+        <Icon className="text-primary shrink-0" size={20} />
+        <h3 className="text-lg font-bold text-foreground">{title}</h3>
+      </div>
+      {ordered ? (
+        <ol className="list-decimal pr-6 space-y-2 text-foreground/80 leading-[1.9] text-sm">
+          {items.map((it, i) => (<li key={i}>{it}</li>))}
+        </ol>
+      ) : (
+        <ul className="space-y-2">
+          {items.map((it, i) => (
+            <li key={i} className="flex items-start gap-2 text-foreground/80 text-sm leading-[1.9]">
+              <CheckCircle2 className="text-accent shrink-0 mt-1" size={16} />
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function RegistrationBlock({ info }: { info: RegistrationInfo }) {
+  return (
+    <div className="bg-card rounded-xl shadow-lg p-6 md:p-8 border border-border/50 mb-8">
+      <h2 className="text-2xl font-bold text-foreground mb-2">إجراءات القيد والتسجيل</h2>
+      <p className="text-sm text-muted-foreground mb-6">
+        فرع سورية – جامعة أفريقيا الفرنسية العربية. الشروط والوثائق وخطوات القيد المعتمدة.
+      </p>
+
+      {info.conditions && <RegSection icon={ListChecks} title={info.conditions.title} items={info.conditions.items} />}
+      {info.documents && <RegSection icon={FileText} title={info.documents.title} items={info.documents.items} />}
+      {info.steps && <RegSection icon={ClipboardList} title={info.steps.title} items={info.steps.items} ordered />}
+      {info.applyMethods && <RegSection icon={Globe} title={info.applyMethods.title} items={info.applyMethods.items} />}
+      {info.upgrade && <RegSection icon={GraduationCap} title={info.upgrade.title} items={info.upgrade.items} ordered />}
+      {info.completion && <RegSection icon={CheckCircle2} title={info.completion.title} items={info.completion.items} />}
+
+      {info.notes && info.notes.length > 0 && (
+        <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg text-sm text-foreground/80 leading-[1.9]">
+          <strong className="text-primary block mb-2">ملاحظات:</strong>
+          <ul className="list-disc pr-5 space-y-1">
+            {info.notes.map((n, i) => (<li key={i}>{n}</li>))}
+          </ul>
+          <p className="mt-3">
+            للاستفسار عن الرسوم تفضل بزيارة <Link to="/tuition-fees" className="text-primary font-semibold hover:underline">صفحة الرسوم والتسجيل</Link> أو <Link to="/contact" className="text-primary font-semibold hover:underline">تواصل معنا</Link>.
+          </p>
+        </div>
+      )}
+    </div>
   );
 }
