@@ -390,3 +390,60 @@ export default function ProgramLevel() {
     </section>
   );
 }
+
+type SectionBlock = { title: string; items: string[] };
+
+function RegSection({ icon: Icon, title, items, ordered = false }: { icon: React.ElementType; title: string; items: string[]; ordered?: boolean }) {
+  return (
+    <div className="mb-6 last:mb-0">
+      <div className="flex items-center gap-2 mb-3">
+        <Icon className="text-primary shrink-0" size={20} />
+        <h3 className="text-lg font-bold text-foreground">{title}</h3>
+      </div>
+      {ordered ? (
+        <ol className="list-decimal pr-6 space-y-2 text-foreground/80 leading-[1.9] text-sm">
+          {items.map((it, i) => (<li key={i}>{it}</li>))}
+        </ol>
+      ) : (
+        <ul className="space-y-2">
+          {items.map((it, i) => (
+            <li key={i} className="flex items-start gap-2 text-foreground/80 text-sm leading-[1.9]">
+              <CheckCircle2 className="text-accent shrink-0 mt-1" size={16} />
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function RegistrationBlock({ info }: { info: RegistrationInfo }) {
+  return (
+    <div className="bg-card rounded-xl shadow-lg p-6 md:p-8 border border-border/50 mb-8">
+      <h2 className="text-2xl font-bold text-foreground mb-2">إجراءات القيد والتسجيل</h2>
+      <p className="text-sm text-muted-foreground mb-6">
+        فرع سورية – جامعة أفريقيا الفرنسية العربية. الشروط والوثائق وخطوات القيد المعتمدة.
+      </p>
+
+      {info.conditions && <RegSection icon={ListChecks} title={info.conditions.title} items={info.conditions.items} />}
+      {info.documents && <RegSection icon={FileText} title={info.documents.title} items={info.documents.items} />}
+      {info.steps && <RegSection icon={ClipboardList} title={info.steps.title} items={info.steps.items} ordered />}
+      {info.applyMethods && <RegSection icon={Globe} title={info.applyMethods.title} items={info.applyMethods.items} />}
+      {info.upgrade && <RegSection icon={GraduationCap} title={info.upgrade.title} items={info.upgrade.items} ordered />}
+      {info.completion && <RegSection icon={CheckCircle2} title={info.completion.title} items={info.completion.items} />}
+
+      {info.notes && info.notes.length > 0 && (
+        <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg text-sm text-foreground/80 leading-[1.9]">
+          <strong className="text-primary block mb-2">ملاحظات:</strong>
+          <ul className="list-disc pr-5 space-y-1">
+            {info.notes.map((n, i) => (<li key={i}>{n}</li>))}
+          </ul>
+          <p className="mt-3">
+            للاستفسار عن الرسوم تفضل بزيارة <Link to="/tuition-fees" className="text-primary font-semibold hover:underline">صفحة الرسوم والتسجيل</Link> أو <Link to="/contact" className="text-primary font-semibold hover:underline">تواصل معنا</Link>.
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
