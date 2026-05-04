@@ -392,9 +392,7 @@ export default function ProgramLevel() {
   );
 }
 
-type SectionBlock = { title: string; items: string[] };
-
-function RegSection({ icon: Icon, title, items, ordered = false }: { icon: React.ElementType; title: string; items: string[]; ordered?: boolean }) {
+function RegSection({ icon: Icon, title, items, ordered = false }: { icon: ElementType; title: string; items: string[]; ordered?: boolean }) {
   return (
     <div className="mb-6 last:mb-0">
       <div className="flex items-center gap-2 mb-3">
