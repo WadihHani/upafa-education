@@ -377,6 +377,10 @@ export default function ProgramLevel() {
           </div>
         )}
 
+        {level && REGISTRATION[level] && (
+          <RegistrationBlock info={REGISTRATION[level]} />
+        )}
+
         <div className="text-center">
           <Link to="/contact" className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
             تواصل معنا للتسجيل
