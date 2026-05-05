@@ -140,6 +140,17 @@ export default function Mofadla() {
                 variant="outline"
                 className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2"
               >
+                <a href="#register">
+                  <UserPlus size={18} />
+                  سجّل الآن
+                </a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2"
+              >
                 <a href="#programs">
                   <BookOpen size={18} />
                   عرض البرامج المتاحة
