@@ -204,39 +204,7 @@ export default function MofadlaApply() {
     }
     setSubmitting(true);
 
-    // Upload receipt to storage if provided
-    let receiptUrl = "";
-    if (receiptFile) {
-      setUploadingReceipt(true);
-      const ext = receiptFile.name.split(".").pop()?.toLowerCase() || "jpg";
-      const path = `${crypto.randomUUID()}.${ext}`;
-      const { error: upErr } = await supabase.storage
-        .from("mofadla-receipts")
-        .upload(path, receiptFile, {
-          contentType: receiptFile.type,
-          upsert: false,
-        });
-      setUploadingReceipt(false);
-      if (upErr) {
-        setSubmitting(false);
-        toast({
-          title: "تعذر رفع وصل التحويل",
-          description: upErr.message,
-          variant: "destructive",
-        });
-        return;
-      }
-      const { data: pub } = supabase.storage
-        .from("mofadla-receipts")
-        .getPublicUrl(path);
-      receiptUrl = pub.publicUrl;
-    }
-
-    const noteWithReceipt = [
-      extraNotes.trim(),
-      receiptUrl ? `وصل التحويل: ${receiptUrl}` : "",
-    ].filter(Boolean).join("\n");
-
+    const noteWithReceipt = extraNotes.trim();
     const { data, error } = await supabase.functions.invoke(
       "submit-mofadla-application",
       {
