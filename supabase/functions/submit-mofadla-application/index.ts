@@ -27,6 +27,7 @@ interface RequestBody {
   average: number;
   preferences: string[];
   notes?: string;
+  payment_receipt_url?: string;
   turnstileToken?: string;
 }
 
