@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen, Globe } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen, Globe, UserPlus } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -18,6 +18,7 @@ const navItems = [
   { label: "طلبات الانضمام", path: "/admin/enrollments", icon: ClipboardList, badgeKey: "pending_enrollments" as const },
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
   { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
+  { label: "تسجيلات سجّل الآن", path: "/admin/mofadla/registrations", icon: UserPlus, badgeKey: "pending_registrations" as const },
   { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
   { label: "حالة DNS للبريد", path: "/admin/dns-status", icon: Globe },
 ];
@@ -26,24 +27,37 @@ export default function AdminLayout() {
   const { isAdmin, loading, signOut } = useAuth();
   const location = useLocation();
   const [pendingEnrollments, setPendingEnrollments] = useState(0);
+  const [pendingRegistrations, setPendingRegistrations] = useState(0);
 
   useEffect(() => {
     if (!isAdmin) return;
-    const fetchCount = async () => {
-      const { count } = await supabase
-        .from("enrollments")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "pending");
-      setPendingEnrollments(count ?? 0);
+    const fetchCounts = async () => {
+      const [enrRes, regRes] = await Promise.all([
+        supabase
+          .from("enrollments")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "pending"),
+        supabase
+          .from("mofadla_quick_registrations")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "pending"),
+      ]);
+      setPendingEnrollments(enrRes.count ?? 0);
+      setPendingRegistrations(regRes.count ?? 0);
     };
-    fetchCount();
+    fetchCounts();
 
     const channel = supabase
-      .channel("admin-layout-enrollments")
+      .channel("admin-layout-counts")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "enrollments" },
-        () => fetchCount()
+        () => fetchCounts()
+      )
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "mofadla_quick_registrations" },
+        () => fetchCounts()
       )
       .subscribe();
     return () => {
@@ -65,6 +79,7 @@ export default function AdminLayout() {
 
   const badges: Record<string, number> = {
     pending_enrollments: pendingEnrollments,
+    pending_registrations: pendingRegistrations,
   };
 
   return (
