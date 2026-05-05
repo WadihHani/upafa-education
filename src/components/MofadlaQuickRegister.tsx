@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
+import { useSiteContent } from "@/hooks/use-site-content";
 import {
   ClipboardList,
   Upload,
@@ -16,6 +17,7 @@ import {
   FileBadge,
   ReceiptText,
   UserSquare,
+  MessageCircle,
 } from "lucide-react";
 
 const schema = z.object({
