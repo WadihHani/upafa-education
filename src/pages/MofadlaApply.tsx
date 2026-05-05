@@ -812,7 +812,11 @@ export default function MofadlaApply() {
                   className="gap-1 bg-accent text-accent-foreground hover:brightness-110"
                 >
                   <ClipboardList size={14} />
-                  {submitting ? "جارٍ الإرسال..." : "إرسال الطلب"}
+                  {uploadingReceipt
+                    ? "جارٍ رفع وصل التحويل..."
+                    : submitting
+                    ? "جارٍ الإرسال..."
+                    : "إرسال الطلب"}
                 </Button>
               )}
             </div>
