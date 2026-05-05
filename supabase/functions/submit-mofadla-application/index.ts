@@ -27,6 +27,7 @@ interface RequestBody {
   average: number;
   preferences: string[];
   notes?: string;
+  payment_receipt_url?: string;
   turnstileToken?: string;
 }
 
@@ -148,6 +149,7 @@ Deno.serve(async (req) => {
             ? Math.trunc(body.personal.graduation_year)
             : null,
         notes: combinedNotes,
+        payment_receipt_url: s(body?.payment_receipt_url, 1000),
       })
       .select("id")
       .single();

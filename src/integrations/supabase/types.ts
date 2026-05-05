@@ -596,6 +596,7 @@ export type Database = {
           id: string
           national_id: string
           notes: string
+          payment_receipt_url: string
           phone: string
           status: Database["public"]["Enums"]["application_status"]
           total_score: number
@@ -618,6 +619,7 @@ export type Database = {
           id?: string
           national_id: string
           notes?: string
+          payment_receipt_url?: string
           phone?: string
           status?: Database["public"]["Enums"]["application_status"]
           total_score?: number
@@ -640,6 +642,7 @@ export type Database = {
           id?: string
           national_id?: string
           notes?: string
+          payment_receipt_url?: string
           phone?: string
           status?: Database["public"]["Enums"]["application_status"]
           total_score?: number
