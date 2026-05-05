@@ -945,6 +945,60 @@ export type Database = {
         }
         Relationships: []
       }
+      program_courses: {
+        Row: {
+          category: string
+          code: string
+          created_at: string
+          credit_hours: number
+          description: string
+          id: string
+          level: string
+          prerequisite: string
+          program_name: string
+          program_slug: string
+          semester: number | null
+          sort_order: number
+          title_ar: string
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          category?: string
+          code?: string
+          created_at?: string
+          credit_hours?: number
+          description?: string
+          id?: string
+          level?: string
+          prerequisite?: string
+          program_name?: string
+          program_slug: string
+          semester?: number | null
+          sort_order?: number
+          title_ar: string
+          updated_at?: string
+          year?: number
+        }
+        Update: {
+          category?: string
+          code?: string
+          created_at?: string
+          credit_hours?: number
+          description?: string
+          id?: string
+          level?: string
+          prerequisite?: string
+          program_name?: string
+          program_slug?: string
+          semester?: number | null
+          sort_order?: number
+          title_ar?: string
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       programs: {
         Row: {
           created_at: string
