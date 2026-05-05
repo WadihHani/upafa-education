@@ -367,6 +367,20 @@ export default function Mofadla() {
         </div>
       </section>
 
+      {/* Quick Register */}
+      <section id="register" className="py-14 md:py-20 bg-background scroll-mt-24">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="سجّل الآن"
+            title="سجّل الآن في المفاضلة"
+            subtitle="املأ بياناتك الشخصية وارفع المستندات المطلوبة وإيصال دفع رسوم التسجيل من خلال النموذج التالي."
+          />
+          <div className="mt-10">
+            <MofadlaQuickRegister />
+          </div>
+        </div>
+      </section>
+
       {/* Important notes */}
       <section className="py-14 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 max-w-4xl">
