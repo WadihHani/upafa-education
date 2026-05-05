@@ -227,7 +227,7 @@ export default function MofadlaApply() {
           average: averageNum,
           preferences,
           notes: noteWithReceipt,
-          payment_receipt_url: receiptUrl,
+          payment_receipt_url: "",
           turnstileToken,
         },
       },
@@ -658,11 +658,7 @@ export default function MofadlaApply() {
                   className="gap-1 bg-accent text-accent-foreground hover:brightness-110"
                 >
                   <ClipboardList size={14} />
-                  {uploadingReceipt
-                    ? "جارٍ رفع وصل التحويل..."
-                    : submitting
-                    ? "جارٍ الإرسال..."
-                    : "إرسال الطلب"}
+                  {submitting ? "جارٍ الإرسال..." : "إرسال الطلب"}
                 </Button>
               )}
             </div>
