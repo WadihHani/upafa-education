@@ -139,6 +139,32 @@ export default function MofadlaApply() {
 
   const [extraNotes, setExtraNotes] = useState("");
 
+  // Payment receipt
+  const [receiptFile, setReceiptFile] = useState<File | null>(null);
+  const [receiptPreview, setReceiptPreview] = useState<string>("");
+  const [uploadingReceipt, setUploadingReceipt] = useState(false);
+
+  const handleReceiptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast({ title: "نوع الملف غير صالح", description: "يرجى رفع صورة فقط", variant: "destructive" });
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: "حجم الملف كبير جداً", description: "الحد الأقصى 5 ميغابايت", variant: "destructive" });
+      return;
+    }
+    setReceiptFile(file);
+    setReceiptPreview(URL.createObjectURL(file));
+  };
+
+  const removeReceipt = () => {
+    setReceiptFile(null);
+    if (receiptPreview) URL.revokeObjectURL(receiptPreview);
+    setReceiptPreview("");
+  };
+
   // ========== validation per step ==========
   const validateStep1 = () => {
     const parsed = personalSchema.safeParse({
