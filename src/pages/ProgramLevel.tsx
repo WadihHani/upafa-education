@@ -1,6 +1,7 @@
 import type { ElementType } from "react";
 import { useParams, Link } from "react-router-dom";
 import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe, ClipboardList, ListChecks } from "lucide-react";
+import ProgramCoursesSection from "@/components/ProgramCoursesSection";
 
 type RegistrationInfo = {
   conditions?: { title: string; items: string[] };
@@ -376,6 +377,10 @@ export default function ProgramLevel() {
               <strong className="text-primary">ملاحظة:</strong> يخضع القبول في برامج الدكتوراه لمقابلة علمية وتقييم لمشروع البحث المقترح، إضافة إلى المعدل التراكمي في الماجستير.
             </div>
           </div>
+        )}
+
+        {(level === "bachelor" || level === "master") && (
+          <ProgramCoursesSection level={level as "bachelor" | "master"} />
         )}
 
         {level && REGISTRATION[level] && (
