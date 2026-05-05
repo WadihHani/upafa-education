@@ -700,6 +700,84 @@ export type Database = {
         }
         Relationships: []
       }
+      mofadla_quick_registrations: {
+        Row: {
+          address: string
+          admin_notes: string
+          average: number
+          birth_date: string | null
+          certificate_url: string
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          email: string
+          father_name: string
+          full_name: string
+          graduation_year: number | null
+          id: string
+          last_certificate: string
+          mother_name: string
+          national_id: string
+          national_id_url: string
+          notes: string
+          payment_receipt_url: string
+          personal_photo_url: string
+          phone: string
+          status: Database["public"]["Enums"]["quick_registration_status"]
+          updated_at: string
+        }
+        Insert: {
+          address?: string
+          admin_notes?: string
+          average?: number
+          birth_date?: string | null
+          certificate_url?: string
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          email?: string
+          father_name?: string
+          full_name: string
+          graduation_year?: number | null
+          id?: string
+          last_certificate?: string
+          mother_name?: string
+          national_id: string
+          national_id_url?: string
+          notes?: string
+          payment_receipt_url?: string
+          personal_photo_url?: string
+          phone: string
+          status?: Database["public"]["Enums"]["quick_registration_status"]
+          updated_at?: string
+        }
+        Update: {
+          address?: string
+          admin_notes?: string
+          average?: number
+          birth_date?: string | null
+          certificate_url?: string
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          email?: string
+          father_name?: string
+          full_name?: string
+          graduation_year?: number | null
+          id?: string
+          last_certificate?: string
+          mother_name?: string
+          national_id?: string
+          national_id_url?: string
+          notes?: string
+          payment_receipt_url?: string
+          personal_photo_url?: string
+          phone?: string
+          status?: Database["public"]["Enums"]["quick_registration_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       news_categories: {
         Row: {
           created_at: string
@@ -1060,6 +1138,7 @@ export type Database = {
         | "vocational"
         | "arts"
         | "sharia"
+      quick_registration_status: "pending" | "approved" | "rejected"
       submission_status: "submitted" | "graded" | "late"
     }
     CompositeTypes: {
@@ -1212,6 +1291,7 @@ export const Constants = {
         "arts",
         "sharia",
       ],
+      quick_registration_status: ["pending", "approved", "rejected"],
       submission_status: ["submitted", "graded", "late"],
     },
   },

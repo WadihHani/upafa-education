@@ -29,17 +29,7 @@ import {
   ClipboardList,
   CircleAlert,
   ShieldCheck,
-  MessageCircle,
-  Upload,
-  ImageIcon,
-  Loader2,
 } from "lucide-react";
-
-const WHATSAPP_NUMBER_DISPLAY = "+963 989 801 010";
-const WHATSAPP_NUMBER_INTL = "963989801010";
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER_INTL}?text=${encodeURIComponent(
-  "السلام عليكم، أرغب بالاستفسار عن أقساط ومستلزمات التسجيل في المفاضلة الجامعية.",
-)}`;
 
 type Branch = "scientific" | "literary" | "industrial" | "vocational" | "arts" | "sharia";
 type ProgramBranch = Branch | "both";
@@ -139,32 +129,6 @@ export default function MofadlaApply() {
 
   const [extraNotes, setExtraNotes] = useState("");
 
-  // Payment receipt
-  const [receiptFile, setReceiptFile] = useState<File | null>(null);
-  const [receiptPreview, setReceiptPreview] = useState<string>("");
-  const [uploadingReceipt, setUploadingReceipt] = useState(false);
-
-  const handleReceiptChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      toast({ title: "نوع الملف غير صالح", description: "يرجى رفع صورة فقط", variant: "destructive" });
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      toast({ title: "حجم الملف كبير جداً", description: "الحد الأقصى 5 ميغابايت", variant: "destructive" });
-      return;
-    }
-    setReceiptFile(file);
-    setReceiptPreview(URL.createObjectURL(file));
-  };
-
-  const removeReceipt = () => {
-    setReceiptFile(null);
-    if (receiptPreview) URL.revokeObjectURL(receiptPreview);
-    setReceiptPreview("");
-  };
-
   // ========== validation per step ==========
   const validateStep1 = () => {
     const parsed = personalSchema.safeParse({
@@ -240,39 +204,7 @@ export default function MofadlaApply() {
     }
     setSubmitting(true);
 
-    // Upload receipt to storage if provided
-    let receiptUrl = "";
-    if (receiptFile) {
-      setUploadingReceipt(true);
-      const ext = receiptFile.name.split(".").pop()?.toLowerCase() || "jpg";
-      const path = `${crypto.randomUUID()}.${ext}`;
-      const { error: upErr } = await supabase.storage
-        .from("mofadla-receipts")
-        .upload(path, receiptFile, {
-          contentType: receiptFile.type,
-          upsert: false,
-        });
-      setUploadingReceipt(false);
-      if (upErr) {
-        setSubmitting(false);
-        toast({
-          title: "تعذر رفع وصل التحويل",
-          description: upErr.message,
-          variant: "destructive",
-        });
-        return;
-      }
-      const { data: pub } = supabase.storage
-        .from("mofadla-receipts")
-        .getPublicUrl(path);
-      receiptUrl = pub.publicUrl;
-    }
-
-    const noteWithReceipt = [
-      extraNotes.trim(),
-      receiptUrl ? `وصل التحويل: ${receiptUrl}` : "",
-    ].filter(Boolean).join("\n");
-
+    const noteWithReceipt = extraNotes.trim();
     const { data, error } = await supabase.functions.invoke(
       "submit-mofadla-application",
       {
@@ -295,7 +227,7 @@ export default function MofadlaApply() {
           average: averageNum,
           preferences,
           notes: noteWithReceipt,
-          payment_receipt_url: receiptUrl,
+          payment_receipt_url: "",
           turnstileToken,
         },
       },
@@ -684,92 +616,6 @@ export default function MofadlaApply() {
                   />
                 </div>
 
-                {/* Payment / Receipt section */}
-                <div className="rounded-lg border border-accent/40 bg-accent/5 p-4 space-y-4">
-                  <div>
-                    <h3 className="font-bold text-primary mb-1 flex items-center gap-2">
-                      <MessageCircle size={16} className="text-accent" />
-                      دفع رسوم التسجيل ومستلزمات القبول
-                    </h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      للاستفسار عن الأقساط والأسعار وإتمام دفع رسوم ومستلزمات التسجيل،
-                      يرجى التواصل عبر واتساب على الرقم التالي. اضغط على الرقم لفتح
-                      المحادثة مباشرة.
-                    </p>
-                  </div>
-
-                  <a
-                    href={WHATSAPP_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between gap-3 bg-[#25D366] hover:brightness-110 transition text-white rounded-md px-4 py-3"
-                  >
-                    <span className="flex items-center gap-2 font-bold">
-                      <MessageCircle size={18} />
-                      تواصل عبر واتساب
-                    </span>
-                    <span dir="ltr" className="font-mono text-sm font-bold">
-                      {WHATSAPP_NUMBER_DISPLAY}
-                    </span>
-                  </a>
-
-                  <div>
-                    <label className="text-sm font-bold text-primary mb-1 block">
-                      أضف وصل التحويل
-                    </label>
-                    <p className="text-[11px] text-muted-foreground mb-3 leading-relaxed">
-                      بعد إتمام الدفع، ارفع صورة وصل التحويل (JPG / PNG، حتى 5 ميغابايت).
-                    </p>
-
-                    {receiptPreview ? (
-                      <div className="relative rounded-md overflow-hidden border border-border bg-card">
-                        <img
-                          src={receiptPreview}
-                          alt="وصل التحويل"
-                          className="w-full max-h-72 object-contain bg-muted/30"
-                        />
-                        <div className="flex items-center justify-between p-2 bg-card border-t border-border">
-                          <span className="text-xs text-muted-foreground truncate flex items-center gap-1">
-                            <ImageIcon size={12} />
-                            {receiptFile?.name}
-                          </span>
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="sm"
-                            onClick={removeReceipt}
-                            className="text-destructive hover:text-destructive hover:bg-destructive/10 gap-1 h-7"
-                          >
-                            <Trash2 size={12} />
-                            إزالة
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <label
-                        htmlFor="receipt-upload"
-                        className="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-border hover:border-accent hover:bg-accent/5 rounded-md p-6 cursor-pointer transition-colors text-center"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-accent/15 text-accent flex items-center justify-center">
-                          <Upload size={18} />
-                        </div>
-                        <span className="text-sm font-bold text-primary">
-                          أضف وصل التحويل
-                        </span>
-                        <span className="text-[11px] text-muted-foreground">
-                          اضغط هنا لاختيار صورة من جهازك
-                        </span>
-                        <input
-                          id="receipt-upload"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleReceiptChange}
-                        />
-                      </label>
-                    )}
-                  </div>
-                </div>
               </div>
             )}
 
@@ -812,11 +658,7 @@ export default function MofadlaApply() {
                   className="gap-1 bg-accent text-accent-foreground hover:brightness-110"
                 >
                   <ClipboardList size={14} />
-                  {uploadingReceipt
-                    ? "جارٍ رفع وصل التحويل..."
-                    : submitting
-                    ? "جارٍ الإرسال..."
-                    : "إرسال الطلب"}
+                  {submitting ? "جارٍ الإرسال..." : "إرسال الطلب"}
                 </Button>
               )}
             </div>

@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import MofadlaQuickRegister from "@/components/MofadlaQuickRegister";
 import {
   GraduationCap,
   CalendarDays,
@@ -22,6 +23,7 @@ import {
   MessageCircle,
   Download,
   FileText,
+  UserPlus,
 } from "lucide-react";
 
 const REQUIRED_DOCS = [
@@ -131,6 +133,17 @@ export default function Mofadla() {
                   <ClipboardList size={18} />
                   قدّم الآن
                 </Link>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-primary-foreground/40 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground gap-2"
+              >
+                <a href="#register">
+                  <UserPlus size={18} />
+                  سجّل الآن
+                </a>
               </Button>
               <Button
                 asChild
@@ -362,6 +375,20 @@ export default function Mofadla() {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Quick Register */}
+      <section id="register" className="py-14 md:py-20 bg-background scroll-mt-24">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="سجّل الآن"
+            title="سجّل الآن في المفاضلة"
+            subtitle="املأ بياناتك الشخصية وارفع المستندات المطلوبة وإيصال دفع رسوم التسجيل من خلال النموذج التالي."
+          />
+          <div className="mt-10">
+            <MofadlaQuickRegister />
+          </div>
         </div>
       </section>
 
