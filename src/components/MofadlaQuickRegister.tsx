@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
+import { useSiteContent } from "@/hooks/use-site-content";
 import {
   ClipboardList,
   Upload,
@@ -16,6 +17,7 @@ import {
   FileBadge,
   ReceiptText,
   UserSquare,
+  MessageCircle,
 } from "lucide-react";
 
 const schema = z.object({
@@ -69,6 +71,13 @@ const DOCS: DocConfig[] = [
 ];
 
 export default function MofadlaQuickRegister() {
+  const { get } = useSiteContent();
+  const paymentPhoneRaw = get("mofadla_payment_whatsapp", "+963 989 801 010");
+  const paymentPhoneDigits = paymentPhoneRaw.replace(/\D/g, "");
+  const paymentWaLink = `https://wa.me/${paymentPhoneDigits}?text=${encodeURIComponent(
+    "مرحباً، أرغب بدفع رسوم التسجيل في جامعة UPAFA – فرع سوريا وإرسال إيصال الدفع."
+  )}`;
+
   const [submitting, setSubmitting] = useState(false);
   const [submittedId, setSubmittedId] = useState<string | null>(null);
 
@@ -253,6 +262,39 @@ export default function MofadlaQuickRegister() {
     <form onSubmit={submit} className="max-w-3xl mx-auto">
       <Card className="border-t-4 border-t-accent">
         <CardContent className="p-5 sm:p-7 space-y-6">
+          {/* Payment WhatsApp banner */}
+          <div className="rounded-lg border-2 border-[#25D366]/40 bg-[#25D366]/5 p-4 sm:p-5">
+            <div className="flex items-start gap-3 flex-wrap sm:flex-nowrap">
+              <div className="w-11 h-11 rounded-full bg-[#25D366] text-white flex items-center justify-center shrink-0">
+                <MessageCircle size={22} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <h4 className="font-extrabold text-primary mb-1 text-sm sm:text-base">
+                  دفع رسوم التسجيل عبر واتساب
+                </h4>
+                <p className="text-xs sm:text-[13px] text-muted-foreground leading-relaxed mb-2">
+                  للاستفسار عن طريقة الدفع وتسليم إيصال الرسوم، تواصل مع الإدارة
+                  المالية مباشرة عبر هذا الرقم المخصص:
+                </p>
+                <p
+                  className="text-sm font-bold text-[#128C7E] mb-3"
+                  dir="ltr"
+                >
+                  {paymentPhoneRaw}
+                </p>
+                <a
+                  href={paymentWaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#25D366] hover:brightness-110 text-white text-sm font-bold px-4 py-2 rounded-md transition-all"
+                >
+                  <MessageCircle size={16} />
+                  فتح محادثة واتساب لدفع الرسوم
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* Personal info */}
           <div>
             <h3 className="font-bold text-primary mb-1">البيانات الشخصية</h3>
