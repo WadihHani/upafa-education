@@ -29,17 +29,7 @@ import {
   ClipboardList,
   CircleAlert,
   ShieldCheck,
-  MessageCircle,
-  Upload,
-  ImageIcon,
-  Loader2,
 } from "lucide-react";
-
-const WHATSAPP_NUMBER_DISPLAY = "+963 989 801 010";
-const WHATSAPP_NUMBER_INTL = "963989801010";
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER_INTL}?text=${encodeURIComponent(
-  "السلام عليكم، أرغب بالاستفسار عن أقساط ومستلزمات التسجيل في المفاضلة الجامعية.",
-)}`;
 
 type Branch = "scientific" | "literary" | "industrial" | "vocational" | "arts" | "sharia";
 type ProgramBranch = Branch | "both";
