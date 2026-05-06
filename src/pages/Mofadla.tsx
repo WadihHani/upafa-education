@@ -142,7 +142,7 @@ export default function Mofadla() {
               >
                 <a href="#register">
                   <UserPlus size={18} />
-                  سجّل الآن
+                  تثبيت التسجيل
                 </a>
               </Button>
               <Button
