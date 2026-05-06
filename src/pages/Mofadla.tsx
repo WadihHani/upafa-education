@@ -382,8 +382,8 @@ export default function Mofadla() {
       <section id="register" className="py-14 md:py-20 bg-background scroll-mt-24">
         <div className="container mx-auto px-4">
           <SectionHeading
-            badge="سجّل الآن"
-            title="سجّل الآن في المفاضلة"
+            badge="تثبيت التسجيل"
+            title="تثبيت التسجيل في المفاضلة"
             subtitle="املأ بياناتك الشخصية وارفع المستندات المطلوبة وإيصال دفع رسوم التسجيل من خلال النموذج التالي."
           />
           <div className="mt-10">
