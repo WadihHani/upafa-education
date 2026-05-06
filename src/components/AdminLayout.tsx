@@ -18,7 +18,7 @@ const navItems = [
   { label: "طلبات الانضمام", path: "/admin/enrollments", icon: ClipboardList, badgeKey: "pending_enrollments" as const },
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
   { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
-  { label: "تسجيلات سجّل الآن", path: "/admin/mofadla/registrations", icon: UserPlus, badgeKey: "pending_registrations" as const },
+  { label: "تثبيت التسجيل", path: "/admin/mofadla/registrations", icon: UserPlus, badgeKey: "pending_registrations" as const },
   { label: "محتوى الموقع", path: "/admin/site-content", icon: Settings },
   { label: "حالة DNS للبريد", path: "/admin/dns-status", icon: Globe },
 ];
