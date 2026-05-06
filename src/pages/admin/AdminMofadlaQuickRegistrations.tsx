@@ -146,7 +146,7 @@ export default function AdminMofadlaQuickRegistrations() {
     <div>
       <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold">تسجيلات "سجّل الآن"</h1>
+          <h1 className="text-2xl font-bold">تثبيت التسجيل</h1>
           <p className="text-sm text-muted-foreground mt-1">
             بيانات الطلاب الذين سجّلوا عبر النموذج المختصر مع المستندات وإيصال الدفع.
           </p>
