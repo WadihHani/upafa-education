@@ -1198,6 +1198,26 @@ export type Database = {
           read_ct: number
         }[]
       }
+      submit_mofadla_quick_registration: {
+        Args: {
+          p_address?: string
+          p_average?: number
+          p_birth_date?: string
+          p_certificate_url?: string
+          p_email?: string
+          p_father_name?: string
+          p_full_name: string
+          p_graduation_year?: number
+          p_last_certificate?: string
+          p_mother_name?: string
+          p_national_id?: string
+          p_national_id_url?: string
+          p_payment_receipt_url?: string
+          p_personal_photo_url?: string
+          p_phone?: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin" | "user" | "teacher" | "student"
