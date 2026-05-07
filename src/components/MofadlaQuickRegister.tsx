@@ -247,7 +247,7 @@ export default function MofadlaQuickRegister() {
       const avgNum = form.average ? parseFloat(form.average) : 0;
       const yrNum = form.graduation_year ? parseInt(form.graduation_year) : null;
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("mofadla_quick_registrations")
         .insert({
           full_name: form.full_name.trim(),
@@ -265,12 +265,10 @@ export default function MofadlaQuickRegister() {
           national_id_url: urls.national_id_doc,
           certificate_url: urls.certificate,
           payment_receipt_url: urls.receipt,
-        })
-        .select("id")
-        .single();
+        });
 
-      if (error || !data) throw new Error(error?.message ?? "تعذر حفظ التسجيل");
-      setSubmittedId(data.id);
+      if (error) throw new Error(error.message);
+      setSubmittedId("submitted");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       toast({
