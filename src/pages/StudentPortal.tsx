@@ -31,10 +31,12 @@ type SectionKey =
   | "attendance"
   | "assessments"
   | "grades"
+  | "notes"
   | "overview";
 
 const sections = [
   { key: "overview" as SectionKey, label: "نظرة عامة", icon: BookOpen, description: "ملخص حالتك الدراسية الحالية." },
+  { key: "notes" as SectionKey, label: "ملاحظات الإدارة", icon: Bell, description: "ملاحظات خاصة من إدارة الجامعة." },
   { key: "lectures" as SectionKey, label: "المحاضرات والمواد", icon: PlayCircle, description: "المحاضرات والمواد التعليمية لمقرراتك." },
   { key: "attendance" as SectionKey, label: "الحضور", icon: CalendarCheck, description: "سجل الحضور والغياب الخاص بك." },
   { key: "assessments" as SectionKey, label: "الاختبارات والواجبات", icon: ClipboardList, description: "اختباراتك وواجباتك القادمة وتسليماتك." },
@@ -136,6 +138,7 @@ export default function StudentPortal() {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
+  const [adminNotes, setAdminNotes] = useState<StudentNote[]>([]);
 
   const [submitOpen, setSubmitOpen] = useState<Assessment | null>(null);
   const [submitForm, setSubmitForm] = useState({ content: "", link_url: "" });
