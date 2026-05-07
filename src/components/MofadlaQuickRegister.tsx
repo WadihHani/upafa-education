@@ -289,15 +289,8 @@ export default function MofadlaQuickRegister() {
           <h3 className="text-xl font-extrabold text-primary mb-2">
             تم استلام تسجيلك بنجاح
           </h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            رقم التسجيل
-          </p>
-          <p className="text-xs font-mono bg-muted/50 rounded px-3 py-1.5 inline-block mb-5" dir="ltr">
-            {submittedId}
-          </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
             ستقوم إدارة الجامعة بمراجعة بياناتك ومستنداتك والتواصل معك مباشرة.
-            يرجى الاحتفاظ برقم التسجيل أعلاه للمتابعة.
           </p>
         </CardContent>
       </Card>
