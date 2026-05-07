@@ -247,28 +247,30 @@ export default function MofadlaQuickRegister() {
       const avgNum = form.average ? parseFloat(form.average) : 0;
       const yrNum = form.graduation_year ? parseInt(form.graduation_year) : null;
 
-      const { error } = await supabase
-        .from("mofadla_quick_registrations")
-        .insert({
-          full_name: form.full_name.trim(),
-          father_name: form.father_name.trim(),
-          mother_name: form.mother_name.trim(),
-          national_id: form.national_id.trim(),
-          phone: form.phone.trim(),
-          email: form.email.trim(),
-          birth_date: form.birth_date || null,
-          address: form.address.trim(),
-          last_certificate: form.last_certificate.trim(),
-          average: Number.isFinite(avgNum) ? avgNum : 0,
-          graduation_year: yrNum && Number.isFinite(yrNum) ? yrNum : null,
-          personal_photo_url: urls.personal_photo,
-          national_id_url: urls.national_id_doc,
-          certificate_url: urls.certificate,
-          payment_receipt_url: urls.receipt,
-        });
+      const { data, error } = await supabase.rpc(
+        "submit_mofadla_quick_registration",
+        {
+          p_full_name: form.full_name.trim(),
+          p_father_name: form.father_name.trim(),
+          p_mother_name: form.mother_name.trim(),
+          p_national_id: form.national_id.trim(),
+          p_phone: form.phone.trim(),
+          p_email: form.email.trim(),
+          p_birth_date: form.birth_date || null,
+          p_address: form.address.trim(),
+          p_last_certificate: form.last_certificate.trim(),
+          p_average: Number.isFinite(avgNum) ? avgNum : 0,
+          p_graduation_year: yrNum && Number.isFinite(yrNum) ? yrNum : null,
+          p_personal_photo_url: urls.personal_photo,
+          p_national_id_url: urls.national_id_doc,
+          p_certificate_url: urls.certificate,
+          p_payment_receipt_url: urls.receipt,
+        },
+      );
 
       if (error) throw new Error(error.message);
-      setSubmittedId("submitted");
+      const result = data as { id?: string } | null;
+      setSubmittedId(result?.id ?? "submitted");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       toast({
