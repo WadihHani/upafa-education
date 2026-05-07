@@ -387,6 +387,30 @@ export default function StudentPortal() {
             </div>
 
             <div className="p-5">
+              {active === "notes" && (
+                adminNotes.length === 0 ? (
+                  <Empty msg="لا توجد ملاحظات من الإدارة." />
+                ) : (
+                  <div className="grid gap-2">
+                    {adminNotes.map((n) => (
+                      <div key={n.id} className={`border rounded-md p-3 text-xs ${n.is_read ? "border-border bg-muted/10" : "border-accent/40 bg-accent/5"}`}>
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <div className="flex items-center gap-2">
+                            <Bell size={14} className="text-accent" />
+                            <span className="font-bold text-primary">رسالة من الإدارة</span>
+                          </div>
+                          {!n.is_read && <Badge className="text-[10px]">جديدة</Badge>}
+                        </div>
+                        <p className="whitespace-pre-wrap text-foreground">{n.note}</p>
+                        <div className="text-[10px] text-muted-foreground mt-2" dir="ltr">
+                          {new Date(n.created_at).toLocaleString("ar-SY")}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )
+              )}
+
               {active === "overview" && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
