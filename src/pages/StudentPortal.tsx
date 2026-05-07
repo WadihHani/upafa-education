@@ -240,6 +240,19 @@ export default function StudentPortal() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
+  useEffect(() => {
+    if (active !== "notes" || !user) return;
+    const unreadIds = adminNotes.filter((n) => !n.is_read).map((n) => n.id);
+    if (unreadIds.length === 0) return;
+    supabase
+      .from("student_notes")
+      .update({ is_read: true })
+      .in("id", unreadIds)
+      .then(() => {
+        setAdminNotes((prev) => prev.map((n) => ({ ...n, is_read: true })));
+      });
+  }, [active, adminNotes, user]);
+
   const courseTitle = (id: string) => courses.find((c) => c.id === id)?.title ?? "—";
   const submissionFor = (aid: string) => submissions.find((s) => s.assessment_id === aid);
 
