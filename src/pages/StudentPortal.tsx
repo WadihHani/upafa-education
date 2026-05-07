@@ -157,6 +157,13 @@ export default function StudentPortal() {
       .then(({ data }) => {
         if (data?.full_name) setProfileName(data.full_name);
       });
+    const { data: notesData } = await supabase
+      .from("student_notes")
+      .select("id, note, is_read, created_at")
+      .eq("student_user_id", user.id)
+      .order("created_at", { ascending: false });
+    setAdminNotes((notesData ?? []) as StudentNote[]);
+
     const { data: enr } = await supabase
       .from("enrollments")
       .select("id, course_id")
@@ -227,6 +234,7 @@ export default function StudentPortal() {
       .on("postgres_changes", { event: "*", schema: "public", table: "assessments" }, load)
       .on("postgres_changes", { event: "*", schema: "public", table: "lecture_materials" }, load)
       .on("postgres_changes", { event: "*", schema: "public", table: "grades" }, load)
+      .on("postgres_changes", { event: "*", schema: "public", table: "student_notes", filter: `student_user_id=eq.${user.id}` }, load)
       .subscribe();
     return () => { supabase.removeChannel(ch); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
