@@ -49,6 +49,7 @@ import NewsPost from "./pages/NewsPost";
 import AdminNewsCategories from "./pages/admin/AdminNewsCategories";
 import AdminNewsPosts from "./pages/admin/AdminNewsPosts";
 import AdminDnsStatus from "./pages/admin/AdminDnsStatus";
+import AdminStudentNotes from "./pages/admin/AdminStudentNotes";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
@@ -110,6 +111,7 @@ const App = () => (
               <Route path="news/:categoryId/posts" element={<AdminNewsPosts />} />
               <Route path="site-content" element={<AdminSiteContent />} />
               <Route path="dns-status" element={<AdminDnsStatus />} />
+              <Route path="student-notes" element={<AdminStudentNotes />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

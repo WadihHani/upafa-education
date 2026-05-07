@@ -31,10 +31,12 @@ type SectionKey =
   | "attendance"
   | "assessments"
   | "grades"
+  | "notes"
   | "overview";
 
 const sections = [
   { key: "overview" as SectionKey, label: "نظرة عامة", icon: BookOpen, description: "ملخص حالتك الدراسية الحالية." },
+  { key: "notes" as SectionKey, label: "ملاحظات الإدارة", icon: Bell, description: "ملاحظات خاصة من إدارة الجامعة." },
   { key: "lectures" as SectionKey, label: "المحاضرات والمواد", icon: PlayCircle, description: "المحاضرات والمواد التعليمية لمقرراتك." },
   { key: "attendance" as SectionKey, label: "الحضور", icon: CalendarCheck, description: "سجل الحضور والغياب الخاص بك." },
   { key: "assessments" as SectionKey, label: "الاختبارات والواجبات", icon: ClipboardList, description: "اختباراتك وواجباتك القادمة وتسليماتك." },
@@ -84,6 +86,12 @@ type Grade = {
   score: number | null;
   max_score: number | null;
 };
+type StudentNote = {
+  id: string;
+  note: string;
+  is_read: boolean;
+  created_at: string;
+};
 
 const ATT_LABEL: Record<Attendance["status"], string> = {
   present: "حاضر",
@@ -130,6 +138,7 @@ export default function StudentPortal() {
   const [assessments, setAssessments] = useState<Assessment[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [grades, setGrades] = useState<Grade[]>([]);
+  const [adminNotes, setAdminNotes] = useState<StudentNote[]>([]);
 
   const [submitOpen, setSubmitOpen] = useState<Assessment | null>(null);
   const [submitForm, setSubmitForm] = useState({ content: "", link_url: "" });
@@ -148,6 +157,13 @@ export default function StudentPortal() {
       .then(({ data }) => {
         if (data?.full_name) setProfileName(data.full_name);
       });
+    const { data: notesData } = await supabase
+      .from("student_notes")
+      .select("id, note, is_read, created_at")
+      .eq("student_user_id", user.id)
+      .order("created_at", { ascending: false });
+    setAdminNotes((notesData ?? []) as StudentNote[]);
+
     const { data: enr } = await supabase
       .from("enrollments")
       .select("id, course_id")
@@ -218,10 +234,24 @@ export default function StudentPortal() {
       .on("postgres_changes", { event: "*", schema: "public", table: "assessments" }, load)
       .on("postgres_changes", { event: "*", schema: "public", table: "lecture_materials" }, load)
       .on("postgres_changes", { event: "*", schema: "public", table: "grades" }, load)
+      .on("postgres_changes", { event: "*", schema: "public", table: "student_notes", filter: `student_user_id=eq.${user.id}` }, load)
       .subscribe();
     return () => { supabase.removeChannel(ch); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useEffect(() => {
+    if (active !== "notes" || !user) return;
+    const unreadIds = adminNotes.filter((n) => !n.is_read).map((n) => n.id);
+    if (unreadIds.length === 0) return;
+    supabase
+      .from("student_notes")
+      .update({ is_read: true })
+      .in("id", unreadIds)
+      .then(() => {
+        setAdminNotes((prev) => prev.map((n) => ({ ...n, is_read: true })));
+      });
+  }, [active, adminNotes, user]);
 
   const courseTitle = (id: string) => courses.find((c) => c.id === id)?.title ?? "—";
   const submissionFor = (aid: string) => submissions.find((s) => s.assessment_id === aid);
@@ -285,8 +315,18 @@ export default function StudentPortal() {
             <h1 className="text-base font-bold">بوابة الطالب</h1>
           </div>
           <div className="flex items-center gap-3">
-            <button type="button" className="relative p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors" aria-label="الإشعارات">
+            <button
+              type="button"
+              onClick={() => setActive("notes")}
+              className="relative p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors"
+              aria-label="الإشعارات"
+            >
               <Bell size={16} />
+              {adminNotes.filter((n) => !n.is_read).length > 0 && (
+                <span className="absolute -top-0.5 -left-0.5 bg-accent text-accent-foreground text-[9px] font-bold rounded-full min-w-[16px] h-4 px-1 inline-flex items-center justify-center">
+                  {adminNotes.filter((n) => !n.is_read).length}
+                </span>
+              )}
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs">
               <div className="w-7 h-7 rounded-full bg-primary-foreground/15 flex items-center justify-center">
@@ -360,6 +400,30 @@ export default function StudentPortal() {
             </div>
 
             <div className="p-5">
+              {active === "notes" && (
+                adminNotes.length === 0 ? (
+                  <Empty msg="لا توجد ملاحظات من الإدارة." />
+                ) : (
+                  <div className="grid gap-2">
+                    {adminNotes.map((n) => (
+                      <div key={n.id} className={`border rounded-md p-3 text-xs ${n.is_read ? "border-border bg-muted/10" : "border-accent/40 bg-accent/5"}`}>
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <div className="flex items-center gap-2">
+                            <Bell size={14} className="text-accent" />
+                            <span className="font-bold text-primary">رسالة من الإدارة</span>
+                          </div>
+                          {!n.is_read && <Badge className="text-[10px]">جديدة</Badge>}
+                        </div>
+                        <p className="whitespace-pre-wrap text-foreground">{n.note}</p>
+                        <div className="text-[10px] text-muted-foreground mt-2" dir="ltr">
+                          {new Date(n.created_at).toLocaleString("ar-SY")}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )
+              )}
+
               {active === "overview" && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
