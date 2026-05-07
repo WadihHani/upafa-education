@@ -148,15 +148,63 @@ export default function MofadlaQuickRegister() {
     });
   };
 
+  const compressImage = async (file: File): Promise<File> => {
+    if (!file.type.startsWith("image/")) return file;
+    try {
+      const bitmap = await createImageBitmap(file);
+      const maxDim = 1600;
+      let { width, height } = bitmap;
+      if (width > maxDim || height > maxDim) {
+        const ratio = Math.min(maxDim / width, maxDim / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return file;
+      ctx.drawImage(bitmap, 0, 0, width, height);
+      const blob: Blob | null = await new Promise((res) =>
+        canvas.toBlob(res, "image/jpeg", 0.82)
+      );
+      if (!blob) return file;
+      if (blob.size >= file.size) return file;
+      return new File([blob], file.name.replace(/\.[^.]+$/, ".jpg"), {
+        type: "image/jpeg",
+      });
+    } catch {
+      return file;
+    }
+  };
+
   const uploadFile = async (file: File, prefix: string): Promise<string> => {
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+    const compressed = await compressImage(file);
+    const ext = compressed.type === "application/pdf" ? "pdf" : "jpg";
     const path = `quick-register/${prefix}/${crypto.randomUUID()}.${ext}`;
-    const { error } = await supabase.storage
-      .from("mofadla-receipts")
-      .upload(path, file, { contentType: file.type, upsert: false });
-    if (error) throw new Error(error.message);
-    const { data } = supabase.storage.from("mofadla-receipts").getPublicUrl(path);
-    return data.publicUrl;
+    let lastErr: unknown = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        const { error } = await supabase.storage
+          .from("mofadla-receipts")
+          .upload(path, compressed, {
+            contentType: compressed.type,
+            upsert: false,
+          });
+        if (error) throw new Error(error.message);
+        const { data } = supabase.storage
+          .from("mofadla-receipts")
+          .getPublicUrl(path);
+        return data.publicUrl;
+      } catch (err) {
+        lastErr = err;
+        await new Promise((r) => setTimeout(r, 800 * (attempt + 1)));
+      }
+    }
+    throw new Error(
+      `تعذر رفع الملف (${prefix})، تحقق من الاتصال بالإنترنت ثم أعد المحاولة. ` +
+        ((lastErr as Error)?.message ?? "")
+    );
   };
 
   const submit = async (e: React.FormEvent) => {
