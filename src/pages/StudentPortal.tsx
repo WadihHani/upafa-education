@@ -302,8 +302,18 @@ export default function StudentPortal() {
             <h1 className="text-base font-bold">بوابة الطالب</h1>
           </div>
           <div className="flex items-center gap-3">
-            <button type="button" className="relative p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors" aria-label="الإشعارات">
+            <button
+              type="button"
+              onClick={() => setActive("notes")}
+              className="relative p-1.5 rounded-md hover:bg-primary-foreground/10 transition-colors"
+              aria-label="الإشعارات"
+            >
               <Bell size={16} />
+              {adminNotes.filter((n) => !n.is_read).length > 0 && (
+                <span className="absolute -top-0.5 -left-0.5 bg-accent text-accent-foreground text-[9px] font-bold rounded-full min-w-[16px] h-4 px-1 inline-flex items-center justify-center">
+                  {adminNotes.filter((n) => !n.is_read).length}
+                </span>
+              )}
             </button>
             <div className="hidden sm:flex items-center gap-2 text-xs">
               <div className="w-7 h-7 rounded-full bg-primary-foreground/15 flex items-center justify-center">
