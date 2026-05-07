@@ -84,6 +84,12 @@ type Grade = {
   score: number | null;
   max_score: number | null;
 };
+type StudentNote = {
+  id: string;
+  note: string;
+  is_read: boolean;
+  created_at: string;
+};
 
 const ATT_LABEL: Record<Attendance["status"], string> = {
   present: "حاضر",
