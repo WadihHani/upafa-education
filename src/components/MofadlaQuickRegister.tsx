@@ -247,7 +247,7 @@ export default function MofadlaQuickRegister() {
       const avgNum = form.average ? parseFloat(form.average) : 0;
       const yrNum = form.graduation_year ? parseInt(form.graduation_year) : null;
 
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("mofadla_quick_registrations")
         .insert({
           full_name: form.full_name.trim(),
@@ -265,12 +265,10 @@ export default function MofadlaQuickRegister() {
           national_id_url: urls.national_id_doc,
           certificate_url: urls.certificate,
           payment_receipt_url: urls.receipt,
-        })
-        .select("id")
-        .single();
+        });
 
-      if (error || !data) throw new Error(error?.message ?? "تعذر حفظ التسجيل");
-      setSubmittedId(data.id);
+      if (error) throw new Error(error.message);
+      setSubmittedId("submitted");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       toast({
@@ -291,15 +289,8 @@ export default function MofadlaQuickRegister() {
           <h3 className="text-xl font-extrabold text-primary mb-2">
             تم استلام تسجيلك بنجاح
           </h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            رقم التسجيل
-          </p>
-          <p className="text-xs font-mono bg-muted/50 rounded px-3 py-1.5 inline-block mb-5" dir="ltr">
-            {submittedId}
-          </p>
           <p className="text-sm text-muted-foreground leading-relaxed">
             ستقوم إدارة الجامعة بمراجعة بياناتك ومستنداتك والتواصل معك مباشرة.
-            يرجى الاحتفاظ برقم التسجيل أعلاه للمتابعة.
           </p>
         </CardContent>
       </Card>
