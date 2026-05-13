@@ -18,11 +18,14 @@ const PRIVATE_PREFIXES = ["/admin", "/portal/", "/login", "/admin/login", "/unsu
 // Walk <Route> tags tracking nesting so children inherit the parent path prefix.
 // A self-closing <Route .../> does not open a scope; <Route ...>...</Route> does.
 export function extractRoutesFromApp(src: string): string[] {
+  // Strip JSX expression containers (e.g. element={<Foo />}) so '>' inside
+  // them doesn't terminate our <Route ...> tag match.
+  const stripped = src.replace(/=\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g, "");
   const out = new Set<string>();
   const stack: string[] = [""];
   const tagRe = /<Route\b([^>]*)>|<\/Route>/g;
   let m: RegExpExecArray | null;
-  while ((m = tagRe.exec(src)) !== null) {
+  while ((m = tagRe.exec(stripped)) !== null) {
     if (m[0] === "</Route>") { stack.pop(); continue; }
     const rawAttrs = m[1];
     const selfClose = /\/\s*$/.test(rawAttrs);
