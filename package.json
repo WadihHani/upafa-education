@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predev": "tsx scripts/generate-sitemap.ts",
-    "prebuild": "tsx scripts/generate-sitemap.ts",
-    "check:sitemap": "tsx scripts/sitemap-coverage.ts",
+    "predev": "npx tsx scripts/generate-sitemap.ts",
+    "prebuild": "npx tsx scripts/generate-sitemap.ts",
+    "check:sitemap": "npx tsx scripts/sitemap-coverage.ts",
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
