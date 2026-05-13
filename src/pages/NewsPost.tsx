@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import NewsCategoriesSidebar from "@/components/NewsCategoriesSidebar";
+import Seo from "@/components/Seo";
 import {
   CalendarDays,
   ChevronLeft,
@@ -114,8 +115,32 @@ export default function NewsPost() {
 
   const video = post.video_url ? toEmbedUrl(post.video_url) : null;
 
+  const articleJsonLd = category && {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    datePublished: post.published_at,
+    image: post.cover_image_url || undefined,
+    description: post.summary || undefined,
+    mainEntityOfPage: `https://upafa.education/news/${category.key}/${post.id}`,
+    publisher: {
+      "@type": "Organization",
+      name: "UPAFA Syria",
+      logo: { "@type": "ImageObject", url: "https://upafa.education/favicon.png" },
+    },
+  };
+
   return (
     <article dir="rtl" className="bg-muted/20 min-h-[60vh] py-10 md:py-14">
+      {category && (
+        <Seo
+          title={`${post.title} | UPAFA سوريا`}
+          description={(post.summary || post.title).slice(0, 155)}
+          path={`/news/${category.key}/${post.id}`}
+          ogType="article"
+          jsonLd={articleJsonLd as Record<string, unknown>}
+        />
+      )}
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-[1fr_280px] gap-8 items-start max-w-6xl mx-auto">
           <div className="min-w-0">
