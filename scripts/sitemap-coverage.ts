@@ -12,22 +12,38 @@ const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 // Routes that must NEVER be in the sitemap (auth, admin, portals, transactional).
-const PRIVATE_PREFIXES = ["/admin", "/portal", "/login", "/unsubscribe"];
+// `/portal` itself is the public login landing — only nested portal routes are private.
+const PRIVATE_PREFIXES = ["/admin", "/portal/", "/login", "/admin/login", "/unsubscribe"];
 
+// Walk <Route> tags tracking nesting so children inherit the parent path prefix.
+// A self-closing <Route .../> does not open a scope; <Route ...>...</Route> does.
 export function extractRoutesFromApp(src: string): string[] {
-  const re = /<Route\s+[^>]*path=["']([^"']+)["']/g;
   const out = new Set<string>();
+  const stack: string[] = [""];
+  const tagRe = /<Route\b([^>]*)(\/?)>|<\/Route>/g;
   let m: RegExpExecArray | null;
-  while ((m = re.exec(src)) !== null) {
-    const p = m[1];
-    if (p === "*" || p === "") continue;
-    out.add(p.startsWith("/") ? p : `/${p}`);
+  while ((m = tagRe.exec(src)) !== null) {
+    if (m[0] === "</Route>") { stack.pop(); continue; }
+    const attrs = m[1];
+    const selfClose = m[2] === "/";
+    const pathMatch = /\bpath=["']([^"']+)["']/.exec(attrs);
+    const parent = stack[stack.length - 1] ?? "";
+    let full = parent;
+    if (pathMatch) {
+      const p = pathMatch[1];
+      if (p !== "*") {
+        full = (parent.replace(/\/$/, "") + "/" + p.replace(/^\//, "")).replace(/\/+/g, "/");
+        if (!full.startsWith("/")) full = "/" + full;
+        out.add(full);
+      }
+    }
+    if (!selfClose) stack.push(full);
   }
   return [...out];
 }
 
 export function isPrivate(path: string): boolean {
-  return PRIVATE_PREFIXES.some((pre) => path === pre || path.startsWith(pre + "/"));
+  return PRIVATE_PREFIXES.some((pre) => path === pre.replace(/\/$/, "") || path.startsWith(pre));
 }
 
 async function expandDynamic(path: string): Promise<string[]> {
