@@ -245,5 +245,6 @@ export default function TuitionFees() {
         </p>
       </div>
     </section>
+    </>
   );
 }
