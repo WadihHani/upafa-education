@@ -401,6 +401,7 @@ export default function ProgramLevel() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
