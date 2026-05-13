@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import HomeIntro from "@/components/HomeIntro";
 import AnnouncementsBoard from "@/components/AnnouncementsBoard";
 import SystemsCards from "@/components/SystemsCards";
 import VisionSection from "@/components/VisionSection";
