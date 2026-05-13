@@ -16,6 +16,12 @@ const features = [
 
 export default function Tuition() {
   return (
+    <>
+      <Seo
+        title="الرسوم الدراسية ونظام الدراسة | UPAFA سوريا"
+        description="نظام الفصول الدراسية والرسوم الدراسية في جامعة UPAFA – فرع سوريا للبكالوريوس والماجستير والدكتوراه."
+        path="/tuition"
+      />
     <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
