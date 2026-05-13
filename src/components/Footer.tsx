@@ -6,7 +6,10 @@ export default function Footer() {
   const { get } = useSiteContent();
 
   const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
-  const footerAbout = get("footer_about", "فرع سوريا – نسعى لتقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة عبر منصات التعليم عن بعد.");
+  const footerAbout = get(
+    "footer_about",
+    "جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria) تسعى لتقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة عبر منصات التعليم عن بعد."
+  );
   const address = get("contact_address", "دمشق، عين كرش");
   const phone = get("contact_phone", "+963 989 801 010");
   const email = get("contact_email", "academic@upafa.education");
