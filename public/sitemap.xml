@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://upafa.education/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://upafa.education/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://upafa.education/programs</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://upafa.education/faculties</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://upafa.education/tuition</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://upafa.education/tuition-fees</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://upafa.education/faq</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://upafa.education/publications</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://upafa.education/conferences</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://upafa.education/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://upafa.education/mofadla</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://upafa.education/portal</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+</urlset>
