@@ -20,12 +20,13 @@ const PRIVATE_PREFIXES = ["/admin", "/portal/", "/login", "/admin/login", "/unsu
 export function extractRoutesFromApp(src: string): string[] {
   const out = new Set<string>();
   const stack: string[] = [""];
-  const tagRe = /<Route\b([^>]*)(\/?)>|<\/Route>/g;
+  const tagRe = /<Route\b([^>]*)>|<\/Route>/g;
   let m: RegExpExecArray | null;
   while ((m = tagRe.exec(src)) !== null) {
     if (m[0] === "</Route>") { stack.pop(); continue; }
-    const attrs = m[1];
-    const selfClose = m[2] === "/";
+    const rawAttrs = m[1];
+    const selfClose = /\/\s*$/.test(rawAttrs);
+    const attrs = rawAttrs.replace(/\/\s*$/, "");
     const pathMatch = /\bpath=["']([^"']+)["']/.exec(attrs);
     const parent = stack[stack.length - 1] ?? "";
     let full = parent;
