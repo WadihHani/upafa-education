@@ -46,8 +46,15 @@ export function extractRoutesFromApp(src: string): string[] {
   return [...out];
 }
 
+// Exact private routes + private subtrees. `/portal` itself is public (login landing);
+// only `/portal/...` children are private.
+const PRIVATE_EXACT = new Set(["/login", "/admin/login", "/unsubscribe"]);
+const PRIVATE_SUBTREES = ["/admin/", "/portal/"];
+
 export function isPrivate(path: string): boolean {
-  return PRIVATE_PREFIXES.some((pre) => path === pre.replace(/\/$/, "") || path.startsWith(pre));
+  if (PRIVATE_EXACT.has(path)) return true;
+  if (path === "/admin") return true;
+  return PRIVATE_SUBTREES.some((pre) => path.startsWith(pre));
 }
 
 async function expandDynamic(path: string): Promise<string[]> {
