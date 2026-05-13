@@ -1,0 +1,32 @@
+# جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria)
+
+> University offering accredited Bachelor's, Master's, and PhD programs in Syria via in-person and distance learning, affiliated with Université Panafricaine Franco-Arabe (Mali).
+
+UPAFA Syria is the Syrian branch of Université Panafricaine Franco-Arabe. The site is fully Arabic (RTL), serves prospective and current students, and covers admissions, programs, faculties, tuition, scholarships (Mofadla), publications, and conferences.
+
+## Pages
+
+- [الرئيسية / Home](/): University overview and announcements.
+- [عن الجامعة / About](/about): History, mission, and accreditation.
+- [البرامج / Programs](/programs): All academic programs by level.
+- [البكالوريوس / Bachelor](/programs/bachelor): Bachelor admission and registration.
+- [الماجستير / Master's](/programs/masters): Master's programs and distance learning.
+- [الدكتوراه / PhD](/programs/phd): Doctoral programs.
+- [الكليات / Faculties](/faculties): Faculty and department listings.
+- [الرسوم الدراسية / Tuition](/tuition): Tuition fee policies.
+- [جدول الرسوم / Tuition Fees](/tuition-fees): Detailed fee schedule.
+- [الأسئلة الشائعة / FAQ](/faq): Frequently asked questions.
+- [المنشورات / Publications](/publications): Academic publications.
+- [المؤتمرات / Conferences](/conferences): Conferences and events.
+- [اتصل بنا / Contact](/contact): Address, phone, email.
+- [المفاضلة / Mofadla](/mofadla): Scholarship and admission competition.
+- [التسجيل في المفاضلة / Mofadla Apply](/mofadla/apply): Application form.
+- [البوابة / Portal](/portal): Student and teacher portal login.
+
+## Optional
+
+- [أخبار الجامعة](/news/university-news)
+- [أخبار الامتحانات](/news/exams-news)
+- [شؤون الطلاب](/news/student-affairs)
+- [مناقشات الرسائل](/news/thesis-defense)
+- [مركز التدريب](/news/training-center)
