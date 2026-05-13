@@ -1,4 +1,5 @@
 import { Calendar, DollarSign, BookOpen, Award } from "lucide-react";
+import Seo from "@/components/Seo";
 
 const programs = [
   { level: "البكالوريوس", duration: "4 سنوات", fee: "حسب التخصص", note: "ينقسم إلى 8 فصول دراسية" },
@@ -15,6 +16,12 @@ const features = [
 
 export default function Tuition() {
   return (
+    <>
+      <Seo
+        title="الرسوم الدراسية ونظام الدراسة | UPAFA سوريا"
+        description="نظام الفصول الدراسية والرسوم الدراسية في جامعة UPAFA – فرع سوريا للبكالوريوس والماجستير والدكتوراه."
+        path="/tuition"
+      />
     <section className="py-16">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -61,5 +68,6 @@ export default function Tuition() {
         </p>
       </div>
     </section>
+    </>
   );
 }

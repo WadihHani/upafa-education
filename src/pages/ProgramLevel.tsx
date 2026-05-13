@@ -2,6 +2,7 @@ import type { ElementType } from "react";
 import { useParams, Link } from "react-router-dom";
 import { GraduationCap, Clock, BookOpen, CheckCircle2, FileText, Globe, ClipboardList, ListChecks } from "lucide-react";
 import ProgramCoursesSection from "@/components/ProgramCoursesSection";
+import Seo from "@/components/Seo";
 
 type RegistrationInfo = {
   conditions?: { title: string; items: string[] };
@@ -232,6 +233,12 @@ export default function ProgramLevel() {
   }
 
   return (
+    <>
+      <Seo
+        title={`${info.title} | UPAFA سوريا`}
+        description={`برنامج ${info.title} في جامعة UPAFA – فرع سوريا. ${info.subtitle}: شروط القبول، الوثائق المطلوبة، وخطوات التسجيل.`}
+        path={`/programs/${level}`}
+      />
     <section className="py-16">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="text-center mb-10">
@@ -394,6 +401,7 @@ export default function ProgramLevel() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 

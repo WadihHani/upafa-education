@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getNewsIcon } from "@/lib/news-icons";
 import NewsCategoriesSidebar from "@/components/NewsCategoriesSidebar";
+import Seo from "@/components/Seo";
 import {
   ArrowLeft,
   CalendarDays,
@@ -99,6 +100,13 @@ export default function NewsCategory() {
 
   return (
     <div dir="rtl">
+      {category && (
+        <Seo
+          title={`${category.title} | UPAFA سوريا`}
+          description={`أحدث المنشورات والأخبار ضمن قسم ${category.title} في جامعة UPAFA – فرع سوريا.`}
+          path={`/news/${category.key}`}
+        />
+      )}
       {/* Header */}
       <section
         className={`${

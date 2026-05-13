@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Seo from "@/components/Seo";
 
 const faqs = [
   {
@@ -36,7 +37,23 @@ const faqs = [
 ];
 
 export default function Faq() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   return (
+    <>
+      <Seo
+        title="الأسئلة الشائعة | UPAFA سوريا"
+        description="أجوبة على الأسئلة المتكررة حول التسجيل، الشهادات، الاعتراف الدولي، طرق الدراسة، والمنح في جامعة UPAFA – فرع سوريا."
+        path="/faq"
+        jsonLd={faqJsonLd}
+      />
     <section className="py-16 bg-[hsl(var(--section-alt))]">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="text-center mb-12">
@@ -59,5 +76,6 @@ export default function Faq() {
         </Accordion>
       </div>
     </section>
+    </>
   );
 }

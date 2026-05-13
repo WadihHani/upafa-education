@@ -1,5 +1,6 @@
 import { GraduationCap, BookOpen, FileCheck, AlertCircle, Monitor, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Seo from "@/components/Seo";
 
 const bachelorFees = [
   { specialty: "العلوم الشرعية", total: "1200 دولار", courses: "30", perCourse: "30 دولاراً", graduation: "300 دولار", levels: "6" },
@@ -34,6 +35,12 @@ const platformFeatures = [
 
 export default function TuitionFees() {
   return (
+    <>
+      <Seo
+        title="جدول الرسوم الدراسية 2026 | UPAFA سوريا"
+        description="جدول الرسوم الدراسية المعتمد لجامعة UPAFA – فرع سوريا لبرامج البكالوريوس والماجستير والدكتوراه لعام 2026."
+        path="/tuition-fees"
+      />
     <section className="py-14 md:py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
@@ -238,5 +245,6 @@ export default function TuitionFees() {
         </p>
       </div>
     </section>
+    </>
   );
 }

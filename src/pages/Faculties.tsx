@@ -1,4 +1,5 @@
 import { GraduationCap, Scale, Briefcase, BookOpen, Cpu, Baby } from "lucide-react";
+import Seo from "@/components/Seo";
 
 const faculties = [
   {
@@ -41,6 +42,12 @@ const faculties = [
 
 export default function Faculties() {
   return (
+    <>
+      <Seo
+        title="الكليات والتخصصات | UPAFA سوريا"
+        description="كليات جامعة أفريقيا الفرنسية العربية – فرع سوريا: الآداب، الشريعة، العلوم الإدارية والتربوية، العلوم التقنية، والطفولة المبكرة."
+        path="/faculties"
+      />
     <section className="py-16 bg-[hsl(var(--section-alt))]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
@@ -75,5 +82,6 @@ export default function Faculties() {
         </div>
       </div>
     </section>
+    </>
   );
 }

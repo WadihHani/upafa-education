@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import MofadlaQuickRegister from "@/components/MofadlaQuickRegister";
+import Seo from "@/components/Seo";
 import {
   GraduationCap,
   CalendarDays,
@@ -101,6 +102,11 @@ export default function Mofadla() {
 
   return (
     <div dir="rtl">
+      <Seo
+        title="المفاضلة والقبول الجامعي 2026 | UPAFA سوريا"
+        description="مفاضلة جامعة UPAFA – فرع سوريا 2026: التخصصات المتاحة، شروط القبول، والتسجيل المباشر للمتقدمين الجدد."
+        path="/mofadla"
+      />
       {/* Hero */}
       <section className="relative bg-primary text-primary-foreground overflow-hidden">
         <div
