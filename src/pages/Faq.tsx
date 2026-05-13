@@ -76,5 +76,6 @@ export default function Faq() {
         </Accordion>
       </div>
     </section>
+    </>
   );
 }
