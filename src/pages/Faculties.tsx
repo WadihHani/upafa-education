@@ -42,6 +42,12 @@ const faculties = [
 
 export default function Faculties() {
   return (
+    <>
+      <Seo
+        title="الكليات والتخصصات | UPAFA سوريا"
+        description="كليات جامعة أفريقيا الفرنسية العربية – فرع سوريا: الآداب، الشريعة، العلوم الإدارية والتربوية، العلوم التقنية، والطفولة المبكرة."
+        path="/faculties"
+      />
     <section className="py-16 bg-[hsl(var(--section-alt))]">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
