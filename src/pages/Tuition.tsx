@@ -68,5 +68,6 @@ export default function Tuition() {
         </p>
       </div>
     </section>
+    </>
   );
 }

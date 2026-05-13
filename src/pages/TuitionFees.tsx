@@ -35,6 +35,12 @@ const platformFeatures = [
 
 export default function TuitionFees() {
   return (
+    <>
+      <Seo
+        title="جدول الرسوم الدراسية 2026 | UPAFA سوريا"
+        description="جدول الرسوم الدراسية المعتمد لجامعة UPAFA – فرع سوريا لبرامج البكالوريوس والماجستير والدكتوراه لعام 2026."
+        path="/tuition-fees"
+      />
     <section className="py-14 md:py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
