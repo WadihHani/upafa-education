@@ -11,9 +11,7 @@ import { createClient } from "@supabase/supabase-js";
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SUPABASE_KEY = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
-// Routes that must NEVER be in the sitemap (auth, admin, portals, transactional).
-// `/portal` itself is the public login landing — only nested portal routes are private.
-const PRIVATE_PREFIXES = ["/admin", "/portal/", "/login", "/admin/login", "/unsubscribe"];
+// (private classification lives below extractRoutesFromApp)
 
 // Walk <Route> tags tracking nesting so children inherit the parent path prefix.
 // A self-closing <Route .../> does not open a scope; <Route ...>...</Route> does.
