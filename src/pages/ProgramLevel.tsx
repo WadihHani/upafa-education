@@ -235,9 +235,33 @@ export default function ProgramLevel() {
   return (
     <>
       <Seo
-        title={`${info.title} | UPAFA سوريا`}
-        description={`برنامج ${info.title} في جامعة UPAFA – فرع سوريا. ${info.subtitle}: شروط القبول، الوثائق المطلوبة، وخطوات التسجيل.`}
+        title={`${info.title} عن بعد في سوريا | UPAFA – ${info.subtitle}`}
+        description={`${info.title} في جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA). ${info.description.slice(0, 110)}`}
         path={`/programs/${level}`}
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "EducationalOccupationalProgram",
+            name: `${info.title} – UPAFA Syria`,
+            description: info.description,
+            educationalProgramMode: "online",
+            timeToComplete: info.duration,
+            provider: {
+              "@type": "CollegeOrUniversity",
+              name: "جامعة أفريقيا الفرنسية العربية – فرع سوريا",
+              sameAs: "https://upafa.education/",
+            },
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "الرئيسية", item: "https://upafa.education/" },
+              { "@type": "ListItem", position: 2, name: "البرامج", item: "https://upafa.education/programs" },
+              { "@type": "ListItem", position: 3, name: info.title, item: `https://upafa.education/programs/${level}` },
+            ],
+          },
+        ]}
       />
     <section className="py-16">
       <div className="container mx-auto px-4 max-w-5xl">

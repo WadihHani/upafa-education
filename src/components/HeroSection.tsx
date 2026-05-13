@@ -65,6 +65,11 @@ export default function HeroSection() {
                       src={s.image_url || fallbackImages[i % fallbackImages.length]}
                       alt={s.title}
                       className="w-full h-full object-cover"
+                      loading={i === 0 ? "eager" : "lazy"}
+                      fetchPriority={i === 0 ? "high" : "auto"}
+                      decoding="async"
+                      width={1280}
+                      height={720}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
                   </div>
