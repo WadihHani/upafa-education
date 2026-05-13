@@ -1,4 +1,5 @@
 import { Calendar, DollarSign, BookOpen, Award } from "lucide-react";
+import Seo from "@/components/Seo";
 
 const programs = [
   { level: "البكالوريوس", duration: "4 سنوات", fee: "حسب التخصص", note: "ينقسم إلى 8 فصول دراسية" },

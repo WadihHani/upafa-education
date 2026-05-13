@@ -1,5 +1,6 @@
 import { GraduationCap, BookOpen, FileCheck, AlertCircle, Monitor, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Seo from "@/components/Seo";
 
 const bachelorFees = [
   { specialty: "العلوم الشرعية", total: "1200 دولار", courses: "30", perCourse: "30 دولاراً", graduation: "300 دولار", levels: "6" },

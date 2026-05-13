@@ -1,4 +1,5 @@
 import { GraduationCap, Scale, Briefcase, BookOpen, Cpu, Baby } from "lucide-react";
+import Seo from "@/components/Seo";
 
 const faculties = [
   {
