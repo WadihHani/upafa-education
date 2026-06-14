@@ -2,6 +2,7 @@ import { Users, BookOpenCheck, Shield, type LucideIcon } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteContent } from "@/hooks/use-site-content";
 
 const iconMap: Record<string, LucideIcon> = { Users, BookOpenCheck, Shield };
 
