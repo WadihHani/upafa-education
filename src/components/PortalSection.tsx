@@ -46,7 +46,7 @@ export default function PortalSection() {
                 <h3 className="text-lg font-bold text-foreground mb-2">{p.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4">{p.description}</p>
                 <a href={p.link_url} className="inline-block bg-primary text-primary-foreground px-5 py-2.5 rounded-md text-sm font-medium hover:brightness-110 active:scale-[0.97] transition-all duration-200">
-                  تسجيل الدخول
+                  {loginLabel}
                 </a>
               </div>
             );
