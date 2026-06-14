@@ -7,6 +7,7 @@ import VisionSection from "@/components/VisionSection";
 import SocialFloat from "@/components/SocialFloat";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
+import EditModeBar from "@/components/editor/EditModeBar";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         description="الموقع الرسمي لجامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria) في دمشق. تقدّم جامعة أفريقيا الفرنسية العربية – فرع سوريا برامج بكالوريوس وماجستير ودكتوراه معتمدة بنظام التعليم عن بعد."
         path="/"
       />
+      <EditModeBar />
       <Navbar />
       <SocialFloat />
       <main className="flex-1">

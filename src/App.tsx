@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { EditModeProvider } from "@/contexts/EditModeContext";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
 import Index from "./pages/Index";
@@ -64,6 +65,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <AuthProvider>
+          <EditModeProvider>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route element={<Layout />}>
@@ -119,6 +121,7 @@ const App = () => (
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
+          </EditModeProvider>
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
