@@ -1,5 +1,6 @@
 import { GraduationCap, BookOpen, Mail, FileSearch, Library, Users } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import EditableText from "@/components/editor/EditableText";
 
 const systems = [
   { label: "بوابة الطلاب", sub: "Student Portal", icon: GraduationCap, color: "hsl(215, 65%, 35%)", href: "/portal" },
@@ -17,7 +18,12 @@ export default function SystemsCards() {
     <section ref={ref} className="py-12 md:py-16 bg-section-alt">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2">أنظمة وخدمات الجامعة</h2>
+          <EditableText
+            contentKey="systems_title"
+            fallback="أنظمة وخدمات الجامعة"
+            as="h2"
+            className="text-2xl md:text-3xl font-extrabold text-primary mb-2"
+          />
           <div className="w-16 h-1 bg-accent mx-auto rounded-full" />
         </div>
 
