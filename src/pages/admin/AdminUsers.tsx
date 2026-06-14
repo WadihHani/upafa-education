@@ -59,19 +59,31 @@ export default function AdminUsers() {
 
   const fetchUsers = async () => {
     setLoading(true);
-    const { data, error } = await supabase.functions.invoke(
-      "admin-manage-users",
-      { body: { action: "list" } },
-    );
-    if (error) {
-      toast({
-        title: "خطأ في تحميل المستخدمين",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      setUsers(data?.users ?? []);
+    // Ensure session is ready (avoids race after page refresh)
+    const { data: sess } = await supabase.auth.getSession();
+    if (!sess.session) {
+      await new Promise((r) => setTimeout(r, 600));
     }
+    let lastErr: any = null;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const { data, error } = await supabase.functions.invoke(
+        "admin-manage-users",
+        { body: { action: "list" } },
+      );
+      if (!error) {
+        setUsers(data?.users ?? []);
+        setLoading(false);
+        return;
+      }
+      lastErr = error;
+      console.error("admin-manage-users list failed (attempt", attempt + 1, ")", error);
+      await new Promise((r) => setTimeout(r, 600));
+    }
+    toast({
+      title: "خطأ في تحميل المستخدمين",
+      description: lastErr?.message || "تعذّر الاتصال بالخدمة",
+      variant: "destructive",
+    });
     setLoading(false);
   };
 

@@ -35,7 +35,17 @@ const GROUPS: { key: string; label: string }[] = [
   { key: "faculties", label: "الكليات" },
   { key: "publications", label: "المنشورات" },
   { key: "payment", label: "الدفع الإلكتروني" },
-  { key: "portal", label: "البوابة" },
+  { key: "portal", label: "البوابة (نصوص)" },
+  { key: "programs_section", label: "قسم البرامج (الرئيسية)" },
+  { key: "mofadla_hero", label: "المفاضلة - الهيرو" },
+  { key: "mofadla_calendar", label: "المفاضلة - التقويم" },
+  { key: "mofadla_docs", label: "المفاضلة - الوثائق والخطوات" },
+  { key: "mofadla_downloads", label: "المفاضلة - تحميل ملفات" },
+  { key: "mofadla_programs", label: "المفاضلة - قسم البرامج" },
+  { key: "mofadla_register", label: "المفاضلة - تثبيت التسجيل" },
+  { key: "mofadla_notes", label: "المفاضلة - ملاحظات" },
+  { key: "mofadla_cta", label: "المفاضلة - دعوة + تواصل" },
+  { key: "mofadla_seo", label: "المفاضلة - SEO" },
   { key: "footer", label: "الفوتر" },
   { key: "social", label: "وسائل التواصل" },
 ];
@@ -61,6 +71,90 @@ const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | 
   { key: "instagram_url", group: "social", label: "رابط انستغرام", type: "link" },
   { key: "youtube_url", group: "social", label: "رابط يوتيوب", type: "link" },
   { key: "telegram_url", group: "social", label: "رابط تلغرام", type: "link" },
+
+  // Portal section (homepage block) + Portal page
+  { key: "portal_section_title", group: "portal", label: "عنوان قسم البوابة (الرئيسية)", type: "text" },
+  { key: "portal_section_subtitle", group: "portal", label: "العنوان الفرعي لقسم البوابة", type: "text" },
+  { key: "portal_section_login_label", group: "portal", label: "نص زر تسجيل الدخول", type: "text" },
+  { key: "portal_page_title", group: "portal", label: "عنوان صفحة /portal", type: "text" },
+  { key: "portal_page_subtitle", group: "portal", label: "العنوان الفرعي لصفحة /portal", type: "text" },
+
+  // Programs section
+  { key: "programs_section_title", group: "programs_section", label: "عنوان قسم البرامج", type: "text" },
+  { key: "programs_section_subtitle", group: "programs_section", label: "العنوان الفرعي لقسم البرامج", type: "text" },
+  { key: "programs_section_more_label", group: "programs_section", label: "نص زر للمزيد", type: "text" },
+
+  // === Mofadla page ===
+  // Hero
+  { key: "mofadla_hero_badge", group: "mofadla_hero", label: "الشارة (Badge)", type: "text" },
+  { key: "mofadla_hero_title", group: "mofadla_hero", label: "العنوان الرئيسي", type: "text" },
+  { key: "mofadla_hero_desc", group: "mofadla_hero", label: "الوصف", type: "textarea" },
+  { key: "mofadla_cta_apply", group: "mofadla_hero", label: "نص زر التقديم", type: "text" },
+  { key: "mofadla_cta_register", group: "mofadla_hero", label: "نص زر تثبيت التسجيل", type: "text" },
+  { key: "mofadla_cta_programs", group: "mofadla_hero", label: "نص زر عرض البرامج", type: "text" },
+  { key: "mofadla_stats", group: "mofadla_hero", label: "بطاقات الإحصاءات (سطر لكل بطاقة: التسمية|القيمة)", type: "textarea" },
+
+  // Calendar
+  { key: "mofadla_cal_badge", group: "mofadla_calendar", label: "شارة القسم", type: "text" },
+  { key: "mofadla_cal_title", group: "mofadla_calendar", label: "عنوان التقويم", type: "text" },
+  { key: "mofadla_cal_subtitle", group: "mofadla_calendar", label: "وصف التقويم", type: "textarea" },
+  { key: "mofadla_sem1_title", group: "mofadla_calendar", label: "اسم الفصل الأول", type: "text" },
+  { key: "mofadla_sem1_duration", group: "mofadla_calendar", label: "مدة الفصل الأول", type: "text" },
+  { key: "mofadla_sem1_rows", group: "mofadla_calendar", label: "صفوف الفصل الأول (سطر: التسمية|القيمة)", type: "textarea" },
+  { key: "mofadla_sem2_title", group: "mofadla_calendar", label: "اسم الفصل الثاني", type: "text" },
+  { key: "mofadla_sem2_duration", group: "mofadla_calendar", label: "مدة الفصل الثاني", type: "text" },
+  { key: "mofadla_sem2_rows", group: "mofadla_calendar", label: "صفوف الفصل الثاني (سطر: التسمية|القيمة)", type: "textarea" },
+
+  // Docs + Steps
+  { key: "mofadla_docs_badge", group: "mofadla_docs", label: "شارة الوثائق", type: "text" },
+  { key: "mofadla_docs_title", group: "mofadla_docs", label: "عنوان الوثائق", type: "text" },
+  { key: "mofadla_docs_subtitle", group: "mofadla_docs", label: "وصف الوثائق", type: "textarea" },
+  { key: "mofadla_docs_list", group: "mofadla_docs", label: "قائمة الوثائق (سطر لكل وثيقة)", type: "textarea" },
+  { key: "mofadla_steps_badge", group: "mofadla_docs", label: "شارة الخطوات", type: "text" },
+  { key: "mofadla_steps_title", group: "mofadla_docs", label: "عنوان الخطوات", type: "text" },
+  { key: "mofadla_steps_subtitle", group: "mofadla_docs", label: "وصف الخطوات", type: "textarea" },
+  { key: "mofadla_steps_list", group: "mofadla_docs", label: "قائمة الخطوات (سطر: العنوان|الوصف)", type: "textarea" },
+
+  // Downloads
+  { key: "mofadla_dl_badge", group: "mofadla_downloads", label: "الشارة", type: "text" },
+  { key: "mofadla_dl_title", group: "mofadla_downloads", label: "العنوان", type: "text" },
+  { key: "mofadla_dl_subtitle", group: "mofadla_downloads", label: "الوصف", type: "textarea" },
+  { key: "mofadla_dl_list", group: "mofadla_downloads", label: "البطاقات (سطر: العنوان|الوصف|الرابط)", type: "textarea" },
+  { key: "mofadla_dl_btn", group: "mofadla_downloads", label: "نص زر التحميل", type: "text" },
+
+  // Programs section (mofadla)
+  { key: "mofadla_prog_badge", group: "mofadla_programs", label: "الشارة", type: "text" },
+  { key: "mofadla_prog_title", group: "mofadla_programs", label: "العنوان", type: "text" },
+  { key: "mofadla_prog_subtitle", group: "mofadla_programs", label: "الوصف", type: "textarea" },
+  { key: "mofadla_prog_empty", group: "mofadla_programs", label: "نص حالة عدم وجود برامج", type: "text" },
+  { key: "mofadla_prog_seats_label", group: "mofadla_programs", label: "تسمية المقاعد", type: "text" },
+  { key: "mofadla_prog_min_label", group: "mofadla_programs", label: "تسمية الحد الأدنى", type: "text" },
+
+  // Register
+  { key: "mofadla_reg_badge", group: "mofadla_register", label: "الشارة", type: "text" },
+  { key: "mofadla_reg_title", group: "mofadla_register", label: "العنوان", type: "text" },
+  { key: "mofadla_reg_subtitle", group: "mofadla_register", label: "الوصف", type: "textarea" },
+
+  // Notes
+  { key: "mofadla_notes_badge", group: "mofadla_notes", label: "الشارة", type: "text" },
+  { key: "mofadla_notes_title", group: "mofadla_notes", label: "العنوان", type: "text" },
+  { key: "mofadla_notes_subtitle", group: "mofadla_notes", label: "الوصف", type: "textarea" },
+  { key: "mofadla_notes_list", group: "mofadla_notes", label: "قائمة الملاحظات (سطر لكل ملاحظة)", type: "textarea" },
+
+  // CTA + Contact
+  { key: "mofadla_cta_title", group: "mofadla_cta", label: "عنوان الدعوة للتقديم", type: "text" },
+  { key: "mofadla_cta_desc", group: "mofadla_cta", label: "وصف الدعوة", type: "textarea" },
+  { key: "mofadla_cta_apply_btn", group: "mofadla_cta", label: "نص زر التقديم", type: "text" },
+  { key: "mofadla_cta_faq_btn", group: "mofadla_cta", label: "نص زر الأسئلة الشائعة", type: "text" },
+  { key: "mofadla_contact_title", group: "mofadla_cta", label: "عنوان بطاقة التواصل", type: "text" },
+  { key: "mofadla_contact_phone", group: "mofadla_cta", label: "الهاتف", type: "text" },
+  { key: "mofadla_contact_wa", group: "mofadla_cta", label: "واتساب", type: "text" },
+  { key: "mofadla_contact_email", group: "mofadla_cta", label: "البريد", type: "text" },
+  { key: "mofadla_contact_address", group: "mofadla_cta", label: "العنوان", type: "text" },
+
+  // SEO
+  { key: "mofadla_seo_title", group: "mofadla_seo", label: "عنوان SEO", type: "text" },
+  { key: "mofadla_seo_desc", group: "mofadla_seo", label: "وصف SEO", type: "textarea" },
 ];
 
 export default function AdminSiteContent() {
