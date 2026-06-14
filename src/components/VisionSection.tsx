@@ -1,15 +1,14 @@
 import { Eye, Target, Crosshair } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { useSiteContent } from "@/hooks/use-site-content";
+import EditableText from "@/components/editor/EditableText";
 
 export default function VisionSection() {
   const { ref, isVisible } = useScrollReveal();
-  const { get, getTitle } = useSiteContent();
 
   const cards = [
-    { icon: Eye, title: getTitle("about_vision", "رؤيتنا"), desc: get("about_vision", "") },
-    { icon: Target, title: getTitle("about_mission", "رسالتنا"), desc: get("about_mission", "") },
-    { icon: Crosshair, title: getTitle("about_values", "قيمنا"), desc: get("about_values", "").replace(/,/g, "، ") },
+    { icon: Eye, key: "about_vision", titleFallback: "رؤيتنا" },
+    { icon: Target, key: "about_mission", titleFallback: "رسالتنا" },
+    { icon: Crosshair, key: "about_values", titleFallback: "قيمنا" },
   ];
 
   return (
@@ -31,8 +30,20 @@ export default function VisionSection() {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
                   <Icon className="text-primary" size={32} />
                 </div>
-                <h3 className="text-2xl font-extrabold text-primary mb-4">{card.title}</h3>
-                <p className="text-foreground/75 leading-[2] text-sm">{card.desc}</p>
+                <EditableText
+                  contentKey={card.key}
+                  field="title"
+                  fallback={card.titleFallback}
+                  as="h3"
+                  className="text-2xl font-extrabold text-primary mb-4"
+                />
+                <EditableText
+                  contentKey={card.key}
+                  field="content"
+                  fallback=""
+                  as="p"
+                  className="text-foreground/75 leading-[2] text-sm"
+                />
               </div>
             );
           })}

@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import { useSiteContent } from "@/hooks/use-site-content";
+import EditableText from "@/components/editor/EditableText";
 
 export default function ContactSection() {
   const { ref, isVisible } = useScrollReveal();
-  const { get } = useSiteContent();
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,10 +14,10 @@ export default function ContactSection() {
   };
 
   const contactInfo = [
-    { icon: MapPin, label: "العنوان", value: get("contact_address", "دمشق، عين كرش") },
-    { icon: Phone, label: "الهاتف", value: get("contact_phone", "+963 989 801 010"), dir: "ltr" as const },
-    { icon: Mail, label: "البريد الإلكتروني", value: get("contact_email", "info@upafa.sy") },
-    { icon: Clock, label: "ساعات العمل", value: get("contact_hours", "الأحد - الخميس: 8:00 صباحاً - 4:00 مساءً") },
+    { icon: MapPin, label: "العنوان", key: "contact_address", fallback: "دمشق، عين كرش" },
+    { icon: Phone, label: "الهاتف", key: "contact_phone", fallback: "+963 989 801 010", dir: "ltr" as const },
+    { icon: Mail, label: "البريد الإلكتروني", key: "contact_email", fallback: "info@upafa.sy" },
+    { icon: Clock, label: "ساعات العمل", key: "contact_hours", fallback: "الأحد - الخميس: 8:00 صباحاً - 4:00 مساءً" },
   ];
 
   return (
@@ -28,7 +27,12 @@ export default function ContactSection() {
           className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
           style={{ transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)" }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center">اتصل بنا</h2>
+          <EditableText
+            contentKey="contact_title"
+            fallback="اتصل بنا"
+            as="h2"
+            className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center"
+          />
           <div className="w-16 h-1 bg-accent mx-auto mb-12 rounded-full" />
         </div>
 
@@ -46,7 +50,12 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-foreground text-sm mb-0.5">{item.label}</h4>
-                    <p className="text-muted-foreground text-sm" dir={item.dir}>{item.value}</p>
+                    <EditableText
+                      contentKey={item.key}
+                      fallback={item.fallback}
+                      as="p"
+                      className="text-muted-foreground text-sm"
+                    />
                   </div>
                 </div>
               );
