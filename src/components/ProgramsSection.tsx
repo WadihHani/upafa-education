@@ -48,7 +48,7 @@ export default function ProgramsSection() {
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{prog.title}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">{prog.description}</p>
-                <Link to="/contact" className="inline-block mt-4 text-sm font-medium text-accent hover:underline">للمزيد ←</Link>
+                <Link to="/contact" className="inline-block mt-4 text-sm font-medium text-accent hover:underline">{moreLabel}</Link>
               </div>
             );
           })}
