@@ -4,6 +4,7 @@ import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSiteContent } from "@/hooks/use-site-content";
+import EditableText from "@/components/editor/EditableText";
 
 const iconMap: Record<string, LucideIcon> = {
   GraduationCap, BookOpen, Award, FlaskConical, FileText, Microscope,
@@ -15,8 +16,6 @@ export default function ProgramsSection() {
   const { ref, isVisible } = useScrollReveal();
   const [programs, setPrograms] = useState<Program[]>([]);
   const { get } = useSiteContent();
-  const title = get("programs_section_title", "البرامج");
-  const subtitle = get("programs_section_subtitle", "");
   const moreLabel = get("programs_section_more_label", "للمزيد ←");
 
   useEffect(() => {
@@ -29,9 +28,9 @@ export default function ProgramsSection() {
     <section id="programs" className="section-padding" ref={ref}>
       <div className="container mx-auto">
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)" }}>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center">{title}</h2>
+          <EditableText contentKey="programs_section_title" fallback="البرامج" as="h2" className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center" />
           <div className="w-16 h-1 bg-accent mx-auto mb-3 rounded-full" />
-          {subtitle && <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">{subtitle}</p>}
+          <EditableText contentKey="programs_section_subtitle" fallback="" as="p" className="text-center text-muted-foreground max-w-2xl mx-auto mb-10" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
