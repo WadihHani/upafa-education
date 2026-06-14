@@ -2,43 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, ChevronDown, Search } from "lucide-react";
 import { useSiteContent } from "@/hooks/use-site-content";
-import logo from "@/assets/logo.png";
-
-type NavItem = {
-  label: string;
-  href: string;
-  children?: { label: string; href: string }[];
-};
-
-const navLinks: NavItem[] = [
-  { label: "الرئيسية", href: "/" },
-  {
-    label: "عن الجامعة",
-    href: "/about",
-    children: [
-      { label: "نبذة عن الجامعة", href: "/about" },
-      { label: "الكليات والتخصصات", href: "/faculties" },
-      { label: "نظام الدراسة والرسوم", href: "/tuition" },
-      { label: "أسئلة شائعة", href: "/faq" },
-    ],
-  },
-  { label: "المؤتمرات والندوات", href: "/conferences" },
-  { label: "الرسوم والتسجيل", href: "/tuition-fees" },
-  { label: "المفاضلة", href: "/mofadla" },
-  {
-    label: "البرامج",
-    href: "/programs",
-    children: [
-      { label: "البكالوريوس", href: "/programs/bachelor" },
-      { label: "الماجستير", href: "/programs/master" },
-      { label: "الدكتوراه", href: "/programs/phd" },
-      { label: "جميع البرامج", href: "/programs" },
-    ],
-  },
-  { label: "البوابة", href: "/portal" },
-  { label: "المنشورات", href: "/publications" },
-  { label: "اتصل بنا", href: "/contact" },
-];
+import { useNavItems, type NavItem } from "@/hooks/use-nav-items";
+import logoFallback from "@/assets/logo.png";
 
 function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void }) {
   const [open, setOpen] = useState(false);
@@ -59,7 +24,7 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
     window.scrollTo(0, 0);
   };
 
-  if (!item.children) {
+  if (!item.children || item.children.length === 0) {
     return (
       <Link
         to={item.href}
@@ -82,9 +47,9 @@ function DesktopDropdown({ item, onClose }: { item: NavItem; onClose: () => void
       </button>
       {open && (
         <div className="absolute top-full right-0 mt-0 w-44 bg-card border rounded-b-md shadow-lg py-1 z-50 animate-fade-in">
-          {item.children.map((child, i) => (
+          {item.children.map((child) => (
             <button
-              key={i}
+              key={child.id}
               onClick={() => { setOpen(false); handleNav(child.href); }}
               className="block w-full text-right px-4 py-2.5 text-sm text-foreground hover:bg-muted hover:text-primary transition-colors"
             >
@@ -102,10 +67,12 @@ export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
-  const { get } = useSiteContent();
+  const { get, getImage } = useSiteContent();
+  const navLinks = useNavItems("navbar");
 
   const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
   const tagline = get("hero_subtitle", "اعبر حدود الزمان والمكان");
+  const logoSrc = getImage("logo_url") || get("logo_url") || logoFallback;
 
   const handleMobileNav = (href: string) => {
     navigate(href);
@@ -115,10 +82,8 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 right-0 left-0 z-50 shadow-md">
-      {/* Top white bar with logo + tagline + search */}
       <div className="bg-card border-b border-border">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          {/* Tagline (right in RTL) */}
           <div className="hidden md:flex flex-col items-start">
             <div className="text-primary text-xl lg:text-2xl font-extrabold leading-tight" style={{ fontFamily: "'Cairo', serif" }}>
               {tagline}
@@ -128,7 +93,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Search bar (center) */}
           <div className="hidden md:flex flex-1 max-w-md items-center gap-2 mx-4">
             <div className="relative flex-1">
               <Search size={16} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
@@ -142,19 +106,17 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Logo (left in RTL) */}
           <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 shrink-0">
-            <img src={logo} alt={uniName} className="h-14 md:h-16 lg:h-20 w-auto" />
+            <img src={logoSrc} alt={uniName} className="h-14 md:h-16 lg:h-20 w-auto" />
           </Link>
         </div>
       </div>
 
-      {/* Navigation strip */}
       <div className="bg-primary border-b-4 border-accent">
         <div className="container mx-auto px-2">
           <div className="hidden lg:flex items-center justify-end">
             {navLinks.map((link) => (
-              <DesktopDropdown key={link.label} item={link} onClose={() => {}} />
+              <DesktopDropdown key={link.id} item={link} onClose={() => {}} />
             ))}
           </div>
 
@@ -175,16 +137,16 @@ export default function Navbar() {
               <input type="text" placeholder="بحث..." className="w-full h-10 pr-9 pl-3 rounded-md border border-input bg-muted/40 text-sm" />
             </div>
             {navLinks.map((link) =>
-              link.children ? (
-                <div key={link.label}>
-                  <button onClick={() => setMobileExpanded(mobileExpanded === link.label ? null : link.label)} className="w-full flex items-center justify-between text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
+              link.children && link.children.length > 0 ? (
+                <div key={link.id}>
+                  <button onClick={() => setMobileExpanded(mobileExpanded === link.id ? null : link.id)} className="w-full flex items-center justify-between text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
                     {link.label}
-                    <ChevronDown size={14} className={`transition-transform duration-200 ${mobileExpanded === link.label ? "rotate-180" : ""}`} />
+                    <ChevronDown size={14} className={`transition-transform duration-200 ${mobileExpanded === link.id ? "rotate-180" : ""}`} />
                   </button>
-                  {mobileExpanded === link.label && (
+                  {mobileExpanded === link.id && (
                     <div className="pr-4 space-y-1 mt-1">
-                      {link.children.map((child, i) => (
-                        <button key={i} onClick={() => handleMobileNav(child.href)} className="block w-full text-right text-foreground/60 hover:text-primary px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors">
+                      {link.children.map((child) => (
+                        <button key={child.id} onClick={() => handleMobileNav(child.href)} className="block w-full text-right text-foreground/60 hover:text-primary px-3 py-2 text-sm rounded-md hover:bg-muted transition-colors">
                           {child.label}
                         </button>
                       ))}
@@ -192,7 +154,7 @@ export default function Navbar() {
                   )}
                 </div>
               ) : (
-                <button key={link.label} onClick={() => handleMobileNav(link.href)} className="block w-full text-right text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
+                <button key={link.id} onClick={() => handleMobileNav(link.href)} className="block w-full text-right text-foreground/80 hover:text-primary px-3 py-2.5 text-sm font-medium rounded-md hover:bg-muted transition-colors">
                   {link.label}
                 </button>
               )

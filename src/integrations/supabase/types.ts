@@ -778,6 +778,50 @@ export type Database = {
         }
         Relationships: []
       }
+      nav_items: {
+        Row: {
+          created_at: string
+          href: string
+          id: string
+          is_active: boolean
+          label: string
+          location: string
+          parent_id: string | null
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          href: string
+          id?: string
+          is_active?: boolean
+          label: string
+          location: string
+          parent_id?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          href?: string
+          id?: string
+          is_active?: boolean
+          label?: string
+          location?: string
+          parent_id?: string | null
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "nav_items_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "nav_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       news_categories: {
         Row: {
           created_at: string
@@ -878,6 +922,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      page_seo: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          noindex: boolean
+          og_image_url: string | null
+          path: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          noindex?: boolean
+          og_image_url?: string | null
+          path: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          noindex?: boolean
+          og_image_url?: string | null
+          path?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
       }
       portal_items: {
         Row: {
@@ -1032,22 +1109,40 @@ export type Database = {
       site_content: {
         Row: {
           content: string | null
+          content_type: string
+          group_key: string
           id: string
+          image_url: string | null
+          label: string | null
+          link_url: string | null
           section_key: string
+          sort_order: number
           title: string | null
           updated_at: string
         }
         Insert: {
           content?: string | null
+          content_type?: string
+          group_key?: string
           id?: string
+          image_url?: string | null
+          label?: string | null
+          link_url?: string | null
           section_key: string
+          sort_order?: number
           title?: string | null
           updated_at?: string
         }
         Update: {
           content?: string | null
+          content_type?: string
+          group_key?: string
           id?: string
+          image_url?: string | null
+          label?: string | null
+          link_url?: string | null
           section_key?: string
+          sort_order?: number
           title?: string | null
           updated_at?: string
         }
