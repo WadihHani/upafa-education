@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteContent } from "@/hooks/use-site-content";
 
 const iconMap: Record<string, LucideIcon> = {
   GraduationCap, BookOpen, Award, FlaskConical, FileText, Microscope,
