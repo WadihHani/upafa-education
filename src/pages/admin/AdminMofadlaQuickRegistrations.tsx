@@ -27,6 +27,7 @@ import {
   ExternalLink,
   Image as ImageIcon,
 } from "lucide-react";
+import { getReceiptSignedUrl } from "@/lib/signed-url";
 
 type Status = "pending" | "approved" | "rejected";
 
@@ -184,8 +185,8 @@ export default function AdminMofadlaQuickRegistrations() {
               <CardContent className="p-4 flex items-center justify-between gap-4 flex-wrap">
                 <div className="flex items-center gap-3 min-w-0">
                   {r.personal_photo_url ? (
-                    <img
-                      src={r.personal_photo_url}
+                    <SignedImg
+                      stored={r.personal_photo_url}
                       alt={r.full_name}
                       className="w-12 h-12 rounded-md object-cover border border-border shrink-0"
                     />
@@ -355,7 +356,45 @@ function Field({
   );
 }
 
+function SignedImg({
+  stored,
+  alt,
+  className,
+}: {
+  stored: string;
+  alt: string;
+  className?: string;
+}) {
+  const [src, setSrc] = useState<string>("");
+  useEffect(() => {
+    let alive = true;
+    getReceiptSignedUrl(stored).then((u) => alive && setSrc(u));
+    return () => {
+      alive = false;
+    };
+  }, [stored]);
+  if (!src)
+    return (
+      <div
+        className={`bg-muted flex items-center justify-center text-muted-foreground ${className ?? ""}`}
+      >
+        <ImageIcon size={16} />
+      </div>
+    );
+  return <img src={src} alt={alt} className={className} />;
+}
+
 function DocCard({ label, url }: { label: string; url: string }) {
+  const [signed, setSigned] = useState<string>("");
+  useEffect(() => {
+    let alive = true;
+    if (url) getReceiptSignedUrl(url).then((u) => alive && setSigned(u));
+    else setSigned("");
+    return () => {
+      alive = false;
+    };
+  }, [url]);
+
   if (!url) {
     return (
       <div className="bg-muted/30 rounded-md p-3 text-center text-xs text-muted-foreground">
@@ -364,7 +403,7 @@ function DocCard({ label, url }: { label: string; url: string }) {
       </div>
     );
   }
-  const isPdf = url.toLowerCase().endsWith(".pdf");
+  const isPdf = url.toLowerCase().includes(".pdf");
   return (
     <div className="bg-card border border-border rounded-md overflow-hidden">
       {isPdf ? (
@@ -372,25 +411,31 @@ function DocCard({ label, url }: { label: string; url: string }) {
           <ExternalLink size={16} />
           ملف PDF
         </div>
-      ) : (
-        <a href={url} target="_blank" rel="noopener noreferrer">
+      ) : signed ? (
+        <a href={signed} target="_blank" rel="noopener noreferrer">
           <img
-            src={url}
+            src={signed}
             alt={label}
             className="w-full h-32 object-contain bg-muted/30 hover:opacity-90 transition-opacity cursor-zoom-in"
           />
         </a>
+      ) : (
+        <div className="h-32 flex items-center justify-center bg-muted/30 text-muted-foreground text-xs">
+          جارٍ التحميل…
+        </div>
       )}
       <div className="flex items-center justify-between p-2 border-t border-border">
         <span className="text-xs font-bold text-primary truncate">{label}</span>
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-accent hover:underline flex items-center gap-1 shrink-0"
-        >
-          <ExternalLink size={12} /> فتح
-        </a>
+        {signed && (
+          <a
+            href={signed}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-accent hover:underline flex items-center gap-1 shrink-0"
+          >
+            <ExternalLink size={12} /> فتح
+          </a>
+        )}
       </div>
     </div>
   );
