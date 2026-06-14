@@ -11,6 +11,10 @@ type PortalItem = { id: string; title: string; description: string; link_url: st
 export default function PortalSection() {
   const { ref, isVisible } = useScrollReveal();
   const [portals, setPortals] = useState<PortalItem[]>([]);
+  const { get } = useSiteContent();
+  const title = get("portal_section_title", "البوابة");
+  const subtitle = get("portal_section_subtitle", "");
+  const loginLabel = get("portal_section_login_label", "تسجيل الدخول");
 
   useEffect(() => {
     supabase.from("portal_items").select("id, title, description, link_url, icon_name").order("sort_order").then(({ data }) => {
@@ -22,8 +26,9 @@ export default function PortalSection() {
     <section id="portal" className="section-padding section-alt-bg" ref={ref}>
       <div className="container mx-auto">
         <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)" }}>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center">البوابة</h2>
-          <div className="w-16 h-1 bg-accent mx-auto mb-12 rounded-full" />
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2 text-center">{title}</h2>
+          <div className="w-16 h-1 bg-accent mx-auto mb-3 rounded-full" />
+          {subtitle && <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">{subtitle}</p>}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
