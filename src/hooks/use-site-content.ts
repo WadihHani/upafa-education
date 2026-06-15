@@ -6,6 +6,7 @@ type Entry = {
   content: string | null;
   image_url: string | null;
   link_url: string | null;
+  is_hidden?: boolean;
 };
 type SiteContentMap = Record<string, Entry>;
 
@@ -15,7 +16,7 @@ const listeners = new Set<(m: SiteContentMap) => void>();
 async function load() {
   const { data: rows } = await (supabase as any)
     .from("site_content")
-    .select("section_key, title, content, image_url, link_url");
+    .select("section_key, title, content, image_url, link_url, is_hidden");
   const map: SiteContentMap = {};
   rows?.forEach((r: any) => {
     map[r.section_key] = {
@@ -23,6 +24,7 @@ async function load() {
       content: r.content,
       image_url: r.image_url,
       link_url: r.link_url,
+      is_hidden: !!r.is_hidden,
     };
   });
   cache = map;
@@ -48,8 +50,9 @@ export function useSiteContent() {
   const getTitle = (key: string, fallback = "") => data[key]?.title || fallback;
   const getImage = (key: string, fallback = "") => data[key]?.image_url || fallback;
   const getLink = (key: string, fallback = "") => data[key]?.link_url || fallback;
+  const isHidden = (key: string) => !!data[key]?.is_hidden;
 
-  return { data, loading, get, getTitle, getImage, getLink };
+  return { data, loading, get, getTitle, getImage, getLink, isHidden };
 }
 
 export function clearSiteContentCache() {
