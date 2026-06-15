@@ -407,7 +407,7 @@ export default function Mofadla() {
 
             <Card className="bg-primary-foreground/5 border-primary-foreground/15 backdrop-blur">
               <CardContent className="p-5 space-y-3">
-                <h3 className="font-bold text-primary-foreground mb-2">{contactTitle}</h3>
+                <EditableText contentKey="mofadla_contact_title" fallback={contactTitle} as="h3" className="font-bold text-primary-foreground mb-2" />
                 <ContactRow Icon={Phone} text={contactPhone} href={`tel:${contactPhone.replace(/\s+/g, "")}`} />
                 <ContactRow Icon={MessageCircle} text={`واتساب: ${contactWa}`} href={`https://wa.me/${contactWa.replace(/\D/g, "")}`} external />
                 <ContactRow Icon={Mail} text={contactEmail} href={`mailto:${contactEmail}`} />
