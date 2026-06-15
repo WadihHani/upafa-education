@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import MofadlaQuickRegister from "@/components/MofadlaQuickRegister";
 import Seo from "@/components/Seo";
 import { useSiteContent } from "@/hooks/use-site-content";
+import EditableText from "@/components/editor/EditableText";
 import {
   GraduationCap,
   CalendarDays,
