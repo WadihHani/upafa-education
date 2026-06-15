@@ -112,6 +112,7 @@ const App = () => (
               <Route path="portal" element={<AdminPortal />} />
               <Route path="enrollments" element={<AdminEnrollments />} />
               <Route path="courses" element={<AdminCourses />} />
+              <Route path="mofadla" element={<AdminMofadlaContent />} />
               <Route path="mofadla/programs" element={<AdminMofadlaPrograms />} />
               <Route path="mofadla/applications" element={<AdminMofadlaApplications />} />
               <Route path="mofadla/registrations" element={<AdminMofadlaQuickRegistrations />} />
