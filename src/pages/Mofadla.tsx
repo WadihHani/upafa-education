@@ -186,9 +186,9 @@ export default function Mofadla() {
         />
         <div className="container mx-auto px-4 py-16 md:py-24 relative">
           <div className="max-w-3xl">
-            <Badge className="bg-accent text-accent-foreground hover:bg-accent mb-4 text-xs font-bold">{heroBadge}</Badge>
-            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">{heroTitle}</h1>
-            <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl">{heroDesc}</p>
+            <EditableText contentKey="mofadla_hero_badge" fallback={heroBadge} as="span" className="inline-block bg-accent text-accent-foreground mb-4 text-xs font-bold px-3 py-1 rounded-md" />
+            <EditableText contentKey="mofadla_hero_title" fallback={heroTitle} as="h1" className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight" />
+            <EditableText contentKey="mofadla_hero_desc" fallback={heroDesc} as="p" className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl" />
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2">
                 <Link to="/mofadla/apply"><ClipboardList size={18} />{ctaApply}</Link>
