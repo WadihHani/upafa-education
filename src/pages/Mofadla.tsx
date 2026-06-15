@@ -220,7 +220,7 @@ export default function Mofadla() {
       {/* Academic Calendar */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={calBadge} title={calTitle} subtitle={calSubtitle} />
+          <SectionHeading badgeKey="mofadla_cal_badge" titleKey="mofadla_cal_title" subtitleKey="mofadla_cal_subtitle" badge={calBadge} title={calTitle} subtitle={calSubtitle} />
           <div className="grid md:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
             {[
               { title: sem1Title, duration: sem1Duration, rows: sem1Rows },
@@ -265,7 +265,7 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div>
-              <SectionHeading badge={docsBadge} title={docsTitle} subtitle={docsSubtitle} align="start" />
+              <SectionHeading badgeKey="mofadla_docs_badge" titleKey="mofadla_docs_title" subtitleKey="mofadla_docs_subtitle" badge={docsBadge} title={docsTitle} subtitle={docsSubtitle} align="start" />
               <ul className="space-y-2 mt-6">
                 {docs.map((doc, i) => (
                   <li key={i} className="flex items-start gap-3 bg-card border border-border rounded-md px-4 py-3">
@@ -277,7 +277,7 @@ export default function Mofadla() {
             </div>
 
             <div>
-              <SectionHeading badge={stepsBadge} title={stepsTitle} subtitle={stepsSubtitle} align="start" />
+              <SectionHeading badgeKey="mofadla_steps_badge" titleKey="mofadla_steps_title" subtitleKey="mofadla_steps_subtitle" badge={stepsBadge} title={stepsTitle} subtitle={stepsSubtitle} align="start" />
               <ol className="mt-6 space-y-3">
                 {steps.map((s, i) => (
                   <li key={i} className="flex gap-4 bg-card border border-border rounded-md p-4">
@@ -297,7 +297,7 @@ export default function Mofadla() {
       {/* Downloads */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={dlBadge} title={dlTitle} subtitle={dlSubtitle} />
+          <SectionHeading badgeKey="mofadla_dl_badge" titleKey="mofadla_dl_title" subtitleKey="mofadla_dl_subtitle" badge={dlBadge} title={dlTitle} subtitle={dlSubtitle} />
           <div className="grid md:grid-cols-3 gap-4 mt-10">
             {downloads.map((f, i) => (
               <Card key={i} className="hover:shadow-md hover:border-primary/40 transition-all">
@@ -322,7 +322,7 @@ export default function Mofadla() {
       {/* Programs */}
       <section id="programs" className="py-14 md:py-20 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={progBadge} title={progTitle} subtitle={progSubtitle} />
+          <SectionHeading badgeKey="mofadla_prog_badge" titleKey="mofadla_prog_title" subtitleKey="mofadla_prog_subtitle" badge={progBadge} title={progTitle} subtitle={progSubtitle} />
           {loading ? (
             <div className="flex justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
@@ -362,7 +362,7 @@ export default function Mofadla() {
       {/* Quick Register */}
       <section id="register" className="py-14 md:py-20 bg-background scroll-mt-24">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={regBadge} title={regTitle} subtitle={regSubtitle} />
+          <SectionHeading badgeKey="mofadla_reg_badge" titleKey="mofadla_reg_title" subtitleKey="mofadla_reg_subtitle" badge={regBadge} title={regTitle} subtitle={regSubtitle} />
           <div className="mt-10">
             <MofadlaQuickRegister />
           </div>
@@ -372,7 +372,7 @@ export default function Mofadla() {
       {/* Notes */}
       <section className="py-14 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 max-w-4xl">
-          <SectionHeading badge={notesBadge} title={notesTitle} subtitle={notesSubtitle} />
+          <SectionHeading badgeKey="mofadla_notes_badge" titleKey="mofadla_notes_title" subtitleKey="mofadla_notes_subtitle" badge={notesBadge} title={notesTitle} subtitle={notesSubtitle} />
           <Card className="mt-10 border-r-4 border-r-accent">
             <CardContent className="p-6">
               <ul className="space-y-3 text-sm leading-relaxed">
