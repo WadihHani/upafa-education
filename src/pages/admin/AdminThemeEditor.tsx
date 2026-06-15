@@ -177,14 +177,133 @@ const PAGES: PageDef[] = [
         sectionKey: "section_mofadla_hero",
         label: "بانر المفاضلة",
         blocks: [
+          { contentKey: "mofadla_hero_badge", label: "شارة علوية", fields: [{ key: "content", label: "نص الشارة" }] },
+          { contentKey: "mofadla_hero_title", label: "العنوان الرئيسي", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_hero_desc", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_cta_apply", label: "زر التقديم", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cta_register", label: "زر التثبيت", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cta_programs", label: "زر البرامج", fields: [{ key: "content", label: "النص" }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_stats",
+        label: "الإحصاءات",
+        blocks: [
           {
-            contentKey: "mofadla_hero",
-            label: "العنوان والوصف",
-            fields: [
-              { key: "title", label: "العنوان" },
-              { key: "content", label: "الوصف", multiline: true },
-            ],
+            contentKey: "mofadla_stats",
+            label: "بطاقات الإحصاء (سطر لكل بطاقة: عنوان|قيمة)",
+            fields: [{ key: "content", label: "القائمة", multiline: true }],
           },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_calendar",
+        label: "التقويم الجامعي",
+        blocks: [
+          { contentKey: "mofadla_cal_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cal_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cal_subtitle", label: "العنوان الفرعي", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_sem1_title", label: "عنوان الفصل الأول", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_sem1_duration", label: "مدة الفصل الأول", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_sem1_rows", label: "صفوف الفصل الأول (سطر لكل صف: اسم|قيمة)", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_sem2_title", label: "عنوان الفصل الثاني", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_sem2_duration", label: "مدة الفصل الثاني", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_sem2_rows", label: "صفوف الفصل الثاني (سطر لكل صف: اسم|قيمة)", fields: [{ key: "content", label: "النص", multiline: true }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_docs",
+        label: "الوثائق المطلوبة",
+        blocks: [
+          { contentKey: "mofadla_docs_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_docs_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_docs_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_docs_list", label: "قائمة الوثائق (سطر لكل عنصر)", fields: [{ key: "content", label: "النص", multiline: true }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_steps",
+        label: "خطوات التقديم",
+        blocks: [
+          { contentKey: "mofadla_steps_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_steps_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_steps_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_steps_list", label: "قائمة الخطوات (سطر لكل خطوة: عنوان|وصف)", fields: [{ key: "content", label: "النص", multiline: true }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_downloads",
+        label: "ملفات التحميل (PDFs)",
+        blocks: [
+          { contentKey: "mofadla_dl_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_dl_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_dl_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          {
+            contentKey: "mofadla_dl_list",
+            label: "قائمة الملفات (سطر لكل ملف: اسم|رابط) — ارفع الملف من تبويب «الصور» وانسخ الرابط",
+            fields: [{ key: "content", label: "القائمة", multiline: true }],
+          },
+          { contentKey: "mofadla_dl_btn", label: "نص زر التحميل", fields: [{ key: "content", label: "النص" }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_programs",
+        label: "البرامج المتاحة",
+        blocks: [
+          { contentKey: "mofadla_prog_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_prog_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_prog_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_prog_empty", label: "رسالة عدم وجود برامج", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_prog_seats_label", label: "تسمية المقاعد", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_prog_min_label", label: "تسمية الحد الأدنى", fields: [{ key: "content", label: "النص" }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_register",
+        label: "نموذج تثبيت التسجيل",
+        blocks: [
+          { contentKey: "mofadla_reg_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_reg_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_reg_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_notes",
+        label: "ملاحظات هامة",
+        blocks: [
+          { contentKey: "mofadla_notes_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_notes_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_notes_subtitle", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_notes_list", label: "قائمة الملاحظات (سطر لكل ملاحظة)", fields: [{ key: "content", label: "النص", multiline: true }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_cta",
+        label: "نداء التقديم الأخير",
+        blocks: [
+          { contentKey: "mofadla_cta_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cta_desc", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
+          { contentKey: "mofadla_cta_apply_btn", label: "زر التقديم", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cta_faq_btn", label: "زر الأسئلة", fields: [{ key: "content", label: "النص" }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_contact",
+        label: "معلومات الاتصال بالمفاضلة",
+        blocks: [
+          { contentKey: "mofadla_contact_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_contact_phone", label: "الهاتف", fields: [{ key: "content", label: "الرقم" }] },
+          { contentKey: "mofadla_contact_wa", label: "واتساب", fields: [{ key: "content", label: "الرقم" }] },
+          { contentKey: "mofadla_contact_email", label: "البريد", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_contact_address", label: "العنوان", fields: [{ key: "content", label: "النص" }] },
+        ],
+      },
+      {
+        sectionKey: "section_mofadla_seo",
+        label: "SEO صفحة المفاضلة",
+        blocks: [
+          { contentKey: "mofadla_seo_title", label: "Title", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_seo_desc", label: "Description", fields: [{ key: "content", label: "النص", multiline: true }] },
         ],
       },
     ],
@@ -603,20 +722,41 @@ function MediaLibrary() {
     load();
   };
 
+  const isImage = (n: string) => /\.(png|jpe?g|gif|webp|svg|avif)$/i.test(n);
+
   return (
     <div className="p-3 space-y-3">
       <label className="flex items-center justify-center gap-2 border-2 border-dashed rounded-md p-4 cursor-pointer hover:bg-muted text-sm">
         {uploading ? <Loader2 className="animate-spin" size={16} /> : <Upload size={16} />}
-        رفع صورة جديدة
-        <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
+        رفع ملف (صورة / PDF / مستند)
+        <input
+          type="file"
+          accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx"
+          className="hidden"
+          onChange={handleUpload}
+        />
       </label>
+      <p className="text-[11px] text-muted-foreground leading-relaxed">
+        ارفع ملفات PDF هنا ثم انسخ الرابط واستخدمه في قائمة «ملفات التحميل» بصيغة:
+        <br />
+        <code dir="ltr" className="bg-muted px-1 rounded">اسم الملف|الرابط</code>
+      </p>
       {loading ? (
         <div className="text-center text-muted-foreground text-sm py-4">جاري التحميل...</div>
       ) : (
         <div className="grid grid-cols-2 gap-2">
           {files.map((f) => (
             <div key={f.name} className="border rounded overflow-hidden group relative">
-              <img src={f.url} alt={f.name} className="w-full h-24 object-cover" />
+              {isImage(f.name) ? (
+                <img src={f.url} alt={f.name} className="w-full h-24 object-cover" />
+              ) : (
+                <div className="w-full h-24 flex items-center justify-center bg-muted text-muted-foreground text-xs gap-1 flex-col">
+                  <ImageIcon size={20} />
+                  <span className="uppercase font-bold">
+                    {f.name.split(".").pop()?.slice(0, 4)}
+                  </span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1 transition">
                 <button
                   onClick={() => { navigator.clipboard.writeText(f.url); toast({ title: "تم نسخ الرابط" }); }}
@@ -624,6 +764,14 @@ function MediaLibrary() {
                 >
                   <Copy size={12} /> نسخ الرابط
                 </button>
+                <a
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xs flex items-center gap-1 bg-secondary px-2 py-1 rounded"
+                >
+                  فتح
+                </a>
                 <button
                   onClick={() => handleDelete(f.name)}
                   className="text-white text-xs flex items-center gap-1 bg-destructive px-2 py-1 rounded"
@@ -636,7 +784,7 @@ function MediaLibrary() {
           ))}
           {files.length === 0 && (
             <div className="col-span-2 text-center text-muted-foreground text-xs py-4">
-              لا توجد صور بعد
+              لا توجد ملفات بعد
             </div>
           )}
         </div>
