@@ -189,11 +189,14 @@ const PAGES: PageDef[] = [
         sectionKey: "section_mofadla_stats",
         label: "الإحصاءات",
         blocks: [
-          {
-            contentKey: "mofadla_stats",
-            label: "بطاقات الإحصاء (سطر لكل بطاقة: عنوان|قيمة)",
-            fields: [{ key: "content", label: "القائمة", multiline: true }],
-          },
+          { contentKey: "mofadla_stat_1_label", label: "بطاقة 1 - العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_1_value", label: "بطاقة 1 - القيمة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_2_label", label: "بطاقة 2 - العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_2_value", label: "بطاقة 2 - القيمة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_3_label", label: "بطاقة 3 - العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_3_value", label: "بطاقة 3 - القيمة", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_4_label", label: "بطاقة 4 - العنوان", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_stat_4_value", label: "بطاقة 4 - القيمة", fields: [{ key: "content", label: "النص" }] },
         ],
       },
       {
