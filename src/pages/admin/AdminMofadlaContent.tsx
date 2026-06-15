@@ -10,8 +10,9 @@ import { toast } from "@/hooks/use-toast";
 import { clearSiteContentCache } from "@/hooks/use-site-content";
 import {
   Save, Upload, Trash2, Plus, FileText, GraduationCap,
-  ClipboardList, UserPlus, ExternalLink, Loader2
+  ClipboardList, UserPlus, ExternalLink, Loader2, RotateCcw
 } from "lucide-react";
+import { MOFADLA_DEFAULTS } from "./mofadla-defaults";
 
 // ---------- Field config ----------
 type Field = { key: string; label: string; type: "text" | "textarea"; rows?: number; hint?: string };
@@ -171,11 +172,16 @@ export default function AdminMofadlaContent() {
         .select("section_key, content")
         .in("section_key", ALL_KEYS);
       const map: Record<string, string> = {};
+      // Pre-fill from live defaults so the form shows current page values.
+      ALL_KEYS.forEach((k) => {
+        if (MOFADLA_DEFAULTS[k] !== undefined) map[k] = MOFADLA_DEFAULTS[k];
+      });
+      // Override with anything actually stored in DB.
       (data || []).forEach((r: any) => {
-        map[r.section_key] = r.content ?? "";
+        if (r.content != null && r.content !== "") map[r.section_key] = r.content;
       });
       setValues(map);
-      setDownloads(parseDownloads(map[DOWNLOADS_KEY] || ""));
+      setDownloads(parseDownloads(map[DOWNLOADS_KEY] || MOFADLA_DEFAULTS[DOWNLOADS_KEY] || ""));
 
       const [pg, ap, pr] = await Promise.all([
         supabase.from("mofadla_programs").select("id", { count: "exact", head: true }),
@@ -428,16 +434,35 @@ function FieldEditor({
   onChange: (v: string) => void;
   full?: boolean;
 }) {
+  const def = MOFADLA_DEFAULTS[field.key] ?? "";
+  const changed = def !== "" && value !== def;
   return (
     <div className={full ? "md:col-span-2" : ""}>
-      <label className="text-xs font-bold text-muted-foreground mb-1.5 block">
-        {field.label}
-        <span className="text-[10px] text-muted-foreground/60 font-mono ms-2">{field.key}</span>
-      </label>
+      <div className="flex items-center justify-between mb-1.5">
+        <label className="text-xs font-bold text-muted-foreground">
+          {field.label}
+          <span className="text-[10px] text-muted-foreground/60 font-mono ms-2">{field.key}</span>
+        </label>
+        {changed && (
+          <button
+            type="button"
+            onClick={() => onChange(def)}
+            className="text-[10px] text-primary hover:underline inline-flex items-center gap-1"
+            title="استعادة القيمة الافتراضية"
+          >
+            <RotateCcw size={10} />استعادة الافتراضي
+          </button>
+        )}
+      </div>
       {field.type === "textarea" ? (
-        <Textarea rows={field.rows || 3} value={value} onChange={(e) => onChange(e.target.value)} />
+        <Textarea
+          rows={field.rows || 3}
+          value={value}
+          placeholder={def}
+          onChange={(e) => onChange(e.target.value)}
+        />
       ) : (
-        <Input value={value} onChange={(e) => onChange(e.target.value)} />
+        <Input value={value} placeholder={def} onChange={(e) => onChange(e.target.value)} />
       )}
       {field.hint && <p className="text-[11px] text-muted-foreground mt-1">{field.hint}</p>}
     </div>
