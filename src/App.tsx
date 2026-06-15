@@ -43,6 +43,7 @@ import AdminCourses from "./pages/admin/AdminCourses";
 import AdminMofadlaPrograms from "./pages/admin/AdminMofadlaPrograms";
 import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import AdminMofadlaQuickRegistrations from "./pages/admin/AdminMofadlaQuickRegistrations";
+import AdminMofadlaContent from "./pages/admin/AdminMofadlaContent";
 import StudentCatalog from "./pages/student/StudentCatalog";
 import MofadlaApply from "./pages/MofadlaApply";
 import Mofadla from "./pages/Mofadla";
