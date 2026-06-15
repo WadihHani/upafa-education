@@ -172,11 +172,16 @@ export default function AdminMofadlaContent() {
         .select("section_key, content")
         .in("section_key", ALL_KEYS);
       const map: Record<string, string> = {};
+      // Pre-fill from live defaults so the form shows current page values.
+      ALL_KEYS.forEach((k) => {
+        if (MOFADLA_DEFAULTS[k] !== undefined) map[k] = MOFADLA_DEFAULTS[k];
+      });
+      // Override with anything actually stored in DB.
       (data || []).forEach((r: any) => {
-        map[r.section_key] = r.content ?? "";
+        if (r.content != null && r.content !== "") map[r.section_key] = r.content;
       });
       setValues(map);
-      setDownloads(parseDownloads(map[DOWNLOADS_KEY] || ""));
+      setDownloads(parseDownloads(map[DOWNLOADS_KEY] || MOFADLA_DEFAULTS[DOWNLOADS_KEY] || ""));
 
       const [pg, ap, pr] = await Promise.all([
         supabase.from("mofadla_programs").select("id", { count: "exact", head: true }),
