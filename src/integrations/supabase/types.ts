@@ -1113,6 +1113,7 @@ export type Database = {
           group_key: string
           id: string
           image_url: string | null
+          is_hidden: boolean
           label: string | null
           link_url: string | null
           section_key: string
@@ -1126,6 +1127,7 @@ export type Database = {
           group_key?: string
           id?: string
           image_url?: string | null
+          is_hidden?: boolean
           label?: string | null
           link_url?: string | null
           section_key: string
@@ -1139,6 +1141,7 @@ export type Database = {
           group_key?: string
           id?: string
           image_url?: string | null
+          is_hidden?: boolean
           label?: string | null
           link_url?: string | null
           section_key?: string
