@@ -8,6 +8,7 @@ import SocialFloat from "@/components/SocialFloat";
 import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import EditModeBar from "@/components/editor/EditModeBar";
+import SectionGate from "@/components/SectionGate";
 
 const Index = () => {
   return (
@@ -21,11 +22,11 @@ const Index = () => {
       <Navbar />
       <SocialFloat />
       <main className="flex-1">
-        <HeroSection />
-        <HomeIntro />
-        <AnnouncementsBoard />
-        <SystemsCards />
-        <VisionSection />
+        <SectionGate sectionKey="section_hero"><HeroSection /></SectionGate>
+        <SectionGate sectionKey="section_home_intro"><HomeIntro /></SectionGate>
+        <SectionGate sectionKey="section_announcements"><AnnouncementsBoard /></SectionGate>
+        <SectionGate sectionKey="section_systems"><SystemsCards /></SectionGate>
+        <SectionGate sectionKey="section_vision"><VisionSection /></SectionGate>
       </main>
       <Footer />
     </div>
