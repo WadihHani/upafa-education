@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
+  { label: "محرر الثيم 🎨", path: "/admin/theme-editor", icon: Settings },
   { label: "شرائح الهيرو", path: "/admin/hero", icon: Image },
   { label: "أقسام الأخبار", path: "/admin/news", icon: Newspaper },
   { label: "المستخدمون", path: "/admin/users", icon: Users },

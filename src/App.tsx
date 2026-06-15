@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
+import ThemeColorsApplier from "@/components/ThemeColorsApplier";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
 import Index from "./pages/Index";
@@ -53,6 +54,7 @@ import AdminDnsStatus from "./pages/admin/AdminDnsStatus";
 import AdminStudentNotes from "./pages/admin/AdminStudentNotes";
 import AdminNavigation from "./pages/admin/AdminNavigation";
 import AdminPageSeo from "./pages/admin/AdminPageSeo";
+import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
@@ -66,6 +68,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <EditModeProvider>
+          <ThemeColorsApplier />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route element={<Layout />}>
@@ -118,6 +121,7 @@ const App = () => (
               <Route path="student-notes" element={<AdminStudentNotes />} />
               <Route path="navigation" element={<AdminNavigation />} />
               <Route path="page-seo" element={<AdminPageSeo />} />
+              <Route path="theme-editor" element={<AdminThemeEditor />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
