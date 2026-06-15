@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import MofadlaQuickRegister from "@/components/MofadlaQuickRegister";
 import Seo from "@/components/Seo";
 import { useSiteContent } from "@/hooks/use-site-content";
+import EditableText from "@/components/editor/EditableText";
 import {
   GraduationCap,
   CalendarDays,
@@ -185,9 +186,9 @@ export default function Mofadla() {
         />
         <div className="container mx-auto px-4 py-16 md:py-24 relative">
           <div className="max-w-3xl">
-            <Badge className="bg-accent text-accent-foreground hover:bg-accent mb-4 text-xs font-bold">{heroBadge}</Badge>
-            <h1 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">{heroTitle}</h1>
-            <p className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl">{heroDesc}</p>
+            <EditableText contentKey="mofadla_hero_badge" fallback={heroBadge} as="span" className="inline-block bg-accent text-accent-foreground mb-4 text-xs font-bold px-3 py-1 rounded-md" />
+            <EditableText contentKey="mofadla_hero_title" fallback={heroTitle} as="h1" className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight" />
+            <EditableText contentKey="mofadla_hero_desc" fallback={heroDesc} as="p" className="text-base md:text-lg text-primary-foreground/85 leading-relaxed mb-6 max-w-2xl" />
             <div className="flex flex-wrap gap-3">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2">
                 <Link to="/mofadla/apply"><ClipboardList size={18} />{ctaApply}</Link>
@@ -219,7 +220,7 @@ export default function Mofadla() {
       {/* Academic Calendar */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={calBadge} title={calTitle} subtitle={calSubtitle} />
+          <SectionHeading badgeKey="mofadla_cal_badge" titleKey="mofadla_cal_title" subtitleKey="mofadla_cal_subtitle" badge={calBadge} title={calTitle} subtitle={calSubtitle} />
           <div className="grid md:grid-cols-2 gap-6 mt-10 max-w-5xl mx-auto">
             {[
               { title: sem1Title, duration: sem1Duration, rows: sem1Rows },
@@ -264,7 +265,7 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-10 items-start">
             <div>
-              <SectionHeading badge={docsBadge} title={docsTitle} subtitle={docsSubtitle} align="start" />
+              <SectionHeading badgeKey="mofadla_docs_badge" titleKey="mofadla_docs_title" subtitleKey="mofadla_docs_subtitle" badge={docsBadge} title={docsTitle} subtitle={docsSubtitle} align="start" />
               <ul className="space-y-2 mt-6">
                 {docs.map((doc, i) => (
                   <li key={i} className="flex items-start gap-3 bg-card border border-border rounded-md px-4 py-3">
@@ -276,7 +277,7 @@ export default function Mofadla() {
             </div>
 
             <div>
-              <SectionHeading badge={stepsBadge} title={stepsTitle} subtitle={stepsSubtitle} align="start" />
+              <SectionHeading badgeKey="mofadla_steps_badge" titleKey="mofadla_steps_title" subtitleKey="mofadla_steps_subtitle" badge={stepsBadge} title={stepsTitle} subtitle={stepsSubtitle} align="start" />
               <ol className="mt-6 space-y-3">
                 {steps.map((s, i) => (
                   <li key={i} className="flex gap-4 bg-card border border-border rounded-md p-4">
@@ -296,7 +297,7 @@ export default function Mofadla() {
       {/* Downloads */}
       <section className="py-14 md:py-20 bg-background">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={dlBadge} title={dlTitle} subtitle={dlSubtitle} />
+          <SectionHeading badgeKey="mofadla_dl_badge" titleKey="mofadla_dl_title" subtitleKey="mofadla_dl_subtitle" badge={dlBadge} title={dlTitle} subtitle={dlSubtitle} />
           <div className="grid md:grid-cols-3 gap-4 mt-10">
             {downloads.map((f, i) => (
               <Card key={i} className="hover:shadow-md hover:border-primary/40 transition-all">
@@ -321,7 +322,7 @@ export default function Mofadla() {
       {/* Programs */}
       <section id="programs" className="py-14 md:py-20 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={progBadge} title={progTitle} subtitle={progSubtitle} />
+          <SectionHeading badgeKey="mofadla_prog_badge" titleKey="mofadla_prog_title" subtitleKey="mofadla_prog_subtitle" badge={progBadge} title={progTitle} subtitle={progSubtitle} />
           {loading ? (
             <div className="flex justify-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
@@ -361,7 +362,7 @@ export default function Mofadla() {
       {/* Quick Register */}
       <section id="register" className="py-14 md:py-20 bg-background scroll-mt-24">
         <div className="container mx-auto px-4">
-          <SectionHeading badge={regBadge} title={regTitle} subtitle={regSubtitle} />
+          <SectionHeading badgeKey="mofadla_reg_badge" titleKey="mofadla_reg_title" subtitleKey="mofadla_reg_subtitle" badge={regBadge} title={regTitle} subtitle={regSubtitle} />
           <div className="mt-10">
             <MofadlaQuickRegister />
           </div>
@@ -371,7 +372,7 @@ export default function Mofadla() {
       {/* Notes */}
       <section className="py-14 md:py-20 bg-muted/30">
         <div className="container mx-auto px-4 max-w-4xl">
-          <SectionHeading badge={notesBadge} title={notesTitle} subtitle={notesSubtitle} />
+          <SectionHeading badgeKey="mofadla_notes_badge" titleKey="mofadla_notes_title" subtitleKey="mofadla_notes_subtitle" badge={notesBadge} title={notesTitle} subtitle={notesSubtitle} />
           <Card className="mt-10 border-r-4 border-r-accent">
             <CardContent className="p-6">
               <ul className="space-y-3 text-sm leading-relaxed">
@@ -392,8 +393,8 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
-              <h2 className="text-2xl md:text-4xl font-extrabold mb-3 leading-tight">{ctaTitle}</h2>
-              <p className="text-primary-foreground/85 leading-relaxed mb-5 text-base">{ctaDesc}</p>
+              <EditableText contentKey="mofadla_cta_title" fallback={ctaTitle} as="h2" className="text-2xl md:text-4xl font-extrabold mb-3 leading-tight" />
+              <EditableText contentKey="mofadla_cta_desc" fallback={ctaDesc} as="p" className="text-primary-foreground/85 leading-relaxed mb-5 text-base" />
               <div className="flex flex-wrap gap-3">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2">
                   <Link to="/mofadla/apply">{ctaApplyBtn}<ArrowLeft size={18} /></Link>
@@ -406,7 +407,7 @@ export default function Mofadla() {
 
             <Card className="bg-primary-foreground/5 border-primary-foreground/15 backdrop-blur">
               <CardContent className="p-5 space-y-3">
-                <h3 className="font-bold text-primary-foreground mb-2">{contactTitle}</h3>
+                <EditableText contentKey="mofadla_contact_title" fallback={contactTitle} as="h3" className="font-bold text-primary-foreground mb-2" />
                 <ContactRow Icon={Phone} text={contactPhone} href={`tel:${contactPhone.replace(/\s+/g, "")}`} />
                 <ContactRow Icon={MessageCircle} text={`واتساب: ${contactWa}`} href={`https://wa.me/${contactWa.replace(/\D/g, "")}`} external />
                 <ContactRow Icon={Mail} text={contactEmail} href={`mailto:${contactEmail}`} />
@@ -420,12 +421,32 @@ export default function Mofadla() {
   );
 }
 
-function SectionHeading({ badge, title, subtitle, align = "center" }: { badge: string; title: string; subtitle?: string; align?: "center" | "start"; }) {
+function SectionHeading({
+  badgeKey, titleKey, subtitleKey,
+  badge, title, subtitle,
+  align = "center",
+}: {
+  badgeKey?: string; titleKey?: string; subtitleKey?: string;
+  badge: string; title: string; subtitle?: string;
+  align?: "center" | "start";
+}) {
   return (
     <div className={align === "center" ? "text-center max-w-2xl mx-auto" : "text-start"}>
-      <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">{badge}</span>
-      <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight">{title}</h2>
-      {subtitle && <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{subtitle}</p>}
+      {badgeKey ? (
+        <EditableText contentKey={badgeKey} fallback={badge} as="span" className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3" />
+      ) : (
+        <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">{badge}</span>
+      )}
+      {titleKey ? (
+        <EditableText contentKey={titleKey} fallback={title} as="h2" className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight" />
+      ) : (
+        <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight">{title}</h2>
+      )}
+      {subtitle && (subtitleKey ? (
+        <EditableText contentKey={subtitleKey} fallback={subtitle} as="p" className="text-sm md:text-base text-muted-foreground leading-relaxed" />
+      ) : (
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{subtitle}</p>
+      ))}
     </div>
   );
 }

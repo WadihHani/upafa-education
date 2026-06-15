@@ -41,6 +41,8 @@ export default function EditableText({
     }`,
     contentEditable: true,
     suppressContentEditableWarning: true,
+    onClick: (e: any) => { e.stopPropagation(); e.preventDefault?.(); },
+    onMouseDown: (e: any) => { e.stopPropagation(); },
     onBlur: (e: any) => setField(contentKey, field, e.currentTarget.textContent || ""),
     onKeyDown: (e: any) => {
       if (!multiline && e.key === "Enter") {
