@@ -420,12 +420,32 @@ export default function Mofadla() {
   );
 }
 
-function SectionHeading({ badge, title, subtitle, align = "center" }: { badge: string; title: string; subtitle?: string; align?: "center" | "start"; }) {
+function SectionHeading({
+  badgeKey, titleKey, subtitleKey,
+  badge, title, subtitle,
+  align = "center",
+}: {
+  badgeKey?: string; titleKey?: string; subtitleKey?: string;
+  badge: string; title: string; subtitle?: string;
+  align?: "center" | "start";
+}) {
   return (
     <div className={align === "center" ? "text-center max-w-2xl mx-auto" : "text-start"}>
-      <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">{badge}</span>
-      <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight">{title}</h2>
-      {subtitle && <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{subtitle}</p>}
+      {badgeKey ? (
+        <EditableText contentKey={badgeKey} fallback={badge} as="span" className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3" />
+      ) : (
+        <span className="inline-block bg-accent/15 text-primary text-xs font-bold px-3 py-1 rounded-full mb-3">{badge}</span>
+      )}
+      {titleKey ? (
+        <EditableText contentKey={titleKey} fallback={title} as="h2" className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight" />
+      ) : (
+        <h2 className="text-2xl md:text-3xl font-extrabold text-primary mb-2 leading-tight">{title}</h2>
+      )}
+      {subtitle && (subtitleKey ? (
+        <EditableText contentKey={subtitleKey} fallback={subtitle} as="p" className="text-sm md:text-base text-muted-foreground leading-relaxed" />
+      ) : (
+        <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{subtitle}</p>
+      ))}
     </div>
   );
 }
