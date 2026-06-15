@@ -54,6 +54,7 @@ import AdminDnsStatus from "./pages/admin/AdminDnsStatus";
 import AdminStudentNotes from "./pages/admin/AdminStudentNotes";
 import AdminNavigation from "./pages/admin/AdminNavigation";
 import AdminPageSeo from "./pages/admin/AdminPageSeo";
+import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
@@ -120,6 +121,7 @@ const App = () => (
               <Route path="student-notes" element={<AdminStudentNotes />} />
               <Route path="navigation" element={<AdminNavigation />} />
               <Route path="page-seo" element={<AdminPageSeo />} />
+              <Route path="theme-editor" element={<AdminThemeEditor />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
