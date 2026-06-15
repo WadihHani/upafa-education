@@ -43,6 +43,7 @@ import AdminCourses from "./pages/admin/AdminCourses";
 import AdminMofadlaPrograms from "./pages/admin/AdminMofadlaPrograms";
 import AdminMofadlaApplications from "./pages/admin/AdminMofadlaApplications";
 import AdminMofadlaQuickRegistrations from "./pages/admin/AdminMofadlaQuickRegistrations";
+import AdminMofadlaContent from "./pages/admin/AdminMofadlaContent";
 import StudentCatalog from "./pages/student/StudentCatalog";
 import MofadlaApply from "./pages/MofadlaApply";
 import Mofadla from "./pages/Mofadla";
@@ -111,6 +112,7 @@ const App = () => (
               <Route path="portal" element={<AdminPortal />} />
               <Route path="enrollments" element={<AdminEnrollments />} />
               <Route path="courses" element={<AdminCourses />} />
+              <Route path="mofadla" element={<AdminMofadlaContent />} />
               <Route path="mofadla/programs" element={<AdminMofadlaPrograms />} />
               <Route path="mofadla/applications" element={<AdminMofadlaApplications />} />
               <Route path="mofadla/registrations" element={<AdminMofadlaQuickRegistrations />} />

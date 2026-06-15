@@ -18,6 +18,7 @@ const navItems = [
   { label: "البوابات", path: "/admin/portal", icon: DoorOpen },
   { label: "المقررات", path: "/admin/courses", icon: BookOpen },
   { label: "طلبات الانضمام", path: "/admin/enrollments", icon: ClipboardList, badgeKey: "pending_enrollments" as const },
+  { label: "محتوى المفاضلة 📝", path: "/admin/mofadla", icon: ScrollText },
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
   { label: "طلبات المفاضلة", path: "/admin/mofadla/applications", icon: FileCheck },
   { label: "تثبيت التسجيل", path: "/admin/mofadla/registrations", icon: UserPlus, badgeKey: "pending_registrations" as const },
