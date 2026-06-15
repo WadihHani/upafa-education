@@ -393,8 +393,8 @@ export default function Mofadla() {
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-3 gap-8 items-center">
             <div className="lg:col-span-2">
-              <h2 className="text-2xl md:text-4xl font-extrabold mb-3 leading-tight">{ctaTitle}</h2>
-              <p className="text-primary-foreground/85 leading-relaxed mb-5 text-base">{ctaDesc}</p>
+              <EditableText contentKey="mofadla_cta_title" fallback={ctaTitle} as="h2" className="text-2xl md:text-4xl font-extrabold mb-3 leading-tight" />
+              <EditableText contentKey="mofadla_cta_desc" fallback={ctaDesc} as="p" className="text-primary-foreground/85 leading-relaxed mb-5 text-base" />
               <div className="flex flex-wrap gap-3">
                 <Button asChild size="lg" className="bg-accent text-accent-foreground hover:brightness-110 font-bold gap-2">
                   <Link to="/mofadla/apply">{ctaApplyBtn}<ArrowLeft size={18} /></Link>
