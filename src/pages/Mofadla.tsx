@@ -203,13 +203,27 @@ export default function Mofadla() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 max-w-3xl">
-            {stats.map((s, i) => {
+            {[0, 1, 2, 3].map((i) => {
               const Icon = statIcons[i] || ClipboardList;
+              const fallbackLabel = stats[i]?.[0] || "";
+              const fallbackValue = stats[i]?.[1] || "";
               return (
                 <div key={i} className="bg-primary-foreground/10 backdrop-blur rounded-md p-3 border border-primary-foreground/15">
                   <Icon size={18} className="text-accent mb-1.5" />
-                  <div className="text-xl md:text-2xl font-extrabold leading-none">{s[1]}</div>
-                  <div className="text-[11px] text-primary-foreground/75 mt-1">{s[0]}</div>
+                  <EditableText
+                    contentKey={`mofadla_stat_${i + 1}_value`}
+                    fallback={fallbackValue}
+                    as="div"
+                    className="text-xl md:text-2xl font-extrabold leading-none"
+                    multiline={false}
+                  />
+                  <EditableText
+                    contentKey={`mofadla_stat_${i + 1}_label`}
+                    fallback={fallbackLabel}
+                    as="div"
+                    className="text-[11px] text-primary-foreground/75 mt-1"
+                    multiline={false}
+                  />
                 </div>
               );
             })}
