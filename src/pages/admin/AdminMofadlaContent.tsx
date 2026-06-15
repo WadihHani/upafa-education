@@ -10,8 +10,9 @@ import { toast } from "@/hooks/use-toast";
 import { clearSiteContentCache } from "@/hooks/use-site-content";
 import {
   Save, Upload, Trash2, Plus, FileText, GraduationCap,
-  ClipboardList, UserPlus, ExternalLink, Loader2
+  ClipboardList, UserPlus, ExternalLink, Loader2, RotateCcw
 } from "lucide-react";
+import { MOFADLA_DEFAULTS } from "./mofadla-defaults";
 
 // ---------- Field config ----------
 type Field = { key: string; label: string; type: "text" | "textarea"; rows?: number; hint?: string };
