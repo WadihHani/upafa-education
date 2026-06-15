@@ -67,6 +67,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <EditModeProvider>
+          <ThemeColorsApplier />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route element={<Layout />}>
