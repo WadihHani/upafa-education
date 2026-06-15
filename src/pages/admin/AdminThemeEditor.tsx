@@ -722,20 +722,41 @@ function MediaLibrary() {
     load();
   };
 
+  const isImage = (n: string) => /\.(png|jpe?g|gif|webp|svg|avif)$/i.test(n);
+
   return (
     <div className="p-3 space-y-3">
       <label className="flex items-center justify-center gap-2 border-2 border-dashed rounded-md p-4 cursor-pointer hover:bg-muted text-sm">
         {uploading ? <Loader2 className="animate-spin" size={16} /> : <Upload size={16} />}
-        رفع صورة جديدة
-        <input type="file" accept="image/*" className="hidden" onChange={handleUpload} />
+        رفع ملف (صورة / PDF / مستند)
+        <input
+          type="file"
+          accept="image/*,application/pdf,.doc,.docx,.xls,.xlsx"
+          className="hidden"
+          onChange={handleUpload}
+        />
       </label>
+      <p className="text-[11px] text-muted-foreground leading-relaxed">
+        ارفع ملفات PDF هنا ثم انسخ الرابط واستخدمه في قائمة «ملفات التحميل» بصيغة:
+        <br />
+        <code dir="ltr" className="bg-muted px-1 rounded">اسم الملف|الرابط</code>
+      </p>
       {loading ? (
         <div className="text-center text-muted-foreground text-sm py-4">جاري التحميل...</div>
       ) : (
         <div className="grid grid-cols-2 gap-2">
           {files.map((f) => (
             <div key={f.name} className="border rounded overflow-hidden group relative">
-              <img src={f.url} alt={f.name} className="w-full h-24 object-cover" />
+              {isImage(f.name) ? (
+                <img src={f.url} alt={f.name} className="w-full h-24 object-cover" />
+              ) : (
+                <div className="w-full h-24 flex items-center justify-center bg-muted text-muted-foreground text-xs gap-1 flex-col">
+                  <ImageIcon size={20} />
+                  <span className="uppercase font-bold">
+                    {f.name.split(".").pop()?.slice(0, 4)}
+                  </span>
+                </div>
+              )}
               <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-1 transition">
                 <button
                   onClick={() => { navigator.clipboard.writeText(f.url); toast({ title: "تم نسخ الرابط" }); }}
@@ -743,6 +764,14 @@ function MediaLibrary() {
                 >
                   <Copy size={12} /> نسخ الرابط
                 </button>
+                <a
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-xs flex items-center gap-1 bg-secondary px-2 py-1 rounded"
+                >
+                  فتح
+                </a>
                 <button
                   onClick={() => handleDelete(f.name)}
                   className="text-white text-xs flex items-center gap-1 bg-destructive px-2 py-1 rounded"
@@ -755,7 +784,7 @@ function MediaLibrary() {
           ))}
           {files.length === 0 && (
             <div className="col-span-2 text-center text-muted-foreground text-xs py-4">
-              لا توجد صور بعد
+              لا توجد ملفات بعد
             </div>
           )}
         </div>
