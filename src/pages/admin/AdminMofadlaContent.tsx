@@ -434,16 +434,35 @@ function FieldEditor({
   onChange: (v: string) => void;
   full?: boolean;
 }) {
+  const def = MOFADLA_DEFAULTS[field.key] ?? "";
+  const changed = def !== "" && value !== def;
   return (
     <div className={full ? "md:col-span-2" : ""}>
-      <label className="text-xs font-bold text-muted-foreground mb-1.5 block">
-        {field.label}
-        <span className="text-[10px] text-muted-foreground/60 font-mono ms-2">{field.key}</span>
-      </label>
+      <div className="flex items-center justify-between mb-1.5">
+        <label className="text-xs font-bold text-muted-foreground">
+          {field.label}
+          <span className="text-[10px] text-muted-foreground/60 font-mono ms-2">{field.key}</span>
+        </label>
+        {changed && (
+          <button
+            type="button"
+            onClick={() => onChange(def)}
+            className="text-[10px] text-primary hover:underline inline-flex items-center gap-1"
+            title="استعادة القيمة الافتراضية"
+          >
+            <RotateCcw size={10} />استعادة الافتراضي
+          </button>
+        )}
+      </div>
       {field.type === "textarea" ? (
-        <Textarea rows={field.rows || 3} value={value} onChange={(e) => onChange(e.target.value)} />
+        <Textarea
+          rows={field.rows || 3}
+          value={value}
+          placeholder={def}
+          onChange={(e) => onChange(e.target.value)}
+        />
       ) : (
-        <Input value={value} onChange={(e) => onChange(e.target.value)} />
+        <Input value={value} placeholder={def} onChange={(e) => onChange(e.target.value)} />
       )}
       {field.hint && <p className="text-[11px] text-muted-foreground mt-1">{field.hint}</p>}
     </div>
