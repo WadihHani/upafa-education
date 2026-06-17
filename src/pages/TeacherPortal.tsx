@@ -30,9 +30,13 @@ type PendingRequest = {
 export default function TeacherPortal() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { get, getTitle, getLink } = useSiteContent();
   const [pendingRequests, setPendingRequests] = useState<PendingRequest[]>([]);
   const [savingId, setSavingId] = useState<string | null>(null);
   const pendingCount = pendingRequests.length;
+  const meetingTitle = getTitle("teacher_meeting_room", "قاعة الاجتماعات");
+  const meetingNote = get("teacher_meeting_room", "");
+  const meetingLink = getLink("teacher_meeting_room", "");
 
   const fetchPending = async (uid: string) => {
     const { data: cs } = await supabase
