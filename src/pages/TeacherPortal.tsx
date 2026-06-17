@@ -241,6 +241,32 @@ export default function TeacherPortal() {
           </Card>
         )}
 
+        <Card className="mb-6 border-primary/30 bg-gradient-to-l from-primary/5 to-accent/5">
+          <CardContent className="p-4 flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-11 h-11 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                <Video size={20} />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-sm text-primary">{meetingTitle}</h3>
+                <p className="text-[12px] text-muted-foreground truncate">
+                  {meetingNote || "اجتماع أعضاء الهيئة التدريسية الدوري."}
+                </p>
+              </div>
+            </div>
+            {meetingLink ? (
+              <Button asChild size="sm" className="gap-1.5">
+                <a href={meetingLink} target="_blank" rel="noopener noreferrer">
+                  <Video size={14} />
+                  انضم الآن
+                </a>
+              </Button>
+            ) : (
+              <span className="text-xs text-muted-foreground">لم يُحدَّد رابط الاجتماع بعد</span>
+            )}
+          </CardContent>
+        </Card>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {sections.map((s) => {
             const Icon = s.icon;
