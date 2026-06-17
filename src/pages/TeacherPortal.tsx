@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X, CalendarCheck } from "lucide-react";
+import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X, CalendarCheck, Video } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
+import { useSiteContent } from "@/hooks/use-site-content";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -29,9 +30,13 @@ type PendingRequest = {
 export default function TeacherPortal() {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { get, getTitle, getLink } = useSiteContent();
   const [pendingRequests, setPendingRequests] = useState<PendingRequest[]>([]);
   const [savingId, setSavingId] = useState<string | null>(null);
   const pendingCount = pendingRequests.length;
+  const meetingTitle = getTitle("teacher_meeting_room", "قاعة الاجتماعات");
+  const meetingNote = get("teacher_meeting_room", "");
+  const meetingLink = getLink("teacher_meeting_room", "");
 
   const fetchPending = async (uid: string) => {
     const { data: cs } = await supabase
@@ -235,6 +240,32 @@ export default function TeacherPortal() {
             </CardContent>
           </Card>
         )}
+
+        <Card className="mb-6 border-primary/30 bg-gradient-to-l from-primary/5 to-accent/5">
+          <CardContent className="p-4 flex items-center justify-between gap-3 flex-wrap">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-11 h-11 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                <Video size={20} />
+              </div>
+              <div className="min-w-0">
+                <h3 className="font-bold text-sm text-primary">{meetingTitle}</h3>
+                <p className="text-[12px] text-muted-foreground truncate">
+                  {meetingNote || "اجتماع أعضاء الهيئة التدريسية الدوري."}
+                </p>
+              </div>
+            </div>
+            {meetingLink ? (
+              <Button asChild size="sm" className="gap-1.5">
+                <a href={meetingLink} target="_blank" rel="noopener noreferrer">
+                  <Video size={14} />
+                  انضم الآن
+                </a>
+              </Button>
+            ) : (
+              <span className="text-xs text-muted-foreground">لم يُحدَّد رابط الاجتماع بعد</span>
+            )}
+          </CardContent>
+        </Card>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {sections.map((s) => {

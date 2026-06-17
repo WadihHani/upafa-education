@@ -56,6 +56,7 @@ import AdminStudentNotes from "./pages/admin/AdminStudentNotes";
 import AdminNavigation from "./pages/admin/AdminNavigation";
 import AdminPageSeo from "./pages/admin/AdminPageSeo";
 import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
+import AdminTeacherMeeting from "./pages/admin/AdminTeacherMeeting";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
@@ -124,6 +125,7 @@ const App = () => (
               <Route path="navigation" element={<AdminNavigation />} />
               <Route path="page-seo" element={<AdminPageSeo />} />
               <Route path="theme-editor" element={<AdminThemeEditor />} />
+              <Route path="teacher-meeting" element={<AdminTeacherMeeting />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

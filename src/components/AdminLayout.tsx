@@ -2,7 +2,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen, Globe, UserPlus, StickyNote, Menu as MenuIcon, Search } from "lucide-react";
+import { Users, CalendarDays, GraduationCap, FileText, LogOut, LayoutDashboard, Image, DoorOpen, Settings, Lock, ClipboardList, ScrollText, FileCheck, Newspaper, BookOpen, Globe, UserPlus, StickyNote, Menu as MenuIcon, Search, Video } from "lucide-react";
 import AdminLogin from "@/pages/AdminLogin";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -17,6 +17,7 @@ const navItems = [
   { label: "البرامج", path: "/admin/programs", icon: GraduationCap },
   { label: "البوابات", path: "/admin/portal", icon: DoorOpen },
   { label: "المقررات", path: "/admin/courses", icon: BookOpen },
+  { label: "قاعة اجتماعات الأساتذة 🎥", path: "/admin/teacher-meeting", icon: Video },
   { label: "طلبات الانضمام", path: "/admin/enrollments", icon: ClipboardList, badgeKey: "pending_enrollments" as const },
   { label: "محتوى المفاضلة 📝", path: "/admin/mofadla", icon: ScrollText },
   { label: "برامج المفاضلة", path: "/admin/mofadla/programs", icon: ScrollText },
