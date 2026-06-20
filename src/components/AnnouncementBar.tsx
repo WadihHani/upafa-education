@@ -4,7 +4,7 @@ export default function AnnouncementBar() {
   const { get, isHidden, loading } = useSiteContent();
   if (loading) return null;
   if (isHidden("announcement_bar")) return null;
-  const text = get("announcement_bar", "أهلًا وسهلًا بك في جامعة أفريقيا الفرنسية العربية").trim();
+  const text = get("announcement_bar", "أهلًا وسهلًا بك في جامعة أفريقيا الفرنسية العربية الافتراضية").trim();
   if (!text) return null;
 
   // Duplicate text a few times for a seamless marquee

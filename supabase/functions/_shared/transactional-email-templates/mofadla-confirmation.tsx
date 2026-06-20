@@ -11,7 +11,7 @@ import {
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 
-const SITE_NAME = 'جامعة أفريقيا الفرنسية العربية'
+const SITE_NAME = 'جامعة أفريقيا الفرنسية العربية الافتراضية'
 
 interface MofadlaConfirmationProps {
   fullName?: string
@@ -37,7 +37,7 @@ const MofadlaConfirmationEmail = ({ fullName }: MofadlaConfirmationProps) => (
           <Text style={text}>تحية طيبة وبعد،</Text>
           <Text style={text}>
             نود إعلامكم بأنه قد تم تسجيل طلبكم في مفاضلة القبول في
-            جامعة أفريقيا الفرنسية العربية بنجاح عبر النظام الإلكتروني،
+            جامعة أفريقيا الفرنسية العربية الافتراضية بنجاح عبر النظام الإلكتروني،
             وتم حفظ بياناتكم ضمن قائمة المتقدمين.
           </Text>
           <Text style={text}>
@@ -67,7 +67,7 @@ const MofadlaConfirmationEmail = ({ fullName }: MofadlaConfirmationProps) => (
 
 export const template = {
   component: MofadlaConfirmationEmail,
-  subject: 'تأكيد تسجيل طلبكم في مفاضلة القبول - جامعة أفريقيا الفرنسية العربية',
+  subject: 'تأكيد تسجيل طلبكم في مفاضلة القبول - جامعة أفريقيا الفرنسية العربية الافتراضية',
   displayName: 'Mofadla Application Confirmation',
   previewData: { fullName: 'محمد أحمد' },
 } satisfies TemplateEntry

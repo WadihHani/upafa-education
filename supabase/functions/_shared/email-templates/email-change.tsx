@@ -34,7 +34,7 @@ export const EmailChangeEmail = ({
     <Body style={main}>
       <Container style={container}>
         <Section style={header}>
-          <Heading style={brand}>جامعة أفريقيا الفرنسية العربية</Heading>
+          <Heading style={brand}>جامعة أفريقيا الفرنسية العربية الافتراضية</Heading>
         </Section>
         <Section style={card}>
           <Heading style={h1}>تأكيد تغيير البريد الإلكتروني</Heading>
@@ -60,7 +60,7 @@ export const EmailChangeEmail = ({
           </Text>
         </Section>
         <Text style={brandFooter}>
-          مكتب القبول — جامعة أفريقيا الفرنسية العربية
+          مكتب القبول — جامعة أفريقيا الفرنسية العربية الافتراضية
         </Text>
       </Container>
     </Body>

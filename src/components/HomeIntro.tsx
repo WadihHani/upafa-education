@@ -8,7 +8,7 @@ export default function HomeIntro() {
           <EditableText
             contentKey="home_intro_h1"
             field="title"
-            fallback="جامعة أفريقيا الفرنسية العربية"
+            fallback="جامعة أفريقيا الفرنسية العربية الافتراضية"
             as="span"
           />
           <EditableText
@@ -22,7 +22,7 @@ export default function HomeIntro() {
 
         <EditableText
           contentKey="home_intro_p1"
-          fallback="جامعة أفريقيا الفرنسية العربية (UPAFA Syria) هي الفرع الرسمي في دمشق لجامعة أفريقيا الفرنسية العربية (UPAFA)، وتقدّم برامج بكالوريوس وماجستير ودكتوراه معتمدة بنظام التعليم عن بعد."
+          fallback="جامعة أفريقيا الفرنسية العربية الافتراضية (UPAFA Syria) هي الفرع الرسمي في دمشق لجامعة أفريقيا الفرنسية العربية الافتراضية (UPAFA)، وتقدّم برامج بكالوريوس وماجستير ودكتوراه معتمدة بنظام التعليم عن بعد."
           as="p"
           className="text-foreground/80 leading-[2] text-base md:text-lg mb-4"
         />
