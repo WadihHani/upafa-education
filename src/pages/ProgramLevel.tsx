@@ -236,7 +236,7 @@ export default function ProgramLevel() {
     <>
       <Seo
         title={`${info.title} عن بعد في سوريا | UPAFA – ${info.subtitle}`}
-        description={`${info.title} في جامعة أفريقيا الفرنسية العربية (UPAFA). ${info.description.slice(0, 110)}`}
+        description={`${info.title} في جامعة أفريقيا الفرنسية العربية الافتراضية (UPAFA). ${info.description.slice(0, 110)}`}
         path={`/programs/${level}`}
         jsonLd={[
           {
@@ -248,7 +248,7 @@ export default function ProgramLevel() {
             timeToComplete: info.duration,
             provider: {
               "@type": "CollegeOrUniversity",
-              name: "جامعة أفريقيا الفرنسية العربية",
+              name: "جامعة أفريقيا الفرنسية العربية الافتراضية",
               sameAs: "https://upafa.education/",
             },
           },
@@ -459,7 +459,7 @@ function RegistrationBlock({ info }: { info: RegistrationInfo }) {
     <div className="bg-card rounded-xl shadow-lg p-6 md:p-8 border border-border/50 mb-8">
       <h2 className="text-2xl font-bold text-foreground mb-2">إجراءات القيد والتسجيل</h2>
       <p className="text-sm text-muted-foreground mb-6">
-        فرع سورية – جامعة أفريقيا الفرنسية العربية. الشروط والوثائق وخطوات القيد المعتمدة.
+        فرع سورية – جامعة أفريقيا الفرنسية العربية الافتراضية. الشروط والوثائق وخطوات القيد المعتمدة.
       </p>
 
       {info.conditions && <RegSection icon={ListChecks} title={info.conditions.title} items={info.conditions.items} />}

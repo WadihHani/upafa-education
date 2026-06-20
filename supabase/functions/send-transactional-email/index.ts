@@ -313,7 +313,7 @@ Deno.serve(async (req) => {
     payload: {
       message_id: messageId,
       to: effectiveRecipient,
-      from: `جامعة أفريقيا الفرنسية العربية <admissions@${FROM_DOMAIN}>`,
+      from: `جامعة أفريقيا الفرنسية العربية الافتراضية <admissions@${FROM_DOMAIN}>`,
       reply_to: `admissions@${FROM_DOMAIN}`,
       sender_domain: SENDER_DOMAIN,
       subject: resolvedSubject,

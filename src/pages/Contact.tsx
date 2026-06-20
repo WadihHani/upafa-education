@@ -5,7 +5,7 @@ const Contact = () => (
   <div>
     <Seo
       title="اتصل بنا | UPAFA سوريا – دمشق"
-      description="تواصل مع جامعة أفريقيا الفرنسية العربية في دمشق، عين كرش. هاتف ‎+963989801010 وبريد academic@upafa.education."
+      description="تواصل مع جامعة أفريقيا الفرنسية العربية الافتراضية في دمشق، عين كرش. هاتف ‎+963989801010 وبريد academic@upafa.education."
       path="/contact"
     />
     <ContactSection />
