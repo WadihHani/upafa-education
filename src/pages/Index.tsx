@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import Seo from "@/components/Seo";
 import EditModeBar from "@/components/editor/EditModeBar";
 import SectionGate from "@/components/SectionGate";
+import AnnouncementBar from "@/components/AnnouncementBar";
 
 const Index = () => {
   return (
@@ -19,6 +20,7 @@ const Index = () => {
         path="/"
       />
       <EditModeBar />
+      <AnnouncementBar />
       <Navbar />
       <SocialFloat />
       <main className="flex-1">
