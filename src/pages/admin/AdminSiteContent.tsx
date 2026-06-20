@@ -52,6 +52,7 @@ const GROUPS: { key: string; label: string }[] = [
 
 // Default keys to seed in UI if missing
 const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | "textarea" | "image" | "link"; placeholder?: string }[] = [
+  { key: "announcement_bar", group: "general", label: "شريط الأخبار المتحرك (الأعلى)", type: "text" },
   { key: "university_name", group: "branding", label: "اسم الجامعة", type: "text" },
   { key: "logo_url", group: "branding", label: "شعار الجامعة", type: "image" },
   { key: "hero_subtitle", group: "home", label: "العنوان الفرعي (الهيرو)", type: "text" },
