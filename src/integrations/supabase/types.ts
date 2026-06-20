@@ -457,6 +457,54 @@ export type Database = {
         }
         Relationships: []
       }
+      kuliyat: {
+        Row: {
+          admission_requirements: string | null
+          bachelor_departments: Json
+          created_at: string
+          description: string | null
+          display_order: number
+          fees: string | null
+          id: string
+          image_url: string | null
+          is_published: boolean
+          master_departments: Json
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          admission_requirements?: string | null
+          bachelor_departments?: Json
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          fees?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          master_departments?: Json
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          admission_requirements?: string | null
+          bachelor_departments?: Json
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          fees?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          master_departments?: Json
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       lecture_materials: {
         Row: {
           course_id: string
