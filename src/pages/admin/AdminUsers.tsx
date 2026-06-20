@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
-import { Plus, Pencil, Trash2, Users as UsersIcon } from "lucide-react";
+import { Plus, Pencil, Trash2, Users as UsersIcon, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 type ManagedUser = {
@@ -45,6 +45,7 @@ export default function AdminUsers() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | Role>("all");
+  const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editing, setEditing] = useState<ManagedUser | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -183,9 +184,16 @@ export default function AdminUsers() {
     fetchUsers();
   };
 
-  const filtered = filter === "all"
-    ? users
-    : users.filter((u) => u.roles.includes(filter));
+  const q = search.trim().toLowerCase();
+  const filtered = users.filter((u) => {
+    if (filter !== "all" && !u.roles.includes(filter)) return false;
+    if (!q) return true;
+    return (
+      (u.full_name || "").toLowerCase().includes(q) ||
+      (u.email || "").toLowerCase().includes(q) ||
+      (u.phone || "").toLowerCase().includes(q)
+    );
+  });
 
   return (
     <div>
@@ -201,21 +209,56 @@ export default function AdminUsers() {
         </Button>
       </div>
 
-      <div className="flex gap-2 mb-4 flex-wrap">
-        {(["all", "student", "teacher"] as const).map((f) => (
-          <Button
-            key={f}
-            variant={filter === f ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter(f)}
+      <div className="relative mb-3">
+        <Search
+          size={16}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+        />
+        <Input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="ابحث باسم الطالب أو الأستاذ أو البريد أو الهاتف..."
+          className="pr-9 pl-9"
+        />
+        {search && (
+          <button
+            type="button"
+            onClick={() => setSearch("")}
+            className="absolute left-2 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground"
+            aria-label="مسح البحث"
           >
-            {f === "all" ? "الكل" : ROLE_LABEL[f]} (
-            {f === "all"
-              ? users.length
-              : users.filter((u) => u.roles.includes(f)).length}
-            )
-          </Button>
-        ))}
+            <X size={14} />
+          </button>
+        )}
+      </div>
+
+      <div className="flex gap-2 mb-4 flex-wrap items-center">
+        {(["all", "student", "teacher"] as const).map((f) => {
+          const base = f === "all" ? users : users.filter((u) => u.roles.includes(f));
+          const count = q
+            ? base.filter(
+                (u) =>
+                  (u.full_name || "").toLowerCase().includes(q) ||
+                  (u.email || "").toLowerCase().includes(q) ||
+                  (u.phone || "").toLowerCase().includes(q),
+              ).length
+            : base.length;
+          return (
+            <Button
+              key={f}
+              variant={filter === f ? "default" : "outline"}
+              size="sm"
+              onClick={() => setFilter(f)}
+            >
+              {f === "all" ? "الكل" : ROLE_LABEL[f]} ({count})
+            </Button>
+          );
+        })}
+        {q && (
+          <span className="text-xs text-muted-foreground">
+            عدد النتائج: {filtered.length}
+          </span>
+        )}
       </div>
 
       {loading ? (
