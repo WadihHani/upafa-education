@@ -20,8 +20,8 @@ export default function AnnouncementsBoard() {
             تابع آخر مستجدات الجامعة وقدّم على مفاضلة خريف 2025
           </h2>
           <p className="text-muted-foreground leading-relaxed text-[15px] md:text-base">
-            فُتح باب التقديم لمفاضلة خريف 2025 في جامعة UPAFA – فرع سوريا. اطّلع على
-            البرامج المتاحة، أدخل بياناتك وعلاماتك، ثم رتّب رغباتك بكل سهولة من خلال
+            فُتح باب التقديم لمفاضلة خريف 2025 في جامعة UPAFA. اطّلع على
+            الأقسام المتاحة، أدخل بياناتك وعلاماتك، ثم رتّب رغباتك بكل سهولة من خلال
             نظام التقديم الإلكتروني الموحّد.
           </p>
 
@@ -38,7 +38,7 @@ export default function AnnouncementsBoard() {
               className="inline-flex items-center gap-2 bg-card border border-border text-foreground font-semibold px-5 py-3 rounded-md hover:bg-muted transition"
             >
               <BookOpen size={18} />
-              استعراض البرامج
+              استعراض الأقسام
             </Link>
           </div>
         </div>

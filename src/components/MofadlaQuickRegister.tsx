@@ -75,7 +75,7 @@ export default function MofadlaQuickRegister() {
   const paymentPhoneRaw = get("mofadla_payment_whatsapp", "+963 989 801 010");
   const paymentPhoneDigits = paymentPhoneRaw.replace(/\D/g, "");
   const paymentWaLink = `https://wa.me/${paymentPhoneDigits}?text=${encodeURIComponent(
-    "مرحباً، أرغب بدفع رسوم التسجيل في جامعة UPAFA – فرع سوريا وإرسال إيصال الدفع."
+    "مرحباً، أرغب بدفع رسوم التسجيل في جامعة UPAFA وإرسال إيصال الدفع."
   )}`;
 
   const [submitting, setSubmitting] = useState(false);

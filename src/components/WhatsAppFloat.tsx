@@ -3,7 +3,7 @@ import { useSiteContent } from "@/hooks/use-site-content";
 export default function WhatsAppFloat() {
   const { get } = useSiteContent();
   const phone = get("contact_phone", "+963 989 801 010").replace(/\D/g, "");
-  const message = encodeURIComponent("مرحباً، أرغب بالاستفسار عن جامعة UPAFA – فرع سوريا.");
+  const message = encodeURIComponent("مرحباً، أرغب بالاستفسار عن جامعة UPAFA.");
 
   return (
     <a

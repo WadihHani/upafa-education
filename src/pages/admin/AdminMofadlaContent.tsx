@@ -28,7 +28,7 @@ const SECTIONS: Section[] = [
       { key: "mofadla_hero_desc", label: "الوصف", type: "textarea", rows: 3 },
       { key: "mofadla_cta_apply", label: "زر «قدّم الآن»", type: "text" },
       { key: "mofadla_cta_register", label: "زر «تثبيت التسجيل»", type: "text" },
-      { key: "mofadla_cta_programs", label: "زر «عرض البرامج»", type: "text" },
+      { key: "mofadla_cta_programs", label: "زر «عرض الأقسام»", type: "text" },
     ],
   },
   {
@@ -70,12 +70,12 @@ const SECTIONS: Section[] = [
   },
   {
     id: "programs",
-    title: "نصوص قسم البرامج",
+    title: "نصوص قسم الأقسام",
     fields: [
       { key: "mofadla_prog_badge", label: "الشارة", type: "text" },
       { key: "mofadla_prog_title", label: "العنوان", type: "text" },
       { key: "mofadla_prog_subtitle", label: "الوصف", type: "textarea", rows: 2 },
-      { key: "mofadla_prog_empty", label: "نص فراغ البرامج", type: "text" },
+      { key: "mofadla_prog_empty", label: "نص فراغ الأقسام", type: "text" },
       { key: "mofadla_prog_seats_label", label: "تسمية «المقاعد»", type: "text" },
       { key: "mofadla_prog_min_label", label: "تسمية «الحد الأدنى»", type: "text" },
     ],

@@ -136,7 +136,7 @@ const LEVELS: Record<string, LevelInfo> = {
     subtitle: "المرحلة الجامعية الأولى",
     duration: "4 سنوات (8 فصول دراسية)",
     description:
-      "برنامج البكالوريوس في جامعة أفريقيا – فرع سوريا يُعدّ الطلاب أكاديمياً ومهنياً في مختلف التخصصات، عبر مناهج حديثة وأساتذة متخصصين، مع التركيز على التطبيق العملي والبحث العلمي.",
+      "برنامج البكالوريوس في جامعة أفريقيا يُعدّ الطلاب أكاديمياً ومهنياً في مختلف التخصصات، عبر مناهج حديثة وأساتذة متخصصين، مع التركيز على التطبيق العملي والبحث العلمي.",
     highlights: [
       "أكثر من 20 تخصصاً في 6 كليات",
       "نظام الساعات المعتمدة",
@@ -150,7 +150,7 @@ const LEVELS: Record<string, LevelInfo> = {
     subtitle: "الدراسات العليا – المرحلة الأولى",
     duration: "سنتان دراسيتان (4 فصول)",
     description:
-      "برامج الماجستير في جامعة أفريقيا – فرع سوريا تهدف إلى تعميق المعرفة التخصصية وتطوير مهارات البحث العلمي، وتشمل 45 ساعة معتمدة + 15 ساعة لرسالة التخرج (60 ساعة إجمالاً) موزعة على 4 فصول دراسية تحت إشراف نخبة من الأساتذة.",
+      "برامج الماجستير في جامعة أفريقيا تهدف إلى تعميق المعرفة التخصصية وتطوير مهارات البحث العلمي، وتشمل 45 ساعة معتمدة + 15 ساعة لرسالة التخرج (60 ساعة إجمالاً) موزعة على 4 فصول دراسية تحت إشراف نخبة من الأساتذة.",
     highlights: [
       "22 برنامج ماجستير في مختلف التخصصات",
       "60 ساعة معتمدة (45 مقررات + 15 رسالة تخرج)",
@@ -227,7 +227,7 @@ export default function ProgramLevel() {
     return (
       <section className="py-20 text-center">
         <h1 className="text-2xl font-bold text-foreground">المرحلة غير موجودة</h1>
-        <Link to="/programs" className="text-primary hover:underline mt-4 inline-block">العودة إلى البرامج</Link>
+        <Link to="/programs" className="text-primary hover:underline mt-4 inline-block">العودة إلى الأقسام</Link>
       </section>
     );
   }
@@ -236,7 +236,7 @@ export default function ProgramLevel() {
     <>
       <Seo
         title={`${info.title} عن بعد في سوريا | UPAFA – ${info.subtitle}`}
-        description={`${info.title} في جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA). ${info.description.slice(0, 110)}`}
+        description={`${info.title} في جامعة أفريقيا الفرنسية العربية (UPAFA). ${info.description.slice(0, 110)}`}
         path={`/programs/${level}`}
         jsonLd={[
           {
@@ -248,7 +248,7 @@ export default function ProgramLevel() {
             timeToComplete: info.duration,
             provider: {
               "@type": "CollegeOrUniversity",
-              name: "جامعة أفريقيا الفرنسية العربية – فرع سوريا",
+              name: "جامعة أفريقيا الفرنسية العربية",
               sameAs: "https://upafa.education/",
             },
           },
@@ -257,7 +257,7 @@ export default function ProgramLevel() {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "الرئيسية", item: "https://upafa.education/" },
-              { "@type": "ListItem", position: 2, name: "البرامج", item: "https://upafa.education/programs" },
+              { "@type": "ListItem", position: 2, name: "الأقسام", item: "https://upafa.education/programs" },
               { "@type": "ListItem", position: 3, name: info.title, item: `https://upafa.education/programs/${level}` },
             ],
           },
@@ -353,7 +353,7 @@ export default function ProgramLevel() {
             </div>
 
             <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg text-sm text-foreground/80 leading-[1.9]">
-              <strong className="text-primary">ملاحظات عامة لجميع البرامج:</strong>
+              <strong className="text-primary">ملاحظات عامة لجميع الأقسام:</strong>
               <ul className="list-disc pr-5 mt-2 space-y-1">
                 <li>الحد الأدنى لمدة الدراسة: سنتان (4 فصول).</li>
                 <li>عدد الساعات: 45 ساعة معتمدة + 15 ساعة رسالة التخرج = 60 ساعة.</li>

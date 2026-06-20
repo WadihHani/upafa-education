@@ -37,13 +37,13 @@ export default function Faculties() {
     <>
       <Seo
         title="الكليات والتخصصات | UPAFA سوريا"
-        description="كليات جامعة أفريقيا الفرنسية العربية – فرع سوريا: الآداب، الشريعة، العلوم الإدارية والتربوية، العلوم التقنية، والطفولة المبكرة."
+        description="كليات جامعة أفريقيا الفرنسية العربية: الآداب، الشريعة، العلوم الإدارية والتربوية، العلوم التقنية، والطفولة المبكرة."
         path="/faculties"
       />
       <section className="py-16 bg-[hsl(var(--section-alt))]">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <EditableText contentKey="faculties_eyebrow" fallback="جامعة أفريقيا – فرع سوريا" as="p" className="text-sm font-semibold text-accent tracking-wider mb-2" />
+            <EditableText contentKey="faculties_eyebrow" fallback="جامعة أفريقيا" as="p" className="text-sm font-semibold text-accent tracking-wider mb-2" />
             <EditableText contentKey="faculties_title" fallback="الكليات والتخصصات" as="h1" className="text-3xl md:text-4xl font-bold text-foreground" />
             <div className="w-16 h-1 bg-accent mx-auto mt-4 rounded-full" />
             <EditableText

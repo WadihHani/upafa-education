@@ -182,7 +182,7 @@ const PAGES: PageDef[] = [
           { contentKey: "mofadla_hero_desc", label: "الوصف", fields: [{ key: "content", label: "النص", multiline: true }] },
           { contentKey: "mofadla_cta_apply", label: "زر التقديم", fields: [{ key: "content", label: "النص" }] },
           { contentKey: "mofadla_cta_register", label: "زر التثبيت", fields: [{ key: "content", label: "النص" }] },
-          { contentKey: "mofadla_cta_programs", label: "زر البرامج", fields: [{ key: "content", label: "النص" }] },
+          { contentKey: "mofadla_cta_programs", label: "زر الأقسام", fields: [{ key: "content", label: "النص" }] },
         ],
       },
       {
@@ -251,7 +251,7 @@ const PAGES: PageDef[] = [
       },
       {
         sectionKey: "section_mofadla_programs",
-        label: "البرامج المتاحة",
+        label: "الأقسام المتاحة",
         blocks: [
           { contentKey: "mofadla_prog_badge", label: "الشارة", fields: [{ key: "content", label: "النص" }] },
           { contentKey: "mofadla_prog_title", label: "العنوان", fields: [{ key: "content", label: "النص" }] },

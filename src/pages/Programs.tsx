@@ -4,8 +4,8 @@ import Seo from "@/components/Seo";
 const Programs = () => (
   <div>
     <Seo
-      title="البرامج الأكاديمية | UPAFA سوريا"
-      description="استعرض برامج البكالوريوس والماجستير والدكتوراه المعتمدة في جامعة UPAFA – فرع سوريا، بنظامي الحضور والتعليم عن بعد."
+      title="الأقسام الأكاديمية | UPAFA سوريا"
+      description="استعرض برامج البكالوريوس والماجستير والدكتوراه المعتمدة في جامعة UPAFA، بنظامي الحضور والتعليم عن بعد."
       path="/programs"
     />
     <ProgramsSection />

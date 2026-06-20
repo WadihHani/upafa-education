@@ -63,7 +63,7 @@ export default function AdminPrograms() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">إدارة البرامج</h1>
+        <h1 className="text-2xl font-bold">إدارة الأقسام</h1>
         <Button onClick={openAdd} className="gap-2"><Plus size={16} /> إضافة برنامج</Button>
       </div>
       <div className="grid gap-4">

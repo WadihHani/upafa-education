@@ -103,7 +103,7 @@ export default function NewsCategory() {
       {category && (
         <Seo
           title={`${category.title} | UPAFA سوريا`}
-          description={`أحدث المنشورات والأخبار ضمن قسم ${category.title} في جامعة UPAFA – فرع سوريا.`}
+          description={`أحدث المنشورات والأخبار ضمن قسم ${category.title} في جامعة UPAFA.`}
           path={`/news/${category.key}`}
         />
       )}

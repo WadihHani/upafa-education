@@ -36,12 +36,12 @@ const GROUPS: { key: string; label: string }[] = [
   { key: "publications", label: "المنشورات" },
   { key: "payment", label: "الدفع الإلكتروني" },
   { key: "portal", label: "البوابة (نصوص)" },
-  { key: "programs_section", label: "قسم البرامج (الرئيسية)" },
+  { key: "programs_section", label: "قسم الأقسام (الرئيسية)" },
   { key: "mofadla_hero", label: "المفاضلة - الهيرو" },
   { key: "mofadla_calendar", label: "المفاضلة - التقويم" },
   { key: "mofadla_docs", label: "المفاضلة - الوثائق والخطوات" },
   { key: "mofadla_downloads", label: "المفاضلة - تحميل ملفات" },
-  { key: "mofadla_programs", label: "المفاضلة - قسم البرامج" },
+  { key: "mofadla_programs", label: "المفاضلة - قسم الأقسام" },
   { key: "mofadla_register", label: "المفاضلة - تثبيت التسجيل" },
   { key: "mofadla_notes", label: "المفاضلة - ملاحظات" },
   { key: "mofadla_cta", label: "المفاضلة - دعوة + تواصل" },
@@ -80,8 +80,8 @@ const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | 
   { key: "portal_page_subtitle", group: "portal", label: "العنوان الفرعي لصفحة /portal", type: "text" },
 
   // Programs section
-  { key: "programs_section_title", group: "programs_section", label: "عنوان قسم البرامج", type: "text" },
-  { key: "programs_section_subtitle", group: "programs_section", label: "العنوان الفرعي لقسم البرامج", type: "text" },
+  { key: "programs_section_title", group: "programs_section", label: "عنوان قسم الأقسام", type: "text" },
+  { key: "programs_section_subtitle", group: "programs_section", label: "العنوان الفرعي لقسم الأقسام", type: "text" },
   { key: "programs_section_more_label", group: "programs_section", label: "نص زر للمزيد", type: "text" },
 
   // === Mofadla page ===
@@ -91,7 +91,7 @@ const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | 
   { key: "mofadla_hero_desc", group: "mofadla_hero", label: "الوصف", type: "textarea" },
   { key: "mofadla_cta_apply", group: "mofadla_hero", label: "نص زر التقديم", type: "text" },
   { key: "mofadla_cta_register", group: "mofadla_hero", label: "نص زر تثبيت التسجيل", type: "text" },
-  { key: "mofadla_cta_programs", group: "mofadla_hero", label: "نص زر عرض البرامج", type: "text" },
+  { key: "mofadla_cta_programs", group: "mofadla_hero", label: "نص زر عرض الأقسام", type: "text" },
   { key: "mofadla_stats", group: "mofadla_hero", label: "بطاقات الإحصاءات (سطر لكل بطاقة: التسمية|القيمة)", type: "textarea" },
 
   // Calendar

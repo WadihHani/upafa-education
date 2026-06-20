@@ -19,7 +19,7 @@ export default function Tuition() {
     <>
       <Seo
         title="الرسوم الدراسية ونظام الدراسة | UPAFA سوريا"
-        description="نظام الفصول الدراسية والرسوم الدراسية في جامعة UPAFA – فرع سوريا للبكالوريوس والماجستير والدكتوراه."
+        description="نظام الفصول الدراسية والرسوم الدراسية في جامعة UPAFA للبكالوريوس والماجستير والدكتوراه."
         path="/tuition"
       />
     <section className="py-16">
