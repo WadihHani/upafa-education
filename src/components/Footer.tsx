@@ -19,13 +19,13 @@ export default function Footer() {
           <div>
             <EditableText
               contentKey="university_name"
-              fallback="جامعة أفريقيا الفرنسية العربية – فرع سوريا"
+              fallback="جامعة أفريقيا الفرنسية العربية"
               as="h3"
               className="text-lg font-bold mb-4"
             />
             <EditableText
               contentKey="footer_about"
-              fallback="جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria) تسعى لتقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة عبر منصات التعليم عن بعد."
+              fallback="جامعة أفريقيا الفرنسية العربية (UPAFA Syria) تسعى لتقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة عبر منصات التعليم عن بعد."
               as="p"
               className="text-primary-foreground/70 text-sm leading-relaxed"
             />
@@ -76,7 +76,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-primary-foreground/15 text-center text-xs text-primary-foreground/50">
-          © {new Date().getFullYear()} {get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا")}. جميع الحقوق محفوظة.
+          © {new Date().getFullYear()} {get("university_name", "جامعة أفريقيا الفرنسية العربية")}. جميع الحقوق محفوظة.
         </div>
       </div>
     </footer>

@@ -117,7 +117,7 @@ export default function MofadlaApply() {
         .eq("is_open", true)
         .order("sort_order", { ascending: true });
       if (error) {
-        toast({ title: "خطأ في تحميل البرامج", description: error.message, variant: "destructive" });
+        toast({ title: "خطأ في تحميل الأقسام", description: error.message, variant: "destructive" });
       } else {
         setPrograms(data ?? []);
       }
@@ -470,7 +470,7 @@ export default function MofadlaApply() {
               <div className="space-y-5">
                 <h2 className="font-bold text-primary">ترتيب الرغبات</h2>
                 <p className="text-xs text-muted-foreground">
-                  اختر البرامج التي تريد التقديم عليها ثم رتّبها حسب الأولوية. سيُقبل الطلب
+                  اختر الأقسام التي تريد التقديم عليها ثم رتّبها حسب الأولوية. سيُقبل الطلب
                   في أعلى رغبة تسمح بها علامتك ومقاعدها متوفرة.
                 </p>
 
@@ -554,7 +554,7 @@ export default function MofadlaApply() {
                     {/* Available programs */}
                     <div>
                       <h3 className="text-xs font-bold text-muted-foreground mb-2 uppercase">
-                        البرامج المتاحة
+                        الأقسام المتاحة
                       </h3>
                       <div className="grid gap-2">
                         {eligiblePrograms
@@ -598,7 +598,7 @@ export default function MofadlaApply() {
                           })}
                         {eligiblePrograms.filter((p) => !preferences.includes(p.id)).length === 0 && (
                           <div className="text-xs text-muted-foreground text-center py-4">
-                            تمت إضافة جميع البرامج المتاحة.
+                            تمت إضافة جميع الأقسام المتاحة.
                           </div>
                         )}
                       </div>

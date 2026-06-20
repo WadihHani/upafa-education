@@ -138,7 +138,7 @@ export default function AdminMofadlaPrograms() {
         <div>
           <h1 className="text-2xl font-bold">برامج المفاضلة</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            البرامج التي يمكن للطلاب التقديم عليها — حدّد عدد المقاعد والحد الأدنى للعلامة والفرع المطلوب.
+            الأقسام التي يمكن للطلاب التقديم عليها — حدّد عدد المقاعد والحد الأدنى للعلامة والفرع المطلوب.
           </p>
         </div>
         <Button onClick={openAdd} className="gap-2">

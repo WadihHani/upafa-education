@@ -63,7 +63,7 @@ export default function Dashboard() {
     { label: "المستخدمون", count: counts.users, icon: Users, color: "bg-primary/10 text-primary", path: "/admin/users" },
     { label: "شرائح الهيرو", count: counts.hero, icon: Image, color: "bg-primary/10 text-primary", path: "/admin/hero" },
     { label: "المؤتمرات", count: counts.conferences, icon: CalendarDays, color: "bg-primary/10 text-primary", path: "/admin/conferences" },
-    { label: "البرامج", count: counts.programs, icon: GraduationCap, color: "bg-primary/10 text-primary", path: "/admin/programs" },
+    { label: "الأقسام", count: counts.programs, icon: GraduationCap, color: "bg-primary/10 text-primary", path: "/admin/programs" },
     { label: "البوابات", count: counts.portal, icon: DoorOpen, color: "bg-primary/10 text-primary", path: "/admin/portal" },
     { label: "محتوى الموقع", count: counts.content, icon: FileText, color: "bg-primary/10 text-primary", path: "/admin/site-content" },
   ];

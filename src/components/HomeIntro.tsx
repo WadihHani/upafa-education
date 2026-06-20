@@ -8,7 +8,7 @@ export default function HomeIntro() {
           <EditableText
             contentKey="home_intro_h1"
             field="title"
-            fallback="جامعة أفريقيا الفرنسية العربية – فرع سوريا"
+            fallback="جامعة أفريقيا الفرنسية العربية"
             as="span"
           />
           <EditableText
@@ -22,14 +22,14 @@ export default function HomeIntro() {
 
         <EditableText
           contentKey="home_intro_p1"
-          fallback="جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria) هي الفرع الرسمي في دمشق لجامعة أفريقيا الفرنسية العربية (UPAFA)، وتقدّم برامج بكالوريوس وماجستير ودكتوراه معتمدة بنظام التعليم عن بعد."
+          fallback="جامعة أفريقيا الفرنسية العربية (UPAFA Syria) هي الفرع الرسمي في دمشق لجامعة أفريقيا الفرنسية العربية (UPAFA)، وتقدّم برامج بكالوريوس وماجستير ودكتوراه معتمدة بنظام التعليم عن بعد."
           as="p"
           className="text-foreground/80 leading-[2] text-base md:text-lg mb-4"
         />
 
         <EditableText
           contentKey="home_intro_p2"
-          fallback="تسعى جامعة UPAFA – فرع سوريا إلى تقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة، عبر منصات إلكترونية حديثة وكادر أكاديمي متميز، لخدمة الطلاب في سوريا والوطن العربي."
+          fallback="تسعى جامعة UPAFA إلى تقديم تعليم عالٍ نوعي يجمع بين الأصالة والمعاصرة، عبر منصات إلكترونية حديثة وكادر أكاديمي متميز، لخدمة الطلاب في سوريا والوطن العربي."
           as="p"
           className="text-foreground/70 leading-[2] text-sm md:text-base"
         />

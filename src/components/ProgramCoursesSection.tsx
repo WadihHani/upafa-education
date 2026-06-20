@@ -74,7 +74,7 @@ export default function ProgramCoursesSection({ level }: Props) {
     <div className="bg-card rounded-xl shadow-lg p-6 md:p-8 border border-border/50 mb-8">
       <div className="flex items-center gap-2 mb-2">
         <BookOpen className="text-primary" size={22} />
-        <h2 className="text-2xl font-bold text-foreground">مقررات البرامج</h2>
+        <h2 className="text-2xl font-bold text-foreground">مقررات الأقسام</h2>
       </div>
       <p className="text-sm text-muted-foreground mb-6">
         اضغط على أي برنامج لعرض جميع مقرراته موزعة حسب السنة الدراسية.

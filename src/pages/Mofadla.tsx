@@ -75,11 +75,11 @@ export default function Mofadla() {
   const heroTitle = get("mofadla_hero_title", "التقديم على المفاضلة الجامعية");
   const heroDesc = get(
     "mofadla_hero_desc",
-    "فُتح باب التقديم على مفاضلة صيف 2026 في جامعة UPAFA – فرع سوريا. أكمل طلبك إلكترونياً خلال دقائق، اختر الكلية والاختصاص المناسبين لك، وثبّت مقعدك الجامعي."
+    "فُتح باب التقديم على مفاضلة صيف 2026 في جامعة UPAFA. أكمل طلبك إلكترونياً خلال دقائق، اختر الكلية والاختصاص المناسبين لك، وثبّت مقعدك الجامعي."
   );
   const ctaApply = get("mofadla_cta_apply", "قدّم الآن");
   const ctaRegister = get("mofadla_cta_register", "تثبيت التسجيل");
-  const ctaPrograms = get("mofadla_cta_programs", "عرض البرامج المتاحة");
+  const ctaPrograms = get("mofadla_cta_programs", "عرض الأقسام المتاحة");
   const stats = parseLines(
     get(
       "mofadla_stats",
@@ -116,24 +116,24 @@ export default function Mofadla() {
   const steps = parseLines(
     get(
       "mofadla_steps_list",
-      "أدخل بياناتك الشخصية|اسم رباعي، رقم وطني، تواصل، وعنوان.\nأدخل معدلك|اختر الفرع وأدخل معدل الثانوية أو آخر شهادة.\nرتّب الرغبات|اختر البرامج التي تناسبك ورتّبها حسب الأولوية.\nأرسل الطلب|احصل على رقم الطلب واحتفظ به للمراجعة."
+      "أدخل بياناتك الشخصية|اسم رباعي، رقم وطني، تواصل، وعنوان.\nأدخل معدلك|اختر الفرع وأدخل معدل الثانوية أو آخر شهادة.\nرتّب الرغبات|اختر الأقسام التي تناسبك ورتّبها حسب الأولوية.\nأرسل الطلب|احصل على رقم الطلب واحتفظ به للمراجعة."
     )
   );
 
   const dlBadge = get("mofadla_dl_badge", "ملفات للتحميل");
   const dlTitle = get("mofadla_dl_title", "الوثائق والإجراءات الرسمية");
-  const dlSubtitle = get("mofadla_dl_subtitle", "حمّل الملفات التالية للاطلاع على إجراءات القيد وجداول البرامج بشكل تفصيلي.");
+  const dlSubtitle = get("mofadla_dl_subtitle", "حمّل الملفات التالية للاطلاع على إجراءات القيد وجداول الأقسام بشكل تفصيلي.");
   const downloads = parseLines(
     get(
       "mofadla_dl_list",
-      "إجراءات القيد لدرجة الإجازة|الشروط والوثائق المطلوبة للقيد في مرحلة الإجازة.|/downloads/registration-bachelor.pdf\nإجراءات القيد لدرجة الماجستير|الشروط والوثائق المطلوبة للقيد في مرحلة الماجستير.|/downloads/registration-master.pdf\nإجراءات القيد لدرجة الدكتوراه|الشروط والوثائق المطلوبة للقيد في مرحلة الدكتوراه.|/downloads/registration-phd.pdf\nجداول البرامج|الجداول التفصيلية للبرامج الأكاديمية المتاحة.|/downloads/programs-schedule.pdf"
+      "إجراءات القيد لدرجة الإجازة|الشروط والوثائق المطلوبة للقيد في مرحلة الإجازة.|/downloads/registration-bachelor.pdf\nإجراءات القيد لدرجة الماجستير|الشروط والوثائق المطلوبة للقيد في مرحلة الماجستير.|/downloads/registration-master.pdf\nإجراءات القيد لدرجة الدكتوراه|الشروط والوثائق المطلوبة للقيد في مرحلة الدكتوراه.|/downloads/registration-phd.pdf\nجداول الأقسام|الجداول التفصيلية للبرامج الأكاديمية المتاحة.|/downloads/programs-schedule.pdf"
     )
   );
   const dlBtn = get("mofadla_dl_btn", "تحميل PDF");
 
-  const progBadge = get("mofadla_prog_badge", "البرامج المتاحة");
+  const progBadge = get("mofadla_prog_badge", "الأقسام المتاحة");
   const progTitle = get("mofadla_prog_title", "اختصاصات مفاضلة صيف 2026");
-  const progSubtitle = get("mofadla_prog_subtitle", "اطّلع على البرامج المفتوحة للتقديم وعدد المقاعد والحدّ الأدنى للقبول.");
+  const progSubtitle = get("mofadla_prog_subtitle", "اطّلع على الأقسام المفتوحة للتقديم وعدد المقاعد والحدّ الأدنى للقبول.");
   const progEmpty = get("mofadla_prog_empty", "لا توجد برامج مفتوحة للتقديم حالياً. يرجى المتابعة لاحقاً.");
   const progSeatsLabel = get("mofadla_prog_seats_label", "المقاعد:");
   const progMinLabel = get("mofadla_prog_min_label", "الحد الأدنى:");
@@ -168,7 +168,7 @@ export default function Mofadla() {
   const seoTitle = get("mofadla_seo_title", "المفاضلة والقبول الجامعي 2026 | UPAFA سوريا");
   const seoDesc = get(
     "mofadla_seo_desc",
-    "مفاضلة جامعة UPAFA – فرع سوريا 2026: التخصصات المتاحة، شروط القبول، والتسجيل المباشر للمتقدمين الجدد."
+    "مفاضلة جامعة UPAFA 2026: التخصصات المتاحة، شروط القبول، والتسجيل المباشر للمتقدمين الجدد."
   );
 
   const calIcons = [ClipboardList, BookOpen, FileCheck2];

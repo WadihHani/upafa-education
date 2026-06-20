@@ -1,4 +1,4 @@
-# جامعة أفريقيا الفرنسية العربية – فرع سوريا (UPAFA Syria)
+# جامعة أفريقيا الفرنسية العربية (UPAFA Syria)
 
 > University offering accredited Bachelor's, Master's, and PhD programs in Syria via in-person and distance learning, affiliated with Université Panafricaine Franco-Arabe (Mali).
 
@@ -8,7 +8,7 @@ UPAFA Syria is the Syrian branch of Université Panafricaine Franco-Arabe. The s
 
 - [الرئيسية / Home](/): University overview and announcements.
 - [عن الجامعة / About](/about): History, mission, and accreditation.
-- [البرامج / Programs](/programs): All academic programs by level.
+- [الأقسام / Programs](/programs): All academic programs by level.
 - [البكالوريوس / Bachelor](/programs/bachelor): Bachelor admission and registration.
 - [الماجستير / Master's](/programs/masters): Master's programs and distance learning.
 - [الدكتوراه / PhD](/programs/phd): Doctoral programs.

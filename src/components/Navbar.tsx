@@ -70,7 +70,7 @@ export default function Navbar() {
   const { get, getImage } = useSiteContent();
   const navLinks = useNavItems("navbar");
 
-  const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية – فرع سوريا");
+  const uniName = get("university_name", "جامعة أفريقيا الفرنسية العربية");
   const tagline = get("hero_subtitle", "اعبر حدود الزمان والمكان");
   const logoSrc = getImage("logo_url") || get("logo_url") || logoFallback;
 
