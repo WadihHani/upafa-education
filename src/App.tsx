@@ -25,6 +25,8 @@ import Publications from "./pages/Publications";
 import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
 import Faculties from "./pages/Faculties";
+import FacultyDetail from "./pages/FacultyDetail";
+import AdminKuliyat from "./pages/admin/AdminKuliyat";
 import Tuition from "./pages/Tuition";
 import TuitionFees from "./pages/TuitionFees";
 import Faq from "./pages/Faq";
@@ -78,6 +80,7 @@ const App = () => (
               <Route path="/programs" element={<Programs />} />
               <Route path="/programs/:level" element={<ProgramLevel />} />
               <Route path="/faculties" element={<Faculties />} />
+              <Route path="/faculties/:slug" element={<FacultyDetail />} />
               <Route path="/tuition" element={<Tuition />} />
               <Route path="/tuition-fees" element={<TuitionFees />} />
               <Route path="/faq" element={<Faq />} />
@@ -108,6 +111,7 @@ const App = () => (
               <Route path="users" element={<AdminUsers />} />
               <Route path="conferences" element={<AdminConferences />} />
               <Route path="programs" element={<AdminPrograms />} />
+              <Route path="kuliyat" element={<AdminKuliyat />} />
               <Route path="content" element={<AdminContent />} />
               <Route path="hero" element={<AdminHero />} />
               <Route path="portal" element={<AdminPortal />} />
