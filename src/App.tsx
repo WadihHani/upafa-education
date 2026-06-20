@@ -25,6 +25,8 @@ import Publications from "./pages/Publications";
 import Conferences from "./pages/Conferences";
 import Contact from "./pages/Contact";
 import Faculties from "./pages/Faculties";
+import FacultyDetail from "./pages/FacultyDetail";
+import AdminKuliyat from "./pages/admin/AdminKuliyat";
 import Tuition from "./pages/Tuition";
 import TuitionFees from "./pages/TuitionFees";
 import Faq from "./pages/Faq";
