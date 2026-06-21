@@ -143,9 +143,10 @@ export default function TeacherCourses() {
                     <Badge variant="outline" className="text-[10px]">مغلق</Badge>
                   )}
                 </div>
-                <div className="flex gap-2 text-[11px] text-muted-foreground mb-3">
+                <div className="flex gap-2 text-[11px] text-muted-foreground mb-3 flex-wrap">
                   {c.code && <span>{c.code}</span>}
                   {c.level && <span>• {c.level}</span>}
+                  {kuliyaName(c.kuliya_id) && <span>• {kuliyaName(c.kuliya_id)}</span>}
                 </div>
                 {c.description && (
                   <p className="text-xs text-muted-foreground line-clamp-2 mb-3">
@@ -173,6 +174,12 @@ export default function TeacherCourses() {
                     className="text-xs text-accent hover:underline flex items-center gap-1"
                   >
                     المواد <ChevronLeft size={12} />
+                  </Link>
+                  <Link
+                    to={`/portal/teacher/meetings?course=${c.id}`}
+                    className="text-xs text-accent hover:underline flex items-center gap-1"
+                  >
+                    المحاضرات <ChevronLeft size={12} />
                   </Link>
                   <Link
                     to={`/portal/teacher/grades?course=${c.id}`}
@@ -236,6 +243,21 @@ export default function TeacherCourses() {
                 onChange={(e) => setForm({ ...form, description: e.target.value })}
                 maxLength={1000}
               />
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block">الكلية</label>
+              <Select
+                value={form.kuliya_id || "none"}
+                onValueChange={(v) => setForm({ ...form, kuliya_id: v === "none" ? "" : v })}
+              >
+                <SelectTrigger><SelectValue placeholder="اختر الكلية" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="none">— بدون كلية —</SelectItem>
+                  {kuliyat.map((k) => (
+                    <SelectItem key={k.id} value={k.id}>{k.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-center justify-between bg-muted/40 rounded-md px-3 py-2">
               <span className="text-sm">فتح المقرر لطلبات التسجيل</span>
