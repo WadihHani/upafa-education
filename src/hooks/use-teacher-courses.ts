@@ -9,6 +9,7 @@ export type TeacherCourse = {
   level: string | null;
   description: string;
   is_open_for_enrollment: boolean;
+  kuliya_id: string | null;
 };
 
 export function useTeacherCourses() {
@@ -26,7 +27,7 @@ export function useTeacherCourses() {
     setLoading(true);
     const { data, error } = await supabase
       .from("courses")
-      .select("id, title, code, level, description, is_open_for_enrollment")
+      .select("id, title, code, level, description, is_open_for_enrollment, kuliya_id")
       .eq("teacher_user_id", user.id)
       .order("created_at", { ascending: false });
     if (error) setError(error.message);
