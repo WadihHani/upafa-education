@@ -11,11 +11,19 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { BookOpen, ChevronLeft, Plus, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import TeacherLayout from "./TeacherLayout";
 import { useTeacherCourses } from "@/hooks/use-teacher-courses";
+import { useKuliyat } from "@/hooks/use-kuliyat";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "@/hooks/use-toast";
@@ -25,6 +33,7 @@ const emptyForm = {
   code: "",
   level: "",
   description: "",
+  kuliya_id: "",
   is_open_for_enrollment: true,
 };
 
