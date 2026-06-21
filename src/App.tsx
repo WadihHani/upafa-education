@@ -20,6 +20,8 @@ import TeacherMaterials from "./pages/teacher/TeacherMaterials";
 import TeacherAssessments from "./pages/teacher/TeacherAssessments";
 import TeacherGrades from "./pages/teacher/TeacherGrades";
 import TeacherAttendance from "./pages/teacher/TeacherAttendance";
+import TeacherMeetings from "./pages/teacher/TeacherMeetings";
+import StudentCourses from "./pages/student/StudentCourses";
 import Publications from "./pages/Publications";
 
 import Conferences from "./pages/Conferences";
@@ -97,10 +99,12 @@ const App = () => (
             <Route path="/unsubscribe" element={<Unsubscribe />} />
             <Route path="/portal/student" element={<StudentPortal />} />
             <Route path="/portal/student/catalog" element={<StudentCatalog />} />
+            <Route path="/portal/student/courses" element={<StudentCourses />} />
             <Route path="/portal/teacher" element={<TeacherPortal />} />
             <Route path="/portal/teacher/courses" element={<TeacherCourses />} />
             <Route path="/portal/teacher/students" element={<TeacherStudents />} />
             <Route path="/portal/teacher/materials" element={<TeacherMaterials />} />
+            <Route path="/portal/teacher/meetings" element={<TeacherMeetings />} />
             <Route path="/portal/teacher/assessments" element={<TeacherAssessments />} />
             <Route path="/portal/teacher/grades" element={<TeacherGrades />} />
             <Route path="/portal/teacher/attendance" element={<TeacherAttendance />} />

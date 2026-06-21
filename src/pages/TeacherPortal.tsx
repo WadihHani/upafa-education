@@ -10,9 +10,10 @@ import { Card, CardContent } from "@/components/ui/card";
 
 const sections = [
   { label: "مقرراتي", icon: BookOpen, description: "المقررات التي تُدرّسها هذا الفصل.", href: "/portal/teacher/courses" },
-  { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر وإدارة طلبات التسجيل.", href: "/portal/teacher/students" },
+  { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر.", href: "/portal/teacher/students" },
+  { label: "المحاضرات المباشرة", icon: Video, description: "إنشاء اجتماع Google Meet وتسجيل المحاضرة صوتياً.", href: "/portal/teacher/meetings" },
   { label: "الحضور والغياب", icon: CalendarCheck, description: "تسجيل حضور الطلاب لكل جلسة.", href: "/portal/teacher/attendance" },
-  { label: "المحاضرات والمواد", icon: FolderKanban, description: "رفع المحاضرات المسجلة والمواد التعليمية.", href: "/portal/teacher/materials" },
+  { label: "المواد التعليمية", icon: FolderKanban, description: "رفع المواد التعليمية والروابط.", href: "/portal/teacher/materials" },
   { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتقييم تسليمات الطلاب.", href: "/portal/teacher/assessments" },
   { label: "الدرجات", icon: Award, description: "إدخال درجات الطلاب ونشر النتائج.", href: "/portal/teacher/grades" },
 ];
