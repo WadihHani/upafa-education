@@ -349,16 +349,25 @@ export default function StudentPortal() {
       <div className="container mx-auto px-4 py-6">
         <div className="mb-5 bg-card border border-border rounded-md p-4 flex items-center justify-between gap-4 flex-wrap shadow-sm">
           <div>
-            <h2 className="text-sm font-bold text-primary mb-0.5">المقررات المتاحة للتسجيل</h2>
-            <p className="text-xs text-muted-foreground">تصفّح المقررات المفتوحة وأرسل طلب الانضمام إلى المحاضر.</p>
+            <h2 className="text-sm font-bold text-primary mb-0.5">مقرراتك والمحاضرات المباشرة</h2>
+            <p className="text-xs text-muted-foreground">ادخل إلى مقرراتك المسجَّلة أو تصفّح المقررات المتاحة للانضمام الفوري.</p>
           </div>
-          <button
-            type="button"
-            onClick={() => navigate("/portal/student/catalog")}
-            className="text-xs font-bold bg-accent text-accent-foreground px-3 py-2 rounded-md hover:brightness-110 transition-all"
-          >
-            تصفح المقررات
-          </button>
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              onClick={() => navigate("/portal/student/courses")}
+              className="text-xs font-bold bg-primary text-primary-foreground px-3 py-2 rounded-md hover:brightness-110 transition-all"
+            >
+              مقرراتي
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/portal/student/catalog")}
+              className="text-xs font-bold bg-accent text-accent-foreground px-3 py-2 rounded-md hover:brightness-110 transition-all"
+            >
+              تصفح المقررات
+            </button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-5">

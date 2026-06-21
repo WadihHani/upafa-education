@@ -207,6 +207,56 @@ export type Database = {
         }
         Relationships: []
       }
+      course_meetings: {
+        Row: {
+          course_id: string
+          created_at: string
+          description: string
+          ended_at: string | null
+          id: string
+          meet_url: string
+          scheduled_at: string | null
+          started_at: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          description?: string
+          ended_at?: string | null
+          id?: string
+          meet_url: string
+          scheduled_at?: string | null
+          started_at?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          description?: string
+          ended_at?: string | null
+          id?: string
+          meet_url?: string
+          scheduled_at?: string | null
+          started_at?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_meetings_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string | null
@@ -214,6 +264,7 @@ export type Database = {
           description: string
           id: string
           is_open_for_enrollment: boolean
+          kuliya_id: string | null
           level: string | null
           teacher_user_id: string
           title: string
@@ -225,6 +276,7 @@ export type Database = {
           description?: string
           id?: string
           is_open_for_enrollment?: boolean
+          kuliya_id?: string | null
           level?: string | null
           teacher_user_id: string
           title: string
@@ -236,12 +288,21 @@ export type Database = {
           description?: string
           id?: string
           is_open_for_enrollment?: boolean
+          kuliya_id?: string | null
           level?: string | null
           teacher_user_id?: string
           title?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "courses_kuliya_id_fkey"
+            columns: ["kuliya_id"]
+            isOneToOne: false
+            referencedRelation: "kuliyat"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       email_send_log: {
         Row: {
@@ -545,6 +606,63 @@ export type Database = {
             columns: ["course_id"]
             isOneToOne: false
             referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lecture_recordings: {
+        Row: {
+          course_id: string
+          created_at: string
+          duration_seconds: number | null
+          file_path: string
+          id: string
+          meeting_id: string | null
+          mime_type: string
+          recorded_by: string
+          size_bytes: number | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          duration_seconds?: number | null
+          file_path: string
+          id?: string
+          meeting_id?: string | null
+          mime_type?: string
+          recorded_by: string
+          size_bytes?: number | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          duration_seconds?: number | null
+          file_path?: string
+          id?: string
+          meeting_id?: string | null
+          mime_type?: string
+          recorded_by?: string
+          size_bytes?: number | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lecture_recordings_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lecture_recordings_meeting_id_fkey"
+            columns: ["meeting_id"]
+            isOneToOne: false
+            referencedRelation: "course_meetings"
             referencedColumns: ["id"]
           },
         ]
@@ -1044,6 +1162,7 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          kuliya_id: string | null
           phone: string | null
           updated_at: string
           user_id: string
@@ -1054,6 +1173,7 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          kuliya_id?: string | null
           phone?: string | null
           updated_at?: string
           user_id: string
@@ -1064,11 +1184,20 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          kuliya_id?: string | null
           phone?: string | null
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_kuliya_id_fkey"
+            columns: ["kuliya_id"]
+            isOneToOne: false
+            referencedRelation: "kuliyat"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       program_courses: {
         Row: {
