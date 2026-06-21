@@ -40,9 +40,13 @@ const emptyForm = {
 export default function TeacherCourses() {
   const { user } = useAuth();
   const { courses, loading, error, refetch } = useTeacherCourses();
+  const { kuliyat } = useKuliyat();
   const [open, setOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [form, setForm] = useState(emptyForm);
+
+  const kuliyaName = (id: string | null) =>
+    kuliyat.find((k) => k.id === id)?.name ?? null;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,6 +58,7 @@ export default function TeacherCourses() {
       code: form.code.trim() || null,
       level: form.level.trim() || null,
       description: form.description.trim(),
+      kuliya_id: form.kuliya_id || null,
       is_open_for_enrollment: form.is_open_for_enrollment,
     });
     setSubmitting(false);
