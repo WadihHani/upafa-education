@@ -46,12 +46,40 @@ type Recording = {
   created_at: string;
 };
 
+type MaterialType = "book" | "pdf" | "video" | "youtube" | "link";
+
 type Material = {
   id: string;
   course_id: string;
   title: string;
   description: string;
   external_url: string | null;
+  file_path: string | null;
+  file_size_bytes: number | null;
+  file_mime: string | null;
+  material_type: MaterialType;
+};
+
+const MAT_LABEL: Record<MaterialType, string> = {
+  book: "كتاب",
+  pdf: "PDF",
+  video: "فيديو",
+  youtube: "يوتيوب",
+  link: "رابط",
+};
+
+const youtubeId = (url: string): string | null => {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtu.be")) return u.pathname.slice(1);
+    if (u.searchParams.get("v")) return u.searchParams.get("v");
+    const parts = u.pathname.split("/");
+    const i = parts.indexOf("embed");
+    if (i !== -1 && parts[i + 1]) return parts[i + 1];
+    return null;
+  } catch {
+    return null;
+  }
 };
 
 const formatDuration = (s: number | null) => {
@@ -111,7 +139,7 @@ export default function StudentCourses() {
         .order("created_at", { ascending: false }),
       supabase
         .from("lecture_materials")
-        .select("id, course_id, title, description, external_url")
+        .select("id, course_id, title, description, external_url, file_path, file_size_bytes, file_mime, material_type")
         .in("course_id", ids),
     ]);
 
@@ -156,6 +184,22 @@ export default function StudentCourses() {
       .createSignedUrl(rec.file_path, 3600);
     if (error || !data) {
       toast({ title: "تعذر التشغيل", description: error?.message, variant: "destructive" });
+      return;
+    }
+    window.open(data.signedUrl, "_blank");
+  };
+
+  const openMaterial = async (mat: Material) => {
+    if (mat.material_type === "youtube" || mat.material_type === "link") {
+      if (mat.external_url) window.open(mat.external_url, "_blank");
+      return;
+    }
+    if (!mat.file_path) return;
+    const { data, error } = await supabase.storage
+      .from("lecture-materials")
+      .createSignedUrl(mat.file_path, 3600);
+    if (error || !data) {
+      toast({ title: "تعذر الفتح", description: error?.message, variant: "destructive" });
       return;
     }
     window.open(data.signedUrl, "_blank");
@@ -345,25 +389,44 @@ export default function StudentCourses() {
                         {mats.length === 0 ? (
                           <p className="text-[11px] text-muted-foreground">لا مواد بعد.</p>
                         ) : (
-                          <div className="space-y-1.5">
-                            {mats.map((mat) => (
-                              <div
-                                key={mat.id}
-                                className="bg-muted/40 rounded px-2 py-1.5 text-xs flex items-center justify-between gap-2"
-                              >
-                                <span className="truncate">{mat.title}</span>
-                                {mat.external_url && (
-                                  <a
-                                    href={mat.external_url}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="text-accent hover:underline shrink-0"
-                                  >
-                                    فتح
-                                  </a>
-                                )}
-                              </div>
-                            ))}
+                          <div className="space-y-2">
+                            {mats.map((mat) => {
+                              const ytId = mat.material_type === "youtube" && mat.external_url
+                                ? youtubeId(mat.external_url) : null;
+                              return (
+                                <div
+                                  key={mat.id}
+                                  className="bg-muted/40 rounded px-2 py-1.5 text-xs"
+                                >
+                                  <div className="flex items-center justify-between gap-2">
+                                    <div className="min-w-0">
+                                      <div className="truncate font-medium">{mat.title}</div>
+                                      <Badge variant="outline" className="text-[9px] mt-0.5">
+                                        {MAT_LABEL[mat.material_type] ?? "مادة"}
+                                      </Badge>
+                                    </div>
+                                    <button
+                                      type="button"
+                                      onClick={() => openMaterial(mat)}
+                                      className="text-accent hover:underline shrink-0"
+                                    >
+                                      فتح
+                                    </button>
+                                  </div>
+                                  {ytId && (
+                                    <div className="mt-1.5 aspect-video rounded overflow-hidden bg-black">
+                                      <iframe
+                                        src={`https://www.youtube.com/embed/${ytId}`}
+                                        className="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title={mat.title}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
                       </section>
