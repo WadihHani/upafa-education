@@ -250,9 +250,6 @@ export default function TeacherPortal() {
               </div>
               <div className="min-w-0">
                 <h3 className="font-bold text-sm text-primary">{meetingTitle}</h3>
-                <p className="text-[12px] text-muted-foreground truncate">
-                  {meetingNote || "اجتماع أعضاء الهيئة التدريسية الدوري."}
-                </p>
               </div>
             </div>
             {meetingLink ? (
