@@ -116,19 +116,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://upafa.education/news/university-news/7cef71f2-29bf-4a3f-9233-fccf425a0f32</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://upafa.education/news/university-news/a6e04125-a3d8-4799-b79e-8e35d08668f4</loc>
-    <lastmod>2026-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://upafa.education/news/university-news/17e8c3c6-58b4-4643-ba0e-ea1c980d4042</loc>
     <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -142,6 +130,18 @@
   <url>
     <loc>https://upafa.education/news/university-news/2d3b902f-4090-4981-b135-6dd88f701a14</loc>
     <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://upafa.education/news/university-news/7cef71f2-29bf-4a3f-9233-fccf425a0f32</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://upafa.education/news/university-news/17e8c3c6-58b4-4643-ba0e-ea1c980d4042</loc>
+    <lastmod>2026-04-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
