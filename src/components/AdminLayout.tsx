@@ -31,6 +31,29 @@ const navItems = [
   { label: "حالة DNS للبريد", path: "/admin/dns-status", icon: Globe },
 ];
 
+function GlobalSearchBar() {
+  const navigate = useNavigate();
+  const [q, setQ] = useState("");
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (q.trim()) navigate(`/admin/search?q=${encodeURIComponent(q.trim())}`);
+      }}
+      className="relative max-w-2xl"
+      dir="rtl"
+    >
+      <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+      <input
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder="بحث شامل: اسم، بريد، هاتف، رقم وطني..."
+        className="w-full h-10 pr-10 pl-3 rounded-md border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+      />
+    </form>
+  );
+}
+
 export default function AdminLayout() {
   const { isAdmin, loading, signOut } = useAuth();
   const location = useLocation();
