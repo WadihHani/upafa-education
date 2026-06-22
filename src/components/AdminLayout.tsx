@@ -1,4 +1,4 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { label: "الرئيسية", path: "/admin", icon: LayoutDashboard },
+  { label: "البحث الشامل 🔍", path: "/admin/search", icon: Search },
   { label: "محرر الثيم 🎨", path: "/admin/theme-editor", icon: Settings },
   { label: "شرائح الهيرو", path: "/admin/hero", icon: Image },
   { label: "أقسام الأخبار", path: "/admin/news", icon: Newspaper },
@@ -29,6 +30,29 @@ const navItems = [
   { label: "SEO لكل صفحة", path: "/admin/page-seo", icon: Search },
   { label: "حالة DNS للبريد", path: "/admin/dns-status", icon: Globe },
 ];
+
+function GlobalSearchBar() {
+  const navigate = useNavigate();
+  const [q, setQ] = useState("");
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (q.trim()) navigate(`/admin/search?q=${encodeURIComponent(q.trim())}`);
+      }}
+      className="relative max-w-2xl"
+      dir="rtl"
+    >
+      <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+      <input
+        value={q}
+        onChange={(e) => setQ(e.target.value)}
+        placeholder="بحث شامل: اسم، بريد، هاتف، رقم وطني..."
+        className="w-full h-10 pr-10 pl-3 rounded-md border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+      />
+    </form>
+  );
+}
 
 export default function AdminLayout() {
   const { isAdmin, loading, signOut } = useAuth();
@@ -142,8 +166,13 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 overflow-auto">
-        <Outlet />
+      <main className="flex-1 overflow-auto">
+        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b px-8 py-3">
+          <GlobalSearchBar />
+        </div>
+        <div className="p-8">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
