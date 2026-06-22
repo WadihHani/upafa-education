@@ -61,6 +61,7 @@ import AdminNavigation from "./pages/admin/AdminNavigation";
 import AdminPageSeo from "./pages/admin/AdminPageSeo";
 import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
 import AdminTeacherMeeting from "./pages/admin/AdminTeacherMeeting";
+import AdminSearch from "./pages/admin/AdminSearch";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
