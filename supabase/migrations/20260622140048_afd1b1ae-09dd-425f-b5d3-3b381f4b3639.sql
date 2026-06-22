@@ -1,0 +1,1 @@
+UPDATE public.site_content SET title = 'قاعة الاجتماعات', content = '' WHERE section_key = 'teacher_meeting_room';
