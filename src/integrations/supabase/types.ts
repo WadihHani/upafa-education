@@ -572,8 +572,11 @@ export type Database = {
           created_at: string
           description: string
           external_url: string | null
+          file_mime: string | null
           file_path: string | null
+          file_size_bytes: number | null
           id: string
+          material_type: string
           sort_order: number
           title: string
           updated_at: string
@@ -583,8 +586,11 @@ export type Database = {
           created_at?: string
           description?: string
           external_url?: string | null
+          file_mime?: string | null
           file_path?: string | null
+          file_size_bytes?: number | null
           id?: string
+          material_type?: string
           sort_order?: number
           title: string
           updated_at?: string
@@ -594,8 +600,11 @@ export type Database = {
           created_at?: string
           description?: string
           external_url?: string | null
+          file_mime?: string | null
           file_path?: string | null
+          file_size_bytes?: number | null
           id?: string
+          material_type?: string
           sort_order?: number
           title?: string
           updated_at?: string
