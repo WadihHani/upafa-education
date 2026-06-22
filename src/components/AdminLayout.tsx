@@ -143,8 +143,13 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 p-8 overflow-auto">
-        <Outlet />
+      <main className="flex-1 overflow-auto">
+        <div className="sticky top-0 z-10 bg-background/95 backdrop-blur border-b px-8 py-3">
+          <GlobalSearchBar />
+        </div>
+        <div className="p-8">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
