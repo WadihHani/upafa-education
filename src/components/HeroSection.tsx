@@ -80,7 +80,7 @@ export default function HeroSection() {
                   <div className="absolute bottom-0 right-0 left-0 p-6 md:p-10 text-primary-foreground">
                     <h2
                       key={current}
-                      className="text-xl md:text-3xl lg:text-4xl font-extrabold leading-snug mb-4 max-w-3xl animate-fade-up truncate"
+                      className="text-xl md:text-3xl lg:text-4xl font-extrabold leading-snug mb-4 max-w-3xl animate-fade-up line-clamp-2"
                       style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
                       title={slide.title}
                     >
