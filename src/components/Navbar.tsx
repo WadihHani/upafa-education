@@ -84,11 +84,15 @@ export default function Navbar() {
     <header className="sticky top-0 right-0 left-0 z-50 shadow-md">
       <div className="bg-card border-b border-border">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
-          <div className="hidden md:flex flex-col items-start">
-            <div className="text-primary text-xl lg:text-2xl font-extrabold leading-tight" style={{ fontFamily: "'Cairo', serif" }}>
+          <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 shrink-0">
+            <img src={logoSrc} alt={uniName} className="h-20 md:h-24 lg:h-28 w-auto" />
+          </Link>
+
+          <div className="hidden md:flex flex-col items-start text-left">
+            <div className="text-primary text-xl lg:text-2xl font-extrabold leading-tight" style={{ fontFamily: "'Cairo', serif", direction: "rtl" }}>
               {tagline}
             </div>
-            <div className="text-muted-foreground text-[11px] lg:text-xs tracking-wider mt-1">
+            <div className="text-muted-foreground text-[11px] lg:text-xs tracking-wider mt-1" dir="ltr">
               Beyond The Boundaries Of Time & Place
             </div>
           </div>
@@ -105,16 +109,12 @@ export default function Navbar() {
               />
             </div>
           </div>
-
-          <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 shrink-0">
-            <img src={logoSrc} alt={uniName} className="h-14 md:h-16 lg:h-20 w-auto" />
-          </Link>
         </div>
       </div>
 
       <div className="bg-primary border-b-4 border-accent">
         <div className="container mx-auto px-2">
-          <div className="hidden lg:flex items-center justify-end">
+          <div className="hidden lg:flex items-center justify-start">
             {navLinks.map((link) => (
               <DesktopDropdown key={link.id} item={link} onClose={() => {}} />
             ))}
