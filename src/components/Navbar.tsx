@@ -85,7 +85,7 @@ export default function Navbar() {
       <div className="bg-card border-b border-border">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between gap-4">
           <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 shrink-0">
-            <img src={logoSrc} alt={uniName} className="h-20 md:h-24 lg:h-28 w-auto" />
+            <img src={logoSrc} alt={uniName} className="h-24 md:h-32 lg:h-36 w-auto object-contain" />
           </Link>
 
           <div className="hidden md:flex flex-col items-start text-left">
