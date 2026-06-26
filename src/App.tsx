@@ -60,6 +60,7 @@ import AdminStudentNotes from "./pages/admin/AdminStudentNotes";
 import AdminNavigation from "./pages/admin/AdminNavigation";
 import AdminPageSeo from "./pages/admin/AdminPageSeo";
 import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
+import AdminAnnouncementBar from "./pages/admin/AdminAnnouncementBar";
 import AdminTeacherMeeting from "./pages/admin/AdminTeacherMeeting";
 import AdminSearch from "./pages/admin/AdminSearch";
 import AdminContactSubmissions from "./pages/admin/AdminContactSubmissions";
@@ -135,6 +136,7 @@ const App = () => (
               <Route path="navigation" element={<AdminNavigation />} />
               <Route path="page-seo" element={<AdminPageSeo />} />
               <Route path="theme-editor" element={<AdminThemeEditor />} />
+              <Route path="announcement-bar" element={<AdminAnnouncementBar />} />
               <Route path="teacher-meeting" element={<AdminTeacherMeeting />} />
               <Route path="search" element={<AdminSearch />} />
               <Route path="contact-submissions" element={<AdminContactSubmissions />} />
