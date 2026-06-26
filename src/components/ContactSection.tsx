@@ -1,16 +1,32 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, Loader2 } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { supabase } from "@/integrations/supabase/client";
 import EditableText from "@/components/editor/EditableText";
 
 export default function ContactSection() {
   const { ref, isVisible } = useScrollReveal();
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
+  const [saving, setSaving] = useState(false);
+  const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("تم إرسال رسالتك بنجاح!");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setSaving(true);
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject || null,
+      message: formData.message,
+    });
+    setSaving(false);
+    if (!error) {
+      setSent(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSent(false), 4000);
+    } else {
+      alert("حدث خطأ أثناء الإرسال، يرجى المحاولة مرة أخرى.");
+    }
   };
 
   const contactInfo = [
