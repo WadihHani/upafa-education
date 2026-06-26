@@ -14,6 +14,7 @@ const navItems = [
   { label: "أقسام الأخبار", path: "/admin/news", icon: Newspaper },
   { label: "المستخدمون", path: "/admin/users", icon: Users },
   { label: "ملاحظات الطلاب", path: "/admin/student-notes", icon: StickyNote },
+  { label: "رسائل اتصل بنا", path: "/admin/contact-submissions", icon: Mail },
   { label: "المؤتمرات", path: "/admin/conferences", icon: CalendarDays },
   { label: "الأقسام", path: "/admin/programs", icon: GraduationCap },
   { label: "الكليات 🎓", path: "/admin/kuliyat", icon: GraduationCap },
