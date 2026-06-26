@@ -13,20 +13,19 @@ export default function AnnouncementBar() {
     "أهلًا وسهلًا بك في جامعة أفريقيا الفرنسية العربية الافتراضية"
   ).trim();
 
-  // Speed scales with content width so long text doesn't disappear/run too fast.
+  const speedRaw = parseInt(get("announcement_bar_speed", "80"), 10);
+  const pxPerSecond = Number.isFinite(speedRaw) && speedRaw > 0 ? speedRaw : 80;
+
   useEffect(() => {
     if (!trackRef.current) return;
-    // Half because the track is duplicated for seamless loop.
     const contentWidth = trackRef.current.scrollWidth / 2;
-    const pxPerSecond = 80; // tweak for desired speed
-    setDuration(Math.max(20, Math.round(contentWidth / pxPerSecond)));
-  }, [text]);
+    setDuration(Math.max(10, Math.round(contentWidth / pxPerSecond)));
+  }, [text, pxPerSecond]);
 
   if (!text) return null;
 
   const Row = (
     <span className="inline-flex items-center gap-3 mx-8 whitespace-nowrap">
-      <span className="inline-block w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
       {text}
     </span>
   );
