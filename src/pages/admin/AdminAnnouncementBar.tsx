@@ -9,6 +9,7 @@ import { clearSiteContentCache } from "@/hooks/use-site-content";
 import AnnouncementBar from "@/components/AnnouncementBar";
 
 const DEFAULT_TEXT = "أهلًا وسهلًا بك في جامعة أفريقيا الفرنسية العربية الافتراضية";
+const DEFAULT_SPEED = 80; // pixels per second
 
 type AnnouncementRow = {
   id: string;
@@ -18,31 +19,32 @@ type AnnouncementRow = {
 
 export default function AdminAnnouncementBar() {
   const [row, setRow] = useState<AnnouncementRow | null>(null);
+  const [speedRow, setSpeedRow] = useState<AnnouncementRow | null>(null);
   const [text, setText] = useState(DEFAULT_TEXT);
+  const [speed, setSpeed] = useState<number>(DEFAULT_SPEED);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadAnnouncement = async () => {
-      const { data, error } = await (supabase as any)
+    const load = async () => {
+      const { data } = await (supabase as any)
         .from("site_content")
-        .select("id, content, is_hidden")
-        .eq("section_key", "announcement_bar")
-        .maybeSingle();
-
-      if (error) {
-        toast({ title: "تعذر تحميل شريط الأخبار", description: error.message, variant: "destructive" });
-      }
+        .select("id, section_key, content, is_hidden")
+        .in("section_key", ["announcement_bar", "announcement_bar_speed"]);
 
       if (data) {
-        setRow(data as AnnouncementRow);
-        setText((data as AnnouncementRow).content || DEFAULT_TEXT);
+        const t = data.find((d: any) => d.section_key === "announcement_bar");
+        const s = data.find((d: any) => d.section_key === "announcement_bar_speed");
+        if (t) { setRow(t); setText(t.content || DEFAULT_TEXT); }
+        if (s) {
+          setSpeedRow(s);
+          const parsed = parseInt(s.content || "", 10);
+          if (Number.isFinite(parsed) && parsed > 0) setSpeed(parsed);
+        }
       }
-
       setLoading(false);
     };
-
-    loadAnnouncement();
+    load();
   }, []);
 
   const save = async () => {
