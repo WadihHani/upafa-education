@@ -51,7 +51,7 @@ export default function AdminAnnouncementBar() {
     const value = text.trim() || DEFAULT_TEXT;
     setSaving(true);
 
-    const payload = {
+    const textPayload = {
       section_key: "announcement_bar",
       title: "شريط الأخبار المتحرك",
       content: value,
@@ -62,20 +62,35 @@ export default function AdminAnnouncementBar() {
       is_hidden: false,
     };
 
-    const request = row
-      ? (supabase as any).from("site_content").update(payload).eq("id", row.id).select("id, content, is_hidden").single()
-      : (supabase as any).from("site_content").insert(payload).select("id, content, is_hidden").single();
+    const speedPayload = {
+      section_key: "announcement_bar_speed",
+      title: "سرعة شريط الأخبار",
+      content: String(speed),
+      content_type: "text",
+      group_key: "general",
+      label: "سرعة شريط الأخبار (بكسل/ثانية)",
+      sort_order: 1,
+      is_hidden: false,
+    };
 
-    const { data, error } = await request;
+    const textReq = row
+      ? (supabase as any).from("site_content").update(textPayload).eq("id", row.id).select("id, content, is_hidden").single()
+      : (supabase as any).from("site_content").insert(textPayload).select("id, content, is_hidden").single();
+    const speedReq = speedRow
+      ? (supabase as any).from("site_content").update(speedPayload).eq("id", speedRow.id).select("id, content, is_hidden").single()
+      : (supabase as any).from("site_content").insert(speedPayload).select("id, content, is_hidden").single();
+
+    const [textRes, speedRes] = await Promise.all([textReq, speedReq]);
     setSaving(false);
 
-    if (error) {
-      toast({ title: "لم يتم الحفظ", description: error.message, variant: "destructive" });
+    if (textRes.error || speedRes.error) {
+      toast({ title: "لم يتم الحفظ", description: (textRes.error || speedRes.error).message, variant: "destructive" });
       return;
     }
 
-    setRow(data as AnnouncementRow);
-    setText((data as AnnouncementRow).content || value);
+    setRow(textRes.data as AnnouncementRow);
+    setSpeedRow(speedRes.data as AnnouncementRow);
+    setText((textRes.data as AnnouncementRow).content || value);
     clearSiteContentCache();
     toast({ title: "تم حفظ شريط الأخبار وظهوره في الموقع ✅" });
   };
@@ -104,6 +119,27 @@ export default function AdminAnnouncementBar() {
             placeholder={DEFAULT_TEXT}
             className="text-base leading-8"
           />
+
+          <div className="space-y-2 pt-2 border-t">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium">سرعة الحركة</label>
+              <span className="text-xs text-muted-foreground">{speed} بكسل/ثانية</span>
+            </div>
+            <input
+              type="range"
+              min={20}
+              max={300}
+              step={10}
+              value={speed}
+              onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
+              className="w-full accent-primary"
+            />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>بطيء</span>
+              <span>سريع</span>
+            </div>
+          </div>
+
           <Button onClick={save} disabled={saving} className="gap-2">
             <Save size={16} />
             {saving ? "جاري الحفظ..." : "حفظ وإظهار الشريط"}
