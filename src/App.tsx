@@ -62,6 +62,7 @@ import AdminPageSeo from "./pages/admin/AdminPageSeo";
 import AdminThemeEditor from "./pages/admin/AdminThemeEditor";
 import AdminTeacherMeeting from "./pages/admin/AdminTeacherMeeting";
 import AdminSearch from "./pages/admin/AdminSearch";
+import AdminContactSubmissions from "./pages/admin/AdminContactSubmissions";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
@@ -136,6 +137,7 @@ const App = () => (
               <Route path="theme-editor" element={<AdminThemeEditor />} />
               <Route path="teacher-meeting" element={<AdminTeacherMeeting />} />
               <Route path="search" element={<AdminSearch />} />
+              <Route path="contact-submissions" element={<AdminContactSubmissions />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
