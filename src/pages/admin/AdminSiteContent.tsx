@@ -161,7 +161,7 @@ const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | 
 export default function AdminSiteContent() {
   const [items, setItems] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeGroup, setActiveGroup] = useState("branding");
+  const [activeGroup, setActiveGroup] = useState("general");
   const [addOpen, setAddOpen] = useState(false);
   const [newKey, setNewKey] = useState("");
   const [newLabel, setNewLabel] = useState("");
