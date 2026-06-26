@@ -87,9 +87,9 @@ export default function ContactSection() {
             <input type="email" placeholder="البريد الإلكتروني" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
             <input type="text" placeholder="الموضوع" required value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring" />
             <textarea placeholder="الرسالة" required rows={4} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full px-4 py-3 rounded-md border bg-background text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none" />
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-3 rounded-md font-bold text-sm hover:brightness-110 active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2">
-              <Send size={16} />
-              إرسال
+            <button type="submit" disabled={saving || sent} className="w-full bg-primary text-primary-foreground py-3 rounded-md font-bold text-sm hover:brightness-110 active:scale-[0.97] transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed">
+              {saving ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+              {sent ? "تم الإرسال بنجاح" : saving ? "جاري الإرسال..." : "إرسال"}
             </button>
           </form>
         </div>

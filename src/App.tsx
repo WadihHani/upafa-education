@@ -137,6 +137,7 @@ const App = () => (
               <Route path="theme-editor" element={<AdminThemeEditor />} />
               <Route path="teacher-meeting" element={<AdminTeacherMeeting />} />
               <Route path="search" element={<AdminSearch />} />
+              <Route path="contact-submissions" element={<AdminContactSubmissions />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
