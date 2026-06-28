@@ -65,9 +65,9 @@ export default function Footer() {
                 <Phone size={16} className="shrink-0" />
                 <EditableText contentKey="contact_phone" fallback="+963 989 801 010" className="block" />
               </a>
-              <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+              <a href={`https://wa.me/${whatsappDigits}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <MessageCircle size={16} className="shrink-0" />
-                <span dir="ltr">واتساب: {phone}</span>
+                <span dir="ltr">واتساب: {whatsapp}</span>
               </a>
               <a href={`mailto:${email}`} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <Mail size={16} className="shrink-0" />
