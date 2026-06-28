@@ -9,8 +9,10 @@ export default function Footer() {
   const quickLinks = useNavItems("footer_quick");
 
   const phone = get("contact_phone", "+963 989 801 010");
+  const whatsapp = get("whatsapp_number", "+963 989 801 021");
   const email = get("contact_email", "academic@upafa.education");
   const phoneDigits = phone.replace(/\D/g, "");
+  const whatsappDigits = whatsapp.replace(/\D/g, "");
 
   return (
     <footer className="bg-primary text-primary-foreground">
