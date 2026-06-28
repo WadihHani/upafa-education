@@ -395,6 +395,8 @@ export default function AdminUsers() {
                 required={!editing}
                 minLength={6}
                 dir="ltr"
+                autoComplete="new-password"
+                name="new-user-password"
               />
             </div>
             <div>
