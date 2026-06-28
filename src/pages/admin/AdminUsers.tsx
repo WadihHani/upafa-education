@@ -145,7 +145,7 @@ export default function AdminUsers() {
           "admin-manage-users",
           { body: payload },
         );
-        if (error || data?.error) throw new Error(data?.error || error?.message);
+        if (error || data?.error) throw new Error(data?.error || await extractFnError(error));
         toast({ title: "تم تحديث المستخدم بنجاح" });
       } else {
         const { data, error } = await supabase.functions.invoke(
