@@ -347,7 +347,10 @@ export default function AdminUsers() {
               {editing ? "تعديل المستخدم" : "إضافة مستخدم جديد"}
             </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+            {/* dummy fields to absorb browser autofill */}
+            <input type="text" name="fakeusernameremembered" className="hidden" autoComplete="username" />
+            <input type="password" name="fakepasswordremembered" className="hidden" autoComplete="new-password" />
             <div>
               <label className="text-sm font-medium mb-1 block">
                 الاسم الكامل
