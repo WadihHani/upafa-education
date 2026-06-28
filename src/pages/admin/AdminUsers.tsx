@@ -161,7 +161,7 @@ export default function AdminUsers() {
             },
           },
         );
-        if (error || data?.error) throw new Error(data?.error || error?.message);
+        if (error || data?.error) throw new Error(data?.error || await extractFnError(error));
         toast({ title: "تم إنشاء المستخدم بنجاح" });
       }
       setDialogOpen(false);
