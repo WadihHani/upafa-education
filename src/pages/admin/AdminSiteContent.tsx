@@ -72,6 +72,7 @@ const DEFAULT_KEYS: { key: string; group: string; label: string; type: "text" | 
   { key: "instagram_url", group: "social", label: "رابط انستغرام", type: "link" },
   { key: "youtube_url", group: "social", label: "رابط يوتيوب", type: "link" },
   { key: "telegram_url", group: "social", label: "رابط تلغرام", type: "link" },
+  { key: "linkedin_url", group: "social", label: "رابط لينكدإن", type: "link" },
 
   // Portal section (homepage block) + Portal page
   { key: "portal_section_title", group: "portal", label: "عنوان قسم البوابة (الرئيسية)", type: "text" },
