@@ -1,18 +1,17 @@
-import { Facebook, Youtube, Instagram, Linkedin, Twitter, Phone, Send } from "lucide-react";
+import { Facebook, Youtube, Instagram, Linkedin, Phone, Send } from "lucide-react";
 import { useSiteContent } from "@/hooks/use-site-content";
-
-const socials = [
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook", color: "#1877F2" },
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram", color: "#E4405F" },
-  { icon: Youtube, href: "https://youtube.com", label: "YouTube", color: "#FF0000" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "#0A66C2" },
-  { icon: Twitter, href: "https://twitter.com", label: "X / Twitter", color: "#000000" },
-  { icon: Send, href: "https://t.me", label: "Telegram", color: "#26A5E4" },
-];
 
 export default function SocialFloat() {
   const { get } = useSiteContent();
   const phone = get("contact_phone", "+963989801010").replace(/\s/g, "");
+
+  const socials = [
+    { icon: Facebook, href: get("facebook_url", ""), label: "Facebook", color: "#1877F2" },
+    { icon: Instagram, href: get("instagram_url", ""), label: "Instagram", color: "#E4405F" },
+    { icon: Youtube, href: get("youtube_url", ""), label: "YouTube", color: "#FF0000" },
+    { icon: Linkedin, href: get("linkedin_url", ""), label: "LinkedIn", color: "#0A66C2" },
+    { icon: Send, href: get("telegram_url", ""), label: "Telegram", color: "#26A5E4" },
+  ].filter((s) => s.href && s.href.trim().length > 0);
 
   return (
     <div className="hidden md:flex fixed left-0 top-1/2 -translate-y-1/2 z-40 flex-col shadow-xl">
