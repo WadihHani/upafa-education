@@ -21,6 +21,17 @@ import { toast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, Users as UsersIcon, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+async function extractFnError(error: any): Promise<string> {
+  try {
+    const res = error?.context?.response;
+    if (res && typeof res.json === "function") {
+      const body = await res.clone().json();
+      if (body?.error) return body.error;
+    }
+  } catch {}
+  return error?.message ?? "حدث خطأ غير متوقع";
+}
+
 type ManagedUser = {
   id: string;
   email: string;
@@ -134,7 +145,7 @@ export default function AdminUsers() {
           "admin-manage-users",
           { body: payload },
         );
-        if (error || data?.error) throw new Error(data?.error || error?.message);
+        if (error || data?.error) throw new Error(data?.error || await extractFnError(error));
         toast({ title: "تم تحديث المستخدم بنجاح" });
       } else {
         const { data, error } = await supabase.functions.invoke(
@@ -150,7 +161,7 @@ export default function AdminUsers() {
             },
           },
         );
-        if (error || data?.error) throw new Error(data?.error || error?.message);
+        if (error || data?.error) throw new Error(data?.error || await extractFnError(error));
         toast({ title: "تم إنشاء المستخدم بنجاح" });
       }
       setDialogOpen(false);
@@ -175,7 +186,7 @@ export default function AdminUsers() {
     if (error || data?.error) {
       toast({
         title: "خطأ في الحذف",
-        description: data?.error || error?.message,
+        description: data?.error || await extractFnError(error),
         variant: "destructive",
       });
       return;
@@ -336,7 +347,10 @@ export default function AdminUsers() {
               {editing ? "تعديل المستخدم" : "إضافة مستخدم جديد"}
             </DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
+            {/* dummy fields to absorb browser autofill */}
+            <input type="text" name="fakeusernameremembered" className="hidden" autoComplete="username" />
+            <input type="password" name="fakepasswordremembered" className="hidden" autoComplete="new-password" />
             <div>
               <label className="text-sm font-medium mb-1 block">
                 الاسم الكامل
@@ -360,6 +374,8 @@ export default function AdminUsers() {
                 placeholder="user@example.com"
                 required
                 dir="ltr"
+                autoComplete="off"
+                name="new-user-email"
               />
             </div>
             <div>
@@ -379,6 +395,8 @@ export default function AdminUsers() {
                 required={!editing}
                 minLength={6}
                 dir="ltr"
+                autoComplete="new-password"
+                name="new-user-password"
               />
             </div>
             <div>
