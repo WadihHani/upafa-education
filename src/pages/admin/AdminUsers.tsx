@@ -186,7 +186,7 @@ export default function AdminUsers() {
     if (error || data?.error) {
       toast({
         title: "خطأ في الحذف",
-        description: data?.error || error?.message,
+        description: data?.error || await extractFnError(error),
         variant: "destructive",
       });
       return;
