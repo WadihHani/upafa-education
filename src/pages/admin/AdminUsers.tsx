@@ -21,6 +21,17 @@ import { toast } from "@/hooks/use-toast";
 import { Plus, Pencil, Trash2, Users as UsersIcon, Search, X } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+async function extractFnError(error: any): Promise<string> {
+  try {
+    const res = error?.context?.response;
+    if (res && typeof res.json === "function") {
+      const body = await res.clone().json();
+      if (body?.error) return body.error;
+    }
+  } catch {}
+  return error?.message ?? "حدث خطأ غير متوقع";
+}
+
 type ManagedUser = {
   id: string;
   email: string;
