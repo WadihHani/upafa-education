@@ -374,6 +374,8 @@ export default function AdminUsers() {
                 placeholder="user@example.com"
                 required
                 dir="ltr"
+                autoComplete="off"
+                name="new-user-email"
               />
             </div>
             <div>
