@@ -9,8 +9,10 @@ export default function Footer() {
   const quickLinks = useNavItems("footer_quick");
 
   const phone = get("contact_phone", "+963 989 801 010");
+  const whatsapp = get("whatsapp_number", "+963 989 801 021");
   const email = get("contact_email", "academic@upafa.education");
   const phoneDigits = phone.replace(/\D/g, "");
+  const whatsappDigits = whatsapp.replace(/\D/g, "");
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -63,9 +65,9 @@ export default function Footer() {
                 <Phone size={16} className="shrink-0" />
                 <EditableText contentKey="contact_phone" fallback="+963 989 801 010" className="block" />
               </a>
-              <a href={`https://wa.me/${phoneDigits}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
+              <a href={`https://wa.me/${whatsappDigits}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <MessageCircle size={16} className="shrink-0" />
-                <span dir="ltr">واتساب: {phone}</span>
+                <span dir="ltr">واتساب: {whatsapp}</span>
               </a>
               <a href={`mailto:${email}`} className="flex items-center gap-2 hover:text-primary-foreground transition-colors">
                 <Mail size={16} className="shrink-0" />
