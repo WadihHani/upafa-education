@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X, CalendarCheck, Video } from "lucide-react";
+import { BookOpen, LogOut, Bell, User, Users, ClipboardList, Award, FolderKanban, ArrowLeft, Check, X, CalendarCheck, Video, MessageSquare } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useAuth } from "@/contexts/AuthContext";
@@ -12,6 +12,7 @@ const sections = [
   { label: "مقرراتي", icon: BookOpen, description: "المقررات التي تُدرّسها هذا الفصل.", href: "/portal/teacher/courses" },
   { label: "الطلاب المسجلون", icon: Users, description: "قائمة الطلاب في كل مقرر.", href: "/portal/teacher/students" },
   { label: "المحاضرات المباشرة", icon: Video, description: "إنشاء اجتماع Google Meet وتسجيل المحاضرة صوتياً.", href: "/portal/teacher/meetings" },
+  { label: "رسائل الطلاب", icon: MessageSquare, description: "محادثات مباشرة مع الطلاب المسجَّلين في مقرراتك.", href: "/portal/teacher/messages" },
   { label: "الحضور والغياب", icon: CalendarCheck, description: "تسجيل حضور الطلاب لكل جلسة.", href: "/portal/teacher/attendance" },
   { label: "المواد التعليمية", icon: FolderKanban, description: "رفع المواد التعليمية والروابط.", href: "/portal/teacher/materials" },
   { label: "الاختبارات والواجبات", icon: ClipboardList, description: "إنشاء الاختبارات وتقييم تسليمات الطلاب.", href: "/portal/teacher/assessments" },

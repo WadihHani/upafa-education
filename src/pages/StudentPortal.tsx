@@ -10,6 +10,7 @@ import {
   BookOpen,
   Bell,
   User,
+  MessageSquare,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
@@ -366,6 +367,13 @@ export default function StudentPortal() {
               className="text-xs font-bold bg-accent text-accent-foreground px-3 py-2 rounded-md hover:brightness-110 transition-all"
             >
               تصفح المقررات
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate("/portal/student/messages")}
+              className="text-xs font-bold bg-card border border-primary text-primary px-3 py-2 rounded-md hover:bg-primary hover:text-primary-foreground transition-all inline-flex items-center gap-1.5"
+            >
+              <MessageSquare size={13} /> مراسلة الأستاذ
             </button>
           </div>
         </div>

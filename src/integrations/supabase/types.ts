@@ -287,6 +287,44 @@ export type Database = {
           },
         ]
       }
+      course_messages: {
+        Row: {
+          body: string
+          course_id: string
+          created_at: string
+          id: string
+          is_read: boolean
+          recipient_user_id: string
+          sender_user_id: string
+        }
+        Insert: {
+          body: string
+          course_id: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          recipient_user_id: string
+          sender_user_id: string
+        }
+        Update: {
+          body?: string
+          course_id?: string
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          recipient_user_id?: string
+          sender_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_messages_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           code: string | null
@@ -1493,6 +1531,14 @@ export type Database = {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
+        Returns: boolean
+      }
+      is_course_enrolled_student: {
+        Args: { _course_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_course_teacher: {
+        Args: { _course_id: string; _user_id: string }
         Returns: boolean
       }
       move_to_dlq: {
