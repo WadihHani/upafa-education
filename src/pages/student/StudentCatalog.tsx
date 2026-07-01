@@ -40,12 +40,30 @@ export default function StudentCatalog() {
 
   const load = async () => {
     setLoading(true);
+
+    // Fetch student's kuliya first
+    let myKuliya: string | null = null;
+    if (user) {
+      const { data: prof } = await supabase
+        .from("profiles")
+        .select("kuliya_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+      myKuliya = prof?.kuliya_id ?? null;
+      setStudentKuliyaId(myKuliya);
+    }
+
+    let coursesQuery = supabase
+      .from("courses")
+      .select("id, title, code, level, description, is_open_for_enrollment, teacher_user_id, kuliya_id")
+      .eq("is_open_for_enrollment", true)
+      .order("created_at", { ascending: false });
+    if (user && myKuliya) {
+      coursesQuery = coursesQuery.eq("kuliya_id", myKuliya);
+    }
+
     const [coursesRes, enrollRes] = await Promise.all([
-      supabase
-        .from("courses")
-        .select("id, title, code, level, description, is_open_for_enrollment, teacher_user_id, kuliya_id")
-        .eq("is_open_for_enrollment", true)
-        .order("created_at", { ascending: false }),
+      coursesQuery,
       user
         ? supabase
             .from("enrollments")
