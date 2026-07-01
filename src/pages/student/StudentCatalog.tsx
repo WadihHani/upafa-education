@@ -195,24 +195,30 @@ export default function StudentCatalog() {
           <div>
             <h2 className="text-2xl font-bold text-primary mb-1">المقررات المتاحة</h2>
             <p className="text-sm text-muted-foreground">
-              اختر المقرر واضغط "انضمام" — ستصبح مسجلاً فيه فوراً وتتمكن من حضور المحاضرات.
+              {user && studentKuliyaId
+                ? `تظهر فقط مقررات كليتك: ${kuliyat.find((k) => k.id === studentKuliyaId)?.name ?? ""}`
+                : user && !studentKuliyaId
+                ? "لم يتم تحديد كليتك بعد. يرجى مراجعة الإدارة لتخصيص كلية لحسابك."
+                : 'اختر المقرر واضغط "انضمام" — ستصبح مسجلاً فيه فوراً وتتمكن من حضور المحاضرات.'}
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button
-              variant={kuliyaFilter === "all" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setKuliyaFilter("all")}
-            >
-              كل الكليات
-            </Button>
-            {kuliyat.map((k) => (
+          {!user && (
+            <div className="flex items-center gap-2 flex-wrap">
               <Button
-                key={k.id}
-                variant={kuliyaFilter === k.id ? "default" : "outline"}
+                variant={kuliyaFilter === "all" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setKuliyaFilter(k.id)}
+                onClick={() => setKuliyaFilter("all")}
               >
+                كل الكليات
+              </Button>
+              {kuliyat.map((k) => (
+                <Button
+                  key={k.id}
+                  variant={kuliyaFilter === k.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setKuliyaFilter(k.id)}
+                >
+
                 {k.name}
               </Button>
             ))}
