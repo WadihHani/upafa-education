@@ -36,6 +36,7 @@ export default function StudentCatalog() {
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
   const [kuliyaFilter, setKuliyaFilter] = useState<string>("all");
+  const [studentKuliyaId, setStudentKuliyaId] = useState<string | null>(null);
 
   const load = async () => {
     setLoading(true);
