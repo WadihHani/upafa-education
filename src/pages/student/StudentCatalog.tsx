@@ -36,15 +36,34 @@ export default function StudentCatalog() {
   const [loading, setLoading] = useState(true);
   const [actingId, setActingId] = useState<string | null>(null);
   const [kuliyaFilter, setKuliyaFilter] = useState<string>("all");
+  const [studentKuliyaId, setStudentKuliyaId] = useState<string | null>(null);
 
   const load = async () => {
     setLoading(true);
+
+    // Fetch student's kuliya first
+    let myKuliya: string | null = null;
+    if (user) {
+      const { data: prof } = await supabase
+        .from("profiles")
+        .select("kuliya_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+      myKuliya = prof?.kuliya_id ?? null;
+      setStudentKuliyaId(myKuliya);
+    }
+
+    let coursesQuery = supabase
+      .from("courses")
+      .select("id, title, code, level, description, is_open_for_enrollment, teacher_user_id, kuliya_id")
+      .eq("is_open_for_enrollment", true)
+      .order("created_at", { ascending: false });
+    if (user && myKuliya) {
+      coursesQuery = coursesQuery.eq("kuliya_id", myKuliya);
+    }
+
     const [coursesRes, enrollRes] = await Promise.all([
-      supabase
-        .from("courses")
-        .select("id, title, code, level, description, is_open_for_enrollment, teacher_user_id, kuliya_id")
-        .eq("is_open_for_enrollment", true)
-        .order("created_at", { ascending: false }),
+      coursesQuery,
       user
         ? supabase
             .from("enrollments")
@@ -176,29 +195,36 @@ export default function StudentCatalog() {
           <div>
             <h2 className="text-2xl font-bold text-primary mb-1">المقررات المتاحة</h2>
             <p className="text-sm text-muted-foreground">
-              اختر المقرر واضغط "انضمام" — ستصبح مسجلاً فيه فوراً وتتمكن من حضور المحاضرات.
+              {user && studentKuliyaId
+                ? `تظهر فقط مقررات كليتك: ${kuliyat.find((k) => k.id === studentKuliyaId)?.name ?? ""}`
+                : user && !studentKuliyaId
+                ? "لم يتم تحديد كليتك بعد. يرجى مراجعة الإدارة لتخصيص كلية لحسابك."
+                : 'اختر المقرر واضغط "انضمام" — ستصبح مسجلاً فيه فوراً وتتمكن من حضور المحاضرات.'}
             </p>
           </div>
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button
-              variant={kuliyaFilter === "all" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setKuliyaFilter("all")}
-            >
-              كل الكليات
-            </Button>
-            {kuliyat.map((k) => (
+          {!user && (
+            <div className="flex items-center gap-2 flex-wrap">
               <Button
-                key={k.id}
-                variant={kuliyaFilter === k.id ? "default" : "outline"}
+                variant={kuliyaFilter === "all" ? "default" : "outline"}
                 size="sm"
-                onClick={() => setKuliyaFilter(k.id)}
+                onClick={() => setKuliyaFilter("all")}
               >
-                {k.name}
+                كل الكليات
               </Button>
-            ))}
-          </div>
+              {kuliyat.map((k) => (
+                <Button
+                  key={k.id}
+                  variant={kuliyaFilter === k.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setKuliyaFilter(k.id)}
+                >
+                  {k.name}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
+
 
         {loading ? (
           <div className="flex justify-center py-12">
