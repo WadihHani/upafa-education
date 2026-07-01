@@ -218,12 +218,13 @@ export default function StudentCatalog() {
                   size="sm"
                   onClick={() => setKuliyaFilter(k.id)}
                 >
-
-                {k.name}
-              </Button>
-            ))}
-          </div>
+                  {k.name}
+                </Button>
+              ))}
+            </div>
+          )}
         </div>
+
 
         {loading ? (
           <div className="flex justify-center py-12">
