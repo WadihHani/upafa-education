@@ -198,7 +198,7 @@ export default function StudentCatalog() {
               {user && studentKuliyaId
                 ? `تظهر فقط مقررات كليتك: ${kuliyat.find((k) => k.id === studentKuliyaId)?.name ?? ""}`
                 : user && !studentKuliyaId
-                ? "لم يتم تحديد كليتك بعد. يرجى مراجعة الإدارة لتخصيص كلية لحسابك."
+                ? "اختر كليتك من الأسفل لعرض المقررات الخاصة بها."
                 : 'اختر المقرر واضغط "انضمام" — ستصبح مسجلاً فيه فوراً وتتمكن من حضور المحاضرات.'}
             </p>
           </div>
@@ -224,6 +224,43 @@ export default function StudentCatalog() {
             </div>
           )}
         </div>
+
+        {user && !studentKuliyaId && (
+          <Card className="mb-6 border-accent/40 bg-accent/5">
+            <CardContent className="p-4">
+              <h3 className="font-bold text-primary mb-2 text-sm">اختر كليتك</h3>
+              <p className="text-xs text-muted-foreground mb-3">
+                حدد الكلية التي أنت مقبول فيها ليتم عرض مقرراتها فوراً.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {kuliyat.map((k) => (
+                  <Button
+                    key={k.id}
+                    size="sm"
+                    variant="outline"
+                    disabled={actingId === `kuliya-${k.id}`}
+                    onClick={async () => {
+                      setActingId(`kuliya-${k.id}`);
+                      const { error } = await supabase
+                        .from("profiles")
+                        .update({ kuliya_id: k.id })
+                        .eq("user_id", user.id);
+                      setActingId(null);
+                      if (error) {
+                        toast({ title: "تعذر الحفظ", description: error.message, variant: "destructive" });
+                        return;
+                      }
+                      toast({ title: "تم تحديد كليتك 🎉", description: k.name });
+                      load();
+                    }}
+                  >
+                    {k.name}
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
 
         {loading ? (
