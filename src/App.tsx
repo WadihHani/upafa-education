@@ -145,6 +145,7 @@ const App = () => (
               <Route path="teacher-meeting" element={<AdminTeacherMeeting />} />
               <Route path="search" element={<AdminSearch />} />
               <Route path="contact-submissions" element={<AdminContactSubmissions />} />
+              <Route path="export" element={<AdminExportData />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
