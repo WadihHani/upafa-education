@@ -66,6 +66,7 @@ import AdminAnnouncementBar from "./pages/admin/AdminAnnouncementBar";
 import AdminTeacherMeeting from "./pages/admin/AdminTeacherMeeting";
 import AdminSearch from "./pages/admin/AdminSearch";
 import AdminContactSubmissions from "./pages/admin/AdminContactSubmissions";
+import AdminExportData from "./pages/admin/AdminExportData";
 import NotFound from "./pages/NotFound";
 import Unsubscribe from "./pages/Unsubscribe";
 
