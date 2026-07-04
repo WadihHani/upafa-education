@@ -311,6 +311,23 @@ export default function StudentPortal() {
     load();
   };
 
+  const changeKuliya = async (newId: string) => {
+    if (!user) return;
+    const value = newId === "__none__" ? null : newId;
+    setSavingKuliya(true);
+    const { error } = await supabase
+      .from("profiles")
+      .update({ kuliya_id: value })
+      .eq("user_id", user.id);
+    setSavingKuliya(false);
+    if (error) {
+      toast({ title: "تعذّر تغيير الكلية", description: error.message, variant: "destructive" });
+      return;
+    }
+    setProfileKuliyaId(value);
+    toast({ title: "تم تحديث الكلية", description: "لن تتأثر مقرراتك المسجّلة." });
+  };
+
   const studentName = profileName;
 
   // Stats
