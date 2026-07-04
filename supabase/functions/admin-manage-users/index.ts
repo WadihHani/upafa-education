@@ -81,7 +81,7 @@ Deno.serve(async (req) => {
         .in("user_id", ids);
       const { data: profiles } = await admin
         .from("profiles")
-        .select("user_id, full_name, phone")
+        .select("user_id, full_name, phone, kuliya_id")
         .in("user_id", ids);
 
       const roleMap = new Map<string, string[]>();
@@ -101,6 +101,7 @@ Deno.serve(async (req) => {
         roles: roleMap.get(u.id) ?? [],
         full_name: profileMap.get(u.id)?.full_name ?? "",
         phone: profileMap.get(u.id)?.phone ?? "",
+        kuliya_id: profileMap.get(u.id)?.kuliya_id ?? null,
       }));
       return json({ users: result });
     }
