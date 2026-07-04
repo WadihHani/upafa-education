@@ -137,6 +137,9 @@ export default function StudentPortal() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [profileName, setProfileName] = useState<string>("الطالب");
+  const [profileKuliyaId, setProfileKuliyaId] = useState<string | null>(null);
+  const [kuliyat, setKuliyat] = useState<{ id: string; name: string }[]>([]);
+  const [savingKuliya, setSavingKuliya] = useState(false);
   const [active, setActive] = useState<SectionKey>("overview");
 
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
