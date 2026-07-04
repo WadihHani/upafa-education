@@ -15,6 +15,7 @@ type Action =
       full_name?: string;
       phone?: string;
       role: "student" | "teacher" | "admin";
+      kuliya_id?: string | null;
     }
   | {
       action: "update";
@@ -24,6 +25,7 @@ type Action =
       email?: string;
       password?: string;
       role?: "student" | "teacher" | "admin";
+      kuliya_id?: string | null;
     }
   | { action: "delete"; user_id: string };
 
