@@ -162,12 +162,19 @@ export default function StudentPortal() {
     if (!user) return;
     supabase
       .from("profiles")
-      .select("full_name")
+      .select("full_name, kuliya_id")
       .eq("user_id", user.id)
       .maybeSingle()
       .then(({ data }) => {
         if (data?.full_name) setProfileName(data.full_name);
+        setProfileKuliyaId((data as any)?.kuliya_id ?? null);
       });
+    (supabase as any)
+      .from("kuliyat")
+      .select("id, name")
+      .eq("is_published", true)
+      .order("display_order", { ascending: true })
+      .then(({ data }: any) => setKuliyat(data ?? []));
     const { data: notesData } = await supabase
       .from("student_notes")
       .select("id, note, is_read, created_at")
