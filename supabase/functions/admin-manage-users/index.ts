@@ -147,10 +147,11 @@ Deno.serve(async (req) => {
         );
         if (error) return json({ error: error.message }, 400);
       }
-      if (body.full_name !== undefined || body.phone !== undefined) {
+      if (body.full_name !== undefined || body.phone !== undefined || body.kuliya_id !== undefined) {
         await admin.from("profiles").update({
           ...(body.full_name !== undefined && { full_name: body.full_name }),
           ...(body.phone !== undefined && { phone: body.phone }),
+          ...(body.kuliya_id !== undefined && { kuliya_id: body.kuliya_id }),
         }).eq("user_id", body.user_id);
       }
       if (body.role) {
