@@ -110,6 +110,19 @@ export default function AdminUsers() {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await (supabase as any)
+        .from("kuliyat")
+        .select("id, name")
+        .order("display_order", { ascending: true });
+      setKuliyat((data as Kuliya[]) || []);
+    })();
+  }, []);
+
+  const kuliyaName = (id: string | null) =>
+    kuliyat.find((k) => k.id === id)?.name ?? "";
+
   const openAdd = () => {
     setEditing(null);
     setForm({
@@ -118,6 +131,7 @@ export default function AdminUsers() {
       full_name: "",
       phone: "",
       role: "student",
+      kuliya_id: "",
     });
     setDialogOpen(true);
   };
@@ -130,6 +144,7 @@ export default function AdminUsers() {
       full_name: u.full_name,
       phone: u.phone,
       role: (u.roles[0] as Role) ?? "student",
+      kuliya_id: u.kuliya_id ?? "",
     });
     setDialogOpen(true);
   };
