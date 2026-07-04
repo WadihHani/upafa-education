@@ -26,6 +26,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type SectionKey =
   | "lectures"
@@ -130,6 +137,9 @@ export default function StudentPortal() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [profileName, setProfileName] = useState<string>("الطالب");
+  const [profileKuliyaId, setProfileKuliyaId] = useState<string | null>(null);
+  const [kuliyat, setKuliyat] = useState<{ id: string; name: string }[]>([]);
+  const [savingKuliya, setSavingKuliya] = useState(false);
   const [active, setActive] = useState<SectionKey>("overview");
 
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
@@ -152,12 +162,19 @@ export default function StudentPortal() {
     if (!user) return;
     supabase
       .from("profiles")
-      .select("full_name")
+      .select("full_name, kuliya_id")
       .eq("user_id", user.id)
       .maybeSingle()
       .then(({ data }) => {
         if (data?.full_name) setProfileName(data.full_name);
+        setProfileKuliyaId((data as any)?.kuliya_id ?? null);
       });
+    (supabase as any)
+      .from("kuliyat")
+      .select("id, name")
+      .eq("is_published", true)
+      .order("display_order", { ascending: true })
+      .then(({ data }: any) => setKuliyat(data ?? []));
     const { data: notesData } = await supabase
       .from("student_notes")
       .select("id, note, is_read, created_at")
@@ -294,6 +311,23 @@ export default function StudentPortal() {
     load();
   };
 
+  const changeKuliya = async (newId: string) => {
+    if (!user) return;
+    const value = newId === "__none__" ? null : newId;
+    setSavingKuliya(true);
+    const { error } = await supabase
+      .from("profiles")
+      .update({ kuliya_id: value })
+      .eq("user_id", user.id);
+    setSavingKuliya(false);
+    if (error) {
+      toast({ title: "تعذّر تغيير الكلية", description: error.message, variant: "destructive" });
+      return;
+    }
+    setProfileKuliyaId(value);
+    toast({ title: "تم تحديث الكلية", description: "لن تتأثر مقرراتك المسجّلة." });
+  };
+
   const studentName = profileName;
 
   // Stats
@@ -386,6 +420,27 @@ export default function StudentPortal() {
               <p className="text-[11px] text-muted-foreground mt-1">
                 المقررات النشطة: <span className="font-medium text-foreground">{enrollments.length}</span>
               </p>
+              <div className="mt-3">
+                <label className="text-[11px] text-muted-foreground block mb-1">الكلية</label>
+                <Select
+                  value={profileKuliyaId ?? "__none__"}
+                  onValueChange={changeKuliya}
+                  disabled={savingKuliya}
+                >
+                  <SelectTrigger className="h-8 text-xs">
+                    <SelectValue placeholder="اختر كليتك" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">بدون كلية</SelectItem>
+                    {kuliyat.map((k) => (
+                      <SelectItem key={k.id} value={k.id}>{k.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  تغيير الكلية لا يؤثر على مقرراتك المسجّلة.
+                </p>
+              </div>
             </div>
             <nav className="p-2">
               {sections.map((s) => {
