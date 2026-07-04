@@ -160,6 +160,7 @@ export default function AdminUsers() {
           full_name: form.full_name,
           phone: form.phone,
           role: form.role,
+          kuliya_id: form.kuliya_id || null,
         };
         if (form.email && form.email !== editing.email) payload.email = form.email;
         if (form.password) payload.password = form.password;
@@ -180,6 +181,7 @@ export default function AdminUsers() {
               full_name: form.full_name,
               phone: form.phone,
               role: form.role,
+              kuliya_id: form.kuliya_id || null,
             },
           },
         );
