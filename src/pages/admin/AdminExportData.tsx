@@ -109,19 +109,58 @@ export default function AdminExportData() {
     }
   };
 
+  const exportUsers = async () => {
+    setBusy("__users__");
+    setStatus("جارٍ تجميع المستخدمين...");
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/export-users-csv`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+          Authorization: `Bearer ${session?.access_token ?? ""}`,
+        },
+      });
+      if (!res.ok) throw new Error((await res.text()) || `HTTP ${res.status}`);
+      const rowCount = Number(res.headers.get("x-row-count") ?? 0);
+      const blob = await res.blob();
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `users_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+      toast({ title: "تم تصدير المستخدمين", description: `${rowCount} مستخدم` });
+    } catch (e: any) {
+      toast({ title: "فشل تصدير المستخدمين", description: e.message, variant: "destructive" });
+    } finally {
+      setBusy(null);
+      setStatus("");
+    }
+  };
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 gap-3 flex-wrap">
         <div>
           <h1 className="text-2xl font-bold">تصدير قاعدة البيانات</h1>
           <p className="text-sm text-muted-foreground mt-1">
             تنزيل بيانات الجداول كملفات CSV. يتم التحميل على دفعات ({CHUNK_SIZE} صف/دفعة) ثم دمجها في ملف واحد لكل جدول.
           </p>
         </div>
-        <Button onClick={runAll} disabled={busy !== null} className="gap-2">
-          {busy === "__all__" ? <Loader2 className="animate-spin" size={16} /> : <Database size={16} />}
-          تصدير كل الجداول
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={exportUsers} disabled={busy !== null} variant="secondary" className="gap-2">
+            {busy === "__users__" ? <Loader2 className="animate-spin" size={16} /> : <Users size={16} />}
+            تصدير المستخدمين (Auth + Profiles + Roles)
+          </Button>
+          <Button onClick={runAll} disabled={busy !== null} className="gap-2">
+            {busy === "__all__" ? <Loader2 className="animate-spin" size={16} /> : <Database size={16} />}
+            تصدير كل الجداول
+          </Button>
+        </div>
       </div>
 
       {status && (
