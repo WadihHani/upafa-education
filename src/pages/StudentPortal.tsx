@@ -420,6 +420,27 @@ export default function StudentPortal() {
               <p className="text-[11px] text-muted-foreground mt-1">
                 المقررات النشطة: <span className="font-medium text-foreground">{enrollments.length}</span>
               </p>
+              <div className="mt-3">
+                <label className="text-[11px] text-muted-foreground block mb-1">الكلية</label>
+                <Select
+                  value={profileKuliyaId ?? "__none__"}
+                  onValueChange={changeKuliya}
+                  disabled={savingKuliya}
+                >
+                  <SelectTrigger className="h-8 text-xs">
+                    <SelectValue placeholder="اختر كليتك" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__none__">بدون كلية</SelectItem>
+                    {kuliyat.map((k) => (
+                      <SelectItem key={k.id} value={k.id}>{k.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-[10px] text-muted-foreground mt-1">
+                  تغيير الكلية لا يؤثر على مقرراتك المسجّلة.
+                </p>
+              </div>
             </div>
             <nav className="p-2">
               {sections.map((s) => {
