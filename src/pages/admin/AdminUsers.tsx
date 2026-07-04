@@ -39,7 +39,10 @@ type ManagedUser = {
   phone: string;
   roles: string[];
   created_at: string;
+  kuliya_id: string | null;
 };
+
+type Kuliya = { id: string; name: string };
 
 type Role = "student" | "teacher" | "admin";
 
@@ -52,8 +55,11 @@ const ROLE_LABEL: Record<Role, string> = {
 // Roles the admin can assign when creating/editing users
 const ASSIGNABLE_ROLES: Role[] = ["student", "teacher"];
 
+const NO_KULIYA = "__none__";
+
 export default function AdminUsers() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
+  const [kuliyat, setKuliyat] = useState<Kuliya[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | Role>("all");
   const [search, setSearch] = useState("");
@@ -67,6 +73,7 @@ export default function AdminUsers() {
     full_name: "",
     phone: "",
     role: "student" as Role,
+    kuliya_id: "" as string,
   });
 
   const fetchUsers = async () => {
@@ -103,6 +110,19 @@ export default function AdminUsers() {
     fetchUsers();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const { data } = await (supabase as any)
+        .from("kuliyat")
+        .select("id, name")
+        .order("display_order", { ascending: true });
+      setKuliyat((data as Kuliya[]) || []);
+    })();
+  }, []);
+
+  const kuliyaName = (id: string | null) =>
+    kuliyat.find((k) => k.id === id)?.name ?? "";
+
   const openAdd = () => {
     setEditing(null);
     setForm({
@@ -111,6 +131,7 @@ export default function AdminUsers() {
       full_name: "",
       phone: "",
       role: "student",
+      kuliya_id: "",
     });
     setDialogOpen(true);
   };
@@ -123,6 +144,7 @@ export default function AdminUsers() {
       full_name: u.full_name,
       phone: u.phone,
       role: (u.roles[0] as Role) ?? "student",
+      kuliya_id: u.kuliya_id ?? "",
     });
     setDialogOpen(true);
   };
@@ -138,6 +160,7 @@ export default function AdminUsers() {
           full_name: form.full_name,
           phone: form.phone,
           role: form.role,
+          kuliya_id: form.kuliya_id || null,
         };
         if (form.email && form.email !== editing.email) payload.email = form.email;
         if (form.password) payload.password = form.password;
@@ -158,6 +181,7 @@ export default function AdminUsers() {
               full_name: form.full_name,
               phone: form.phone,
               role: form.role,
+              kuliya_id: form.kuliya_id || null,
             },
           },
         );
@@ -312,8 +336,13 @@ export default function AdminUsers() {
               </CardHeader>
               <CardContent className="pt-0">
                 {u.phone && (
-                  <p className="text-sm text-muted-foreground mb-3" dir="ltr">
+                  <p className="text-sm text-muted-foreground mb-1" dir="ltr">
                     📞 {u.phone}
+                  </p>
+                )}
+                {u.kuliya_id && (
+                  <p className="text-sm text-muted-foreground mb-3">
+                    🏛️ {kuliyaName(u.kuliya_id) || "—"}
                   </p>
                 )}
                 <div className="flex gap-2">
@@ -422,6 +451,32 @@ export default function AdminUsers() {
                 <SelectContent>
                   {ASSIGNABLE_ROLES.map((r) => (
                     <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block">
+                الكلية{" "}
+                <span className="text-xs text-muted-foreground">
+                  (تغييرها لا يؤثر على المقررات المسجّلة)
+                </span>
+              </label>
+              <Select
+                value={form.kuliya_id || NO_KULIYA}
+                onValueChange={(v) =>
+                  setForm({ ...form, kuliya_id: v === NO_KULIYA ? "" : v })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="بدون كلية" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_KULIYA}>بدون كلية</SelectItem>
+                  {kuliyat.map((k) => (
+                    <SelectItem key={k.id} value={k.id}>
+                      {k.name}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>

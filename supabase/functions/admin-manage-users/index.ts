@@ -15,6 +15,7 @@ type Action =
       full_name?: string;
       phone?: string;
       role: "student" | "teacher" | "admin";
+      kuliya_id?: string | null;
     }
   | {
       action: "update";
@@ -24,6 +25,7 @@ type Action =
       email?: string;
       password?: string;
       role?: "student" | "teacher" | "admin";
+      kuliya_id?: string | null;
     }
   | { action: "delete"; user_id: string };
 
@@ -79,7 +81,7 @@ Deno.serve(async (req) => {
         .in("user_id", ids);
       const { data: profiles } = await admin
         .from("profiles")
-        .select("user_id, full_name, phone")
+        .select("user_id, full_name, phone, kuliya_id")
         .in("user_id", ids);
 
       const roleMap = new Map<string, string[]>();
@@ -99,6 +101,7 @@ Deno.serve(async (req) => {
         roles: roleMap.get(u.id) ?? [],
         full_name: profileMap.get(u.id)?.full_name ?? "",
         phone: profileMap.get(u.id)?.phone ?? "",
+        kuliya_id: profileMap.get(u.id)?.kuliya_id ?? null,
       }));
       return json({ users: result });
     }
@@ -117,10 +120,11 @@ Deno.serve(async (req) => {
       const newId = created.user!.id;
 
       // Update profile (auto-created by trigger) with phone if provided
-      if (body.phone || body.full_name) {
+      if (body.phone || body.full_name || body.kuliya_id !== undefined) {
         await admin.from("profiles").update({
           full_name: body.full_name ?? "",
           phone: body.phone ?? null,
+          ...(body.kuliya_id !== undefined && { kuliya_id: body.kuliya_id }),
         }).eq("user_id", newId);
       }
 
@@ -143,10 +147,11 @@ Deno.serve(async (req) => {
         );
         if (error) return json({ error: error.message }, 400);
       }
-      if (body.full_name !== undefined || body.phone !== undefined) {
+      if (body.full_name !== undefined || body.phone !== undefined || body.kuliya_id !== undefined) {
         await admin.from("profiles").update({
           ...(body.full_name !== undefined && { full_name: body.full_name }),
           ...(body.phone !== undefined && { phone: body.phone }),
+          ...(body.kuliya_id !== undefined && { kuliya_id: body.kuliya_id }),
         }).eq("user_id", body.user_id);
       }
       if (body.role) {
