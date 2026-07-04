@@ -455,6 +455,32 @@ export default function AdminUsers() {
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <label className="text-sm font-medium mb-1 block">
+                الكلية{" "}
+                <span className="text-xs text-muted-foreground">
+                  (تغييرها لا يؤثر على المقررات المسجّلة)
+                </span>
+              </label>
+              <Select
+                value={form.kuliya_id || NO_KULIYA}
+                onValueChange={(v) =>
+                  setForm({ ...form, kuliya_id: v === NO_KULIYA ? "" : v })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="بدون كلية" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_KULIYA}>بدون كلية</SelectItem>
+                  {kuliyat.map((k) => (
+                    <SelectItem key={k.id} value={k.id}>
+                      {k.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <DialogFooter className="gap-2">
               <Button
                 type="button"
