@@ -39,7 +39,10 @@ type ManagedUser = {
   phone: string;
   roles: string[];
   created_at: string;
+  kuliya_id: string | null;
 };
+
+type Kuliya = { id: string; name: string };
 
 type Role = "student" | "teacher" | "admin";
 
@@ -52,8 +55,11 @@ const ROLE_LABEL: Record<Role, string> = {
 // Roles the admin can assign when creating/editing users
 const ASSIGNABLE_ROLES: Role[] = ["student", "teacher"];
 
+const NO_KULIYA = "__none__";
+
 export default function AdminUsers() {
   const [users, setUsers] = useState<ManagedUser[]>([]);
+  const [kuliyat, setKuliyat] = useState<Kuliya[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | Role>("all");
   const [search, setSearch] = useState("");
@@ -67,6 +73,7 @@ export default function AdminUsers() {
     full_name: "",
     phone: "",
     role: "student" as Role,
+    kuliya_id: "" as string,
   });
 
   const fetchUsers = async () => {
