@@ -120,10 +120,11 @@ Deno.serve(async (req) => {
       const newId = created.user!.id;
 
       // Update profile (auto-created by trigger) with phone if provided
-      if (body.phone || body.full_name) {
+      if (body.phone || body.full_name || body.kuliya_id !== undefined) {
         await admin.from("profiles").update({
           full_name: body.full_name ?? "",
           phone: body.phone ?? null,
+          ...(body.kuliya_id !== undefined && { kuliya_id: body.kuliya_id }),
         }).eq("user_id", newId);
       }
 
