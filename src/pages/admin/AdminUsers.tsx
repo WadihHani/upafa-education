@@ -336,8 +336,13 @@ export default function AdminUsers() {
               </CardHeader>
               <CardContent className="pt-0">
                 {u.phone && (
-                  <p className="text-sm text-muted-foreground mb-3" dir="ltr">
+                  <p className="text-sm text-muted-foreground mb-1" dir="ltr">
                     📞 {u.phone}
+                  </p>
+                )}
+                {u.kuliya_id && (
+                  <p className="text-sm text-muted-foreground mb-3">
+                    🏛️ {kuliyaName(u.kuliya_id) || "—"}
                   </p>
                 )}
                 <div className="flex gap-2">
