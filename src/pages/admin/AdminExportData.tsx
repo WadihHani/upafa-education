@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/hooks/use-toast";
-import { Download, Database, Loader2 } from "lucide-react";
+import { Download, Database, Loader2, Users } from "lucide-react";
 
 const TABLES = [
   "profiles", "user_roles", "kuliyat", "programs", "program_courses",
